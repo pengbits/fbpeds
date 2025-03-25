@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+// async (req,res) => {
+//   const result = await pool.query('SELECT * FROM patients')
+//   res.json(result.rows)
+// })
+
 router.get('/', function(req, res, next) {
   res.json([{
     id:1, 
