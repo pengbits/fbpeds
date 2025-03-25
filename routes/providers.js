@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
+const Provider = require('../models/Provider')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.json([{
-    id:1, 
-    name: 'Dr. Augustine Gaw',
-  }])
+router.get('/', async (req, res, next) => {
+  try {
+    const rows = await Provider.read()
+    res.json(rows)
+  } catch (error){
+    next(error)
+  }
 });
 
 module.exports =  router;

@@ -13,11 +13,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const pg = require('pg')
-const Pool  = pg.Pool
- 
-const pool = new Pool({})
 
+var errors = require('./middleware/errors')
+// app.use(errors)
 app.use('/api/patients',  routes.patients)
 app.use('/api/providers', routes.providers)
 
