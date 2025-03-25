@@ -9,9 +9,7 @@ describe('patients', () => {
         .set('Accept', 'application/json')
 
       expect(body.length).toBeGreaterThan(0)
-      const entry = body[0]
-      const attrs = Object.keys(entry)
-      expect(attrs).toEqual(expect.arrayContaining(['id','name','birthdate']))
+      expectAttributes(body[0], ['id','name','birthdate'])
     })
   })
 })

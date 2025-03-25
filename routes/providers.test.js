@@ -11,9 +11,7 @@ describe('providers', () => {
 
       const {body} = res
       expect(body.length).toBeGreaterThan(0)
-      const entry = body[0]
-      const attrs = Object.keys(entry)
-      expect(attrs).toEqual(expect.arrayContaining(['id','name']))
+      expectAttributes(body[0], ['id','name'])
     })
   })
 })
