@@ -4,8 +4,8 @@ const Provider = require('../models/Provider')
 
 router.get('/', async (req, res, next) => {
   try {
-    const rows = await Provider.read()
-    res.json(rows)
+    const result = await Provider.read()
+    res.json()
   } catch (error){
     next(error)
   }
