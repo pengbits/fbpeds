@@ -3,7 +3,7 @@ const app = require('../app')
 
 describe('providers', () => {
   describe('GET /providers', () => {
-    it('returns a list a providers', async () => {
+    it('returns a list of providers', async () => {
       const res = await request(app)
         .get('/api/providers')
         .set('Accept', 'application/json')
