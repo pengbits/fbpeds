@@ -9,7 +9,13 @@ describe('providers', () => {
 
       expect(status).toBe(200)
       expect(body.length).toBeGreaterThan(0)
-      expectAttributes(body[0], ['id','name','medical_degree'])
+      const provider = body[0]
+      expect(provider).toEqual(expect.objectContaining({
+        id: expect.any(Number),
+        name: expect.any(String),
+        medical_degree: expect.any(String)
+      }))
+      expect(provider.about).not.toBeTruthy() // abbreviared form
     })
   })
   
