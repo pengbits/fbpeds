@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const {id} = req.params
-    const rows = await Provider.find(Number(id), {include:'about'})
+    const rows = await Provider.find(Number(id))
     res.json(rows)
   } catch (e){
     res.status(400).json({
