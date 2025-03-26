@@ -18,8 +18,9 @@ Appointment.prototype.create = async ({datetime, provider_id, patient_id}) => {
     throw new Error('must provide datetime')
   }
 
-  const result = await pool.query (`INSERT INTO appointments (datetime, provider_id, patient_id) `+
-    `VALUES ($1, $2, $3)`,// RETURNING id INTO new_appointment_id`, 
+  const result = await pool.query (
+    `INSERT INTO appointments (datetime, provider_id, patient_id)
+     VALUES ($1, $2, $3) RETURNING id, datetime, provider_id, patient_id`, 
     [datetime, provider_id, patient_id]
   )
   // console.log(result.rows)

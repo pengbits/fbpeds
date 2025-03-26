@@ -13,12 +13,11 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log(req.body)
-    const appointment = await Appointment.create(req.body)
+    const [appointment] = await Appointment.create(req.body)
     res.status(201)
     res.json({
       success: true,
-      id: appointment.id
+      appointment
     })
   } catch (error){
     next(error)

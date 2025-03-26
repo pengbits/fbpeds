@@ -30,7 +30,12 @@ describe('appointments', () => {
         })
         expect(res.status).toBe(201)
         const {body} = res;
-        console.log(body)
+        expect(body.appointment).toEqual(expect.objectContaining({
+          id: expect.any(Number),
+          datetime: expect.any(String),
+          provider_id: expect.any(Number),
+          patient_id: expect.any(Number),
+        }))
     })
   })
 })
