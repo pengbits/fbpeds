@@ -40,6 +40,8 @@ Patient.prototype.find = async (id, opts={}) => {
         id,
         birthdate
       } = (rows[0])
+
+      // discard redundant attributes in each related record
       const related = rows.map(row => {
         const {name, id, birthdate, patient_id, ...attrs} = row
         return attrs

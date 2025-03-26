@@ -20,7 +20,6 @@ describe('patients', () => {
       
       const patient = res.body[0]
       expect(patient.id).toBe(1)
-      // expect(patient.name).toEqual(expect.any(String))
     })
     it('returns an error for an invalid id', async () => {
       const res = await request(app)
@@ -36,15 +35,16 @@ describe('patients', () => {
         .get('/api/patients/1/visits');
 
       const patient = res.body[0]
+      expect(patient.id).toBe(1)
       expect(patient.visits.length).toBeGreaterThan(0)
       const visit = patient.visits[0]
       expectAttributes(visit, [
         'visit_id',   //  1,
         'visit_date', // '2024-11-18T05:00:00.000Z',
-        'visit_type', // 'WELL' || 'SICK'
         'age_years',  //  10,
         'height',     //  57.9,
         'weight',     //  82.2
+        'visit_type' // 'WELL' || 'SICK'
       ])
       expect(['WELL','SICK']).toContain(visit.visit_type)
     })
@@ -63,6 +63,21 @@ describe('patients', () => {
         'prescription_name',
         'pharmacy',
         'directions'
+      ])
+    })
+  })
+
+  describe('GET /patients/:id/immunizations', () => {
+    it('returns the patient with immunizations', async () => {
+      const res = await request(app)
+        .get('/api/patients/1/immunizations')
+  
+      const patient = res.body[0]
+      expect(patient.immunizations.length).toBeGreaterThan(0)
+      const immunization = patient.immunizations[0]
+      expectAttributes(immunization, [
+        'type',
+        'date'
       ])
     })
   })

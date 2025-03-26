@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
 const getPatient = async (req, res, opts={}) => {
   try {
     const {id} = req.params
-    const row = await Patient.find(Number(id), opts)
-    res.json(row)
+    const rows = await Patient.find(Number(id), opts)
+    res.json(rows)
   } catch (e){
     res.status(400).json({
       error: e.message
@@ -34,6 +34,10 @@ router.get('/:id/visits', (req, res) => {
 
 router.get('/:id/prescriptions', (req, res) => {
   return getPatient(req, res, {include:'prescriptions'})
+})
+
+router.get('/:id/immunizations', (req, res) => {
+  return getPatient(req, res, {include:'immunizations'})
 })
 
 module.exports =  router;
