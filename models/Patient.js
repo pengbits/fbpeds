@@ -23,7 +23,7 @@ Patient.prototype.find = async (id, opts={}) => {
       throw new Error(`'${opts.include}' is not a valid type to include in Patient#find()`)
     }
     const query = opts.include ? 
-      `SELECT * FROM patients JOIN ${opts.include} ON ${opts.include}.patient_id=patients.id WHERE patients.id = $1` :
+      `SELECT * FROM patients LEFT JOIN ${opts.include} ON ${opts.include}.patient_id=patients.id WHERE patients.id = $1` :
       `SELECT * FROM patients WHERE patients.id = $1`
     ; 
 
@@ -46,12 +46,18 @@ Patient.prototype.find = async (id, opts={}) => {
         const {name, id, birthdate, patient_id, ...attrs} = row
         return attrs
       })
+      // filter out null entries in left join case where there were no relateds
+      const emptyObject = {}
+      const pk = opts.include.replace(/s$/, '_id')
+      const clean = related.filter(related => {
+        return related !== emptyObject && related[pk] !== null
+      })
 
       return [{
         name,
         id,
         birthdate,
-        [opts.include] : related
+        [opts.include] : clean
       }]
     }
     return rows
