@@ -40,4 +40,8 @@ router.get('/:id/immunizations', (req, res) => {
   return getPatient(req, res, {include:'immunizations'})
 })
 
+router.get('/:id/growth', (req, res) => {
+  return getPatient(req, res, {include:'growth'})
+})
+
 module.exports =  router;
