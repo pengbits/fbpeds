@@ -91,7 +91,8 @@ Patient.prototype.findVisit = async (id, visitId) => {
     height_percent: row.height_percent,
     weight: row.weight,
     weight_percent: row.weight_percent,
-    bmi_percent: row.bmi_percent
+    bmi_percent: row.bmi_percent,
+    has_image: row.has_image
   }]
 
   const patient = {
@@ -109,7 +110,7 @@ Patient.prototype.findPrescriptions = async (id) => {
   INNER JOIN pharmacies ph  ON s.pharmacy_id=ph.id
   WHERE p.id = $1`;
   console.log(query, id)
-  
+
   const res = await pool.query(query, [id])
   const {rows} = res;
   if(rows.length === 0){

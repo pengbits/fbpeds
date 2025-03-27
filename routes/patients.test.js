@@ -42,7 +42,8 @@ describe('patients', () => {
         'visit_id',
         'visit_type',
         'visit_date',
-        'provider_id'
+        'provider_id',
+        'has_image'
       ])
       expect(['WELL','SICK']).toContain(visit.visit_type)
     })
@@ -66,7 +67,8 @@ describe('patients', () => {
         'height_percent',
         'weight',
         'weight_percent',
-        'bmi_percent'
+        'bmi_percent',
+        'has_image'
       ])
     })
   })
