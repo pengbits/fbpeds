@@ -90,10 +90,14 @@ describe('patients', () => {
       const script = patient.prescriptions[0]
       expectAttributes(script, [
         'date',
-        'prescription_name',
+        'name',
         'pharmacy',
         'directions'
       ])
+      expect(script.pharmacy).toEqual(expect.objectContaining({
+        id: expect.any(Number),
+        name: expect.any(String)
+      }))
     })
   })
 
