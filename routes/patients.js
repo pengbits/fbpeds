@@ -32,6 +32,12 @@ router.get('/:id/visits', (req, res) => {
   return getPatient(req, res, {include:'visits'})
 })
 
+router.get('/:id/visits/:visitId', async (req, res) => {
+  const {id,visitId} = req.params
+  const rows = await Patient.findVisit(Number(id), Number(visitId))
+  res.json(rows)
+})
+
 router.get('/:id/prescriptions', (req, res) => {
   return getPatient(req, res, {include:'prescriptions'})
 })

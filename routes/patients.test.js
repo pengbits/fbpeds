@@ -39,14 +39,44 @@ describe('patients', () => {
       expect(patient.visits.length).toBeGreaterThan(0)
       const visit = patient.visits[0]
       expectAttributes(visit, [
-        'visit_id',   //  1,
-        'visit_date', // '2024-11-18T05:00:00.000Z',
-        'age_years',  //  10,
-        'height',     //  57.9,
-        'weight',     //  82.2
-        'visit_type' // 'WELL' || 'SICK'
+        'visit_id',
+        'visit_type',
+        'visit_date',
+        'provider_id'
       ])
       expect(['WELL','SICK']).toContain(visit.visit_type)
+    })
+  })
+
+  describe('GET /patients/:id/visits/:visit_id', () => {
+    it('returns the visit details for a well visit', async () => {
+      const res = await request(app)
+        .get('/api/patients/1/visits/123');
+
+      expect(res.status).toBe(200)
+      const patient = res.body[0]
+      expect(patient.visits).toHaveLength(1)
+      expectAttributes(patient, ['name','id','visits'])
+      const visitDetails = patient.visits[0]
+      expectAttributes(visitDetails, [
+        'provider_name',
+        'visit_type',
+        'visit_date',
+        'height',
+        'height_percent',
+        'weight',
+        'weight_percent',
+        'bmi_percent'
+      ])
+    })
+  })
+
+  describe('GET /patients/:id/visits/:visit_id', () => {
+    it('returns the visit details for a sick visit', async () => {
+      const res = await request(app)
+        .get('/api/patients/1/visits/124');
+
+      expect(res.status).toBe(200)
     })
   })
 
@@ -97,7 +127,7 @@ describe('patients', () => {
         'height',         //  57.9,
         'weight',         //  
         'height_percent', //  85,
-        'weight_percent', // 
+        'weight_percent', //  
         'bmi_percent'     //
       ])
     })

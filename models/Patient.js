@@ -66,4 +66,38 @@ Patient.prototype.find = async (id, opts={}) => {
   }
 }
 
+Patient.prototype.findVisit = async (id, visitId) => {
+  const query = `
+    SELECT v.*, pro.name AS provider_name, pat.*, g.* FROM visits as v
+    LEFT JOIN growth AS g ON (v.visit_date = g.date)
+    JOIN providers AS pro ON (v.provider_id = pro.id)
+    JOIN patients AS pat  ON (v.patient_id = pat.id)
+    WHERE visit_id = $1`
+  console.log(query)
+  const res = await pool.query(query, [visitId])
+  const {rows} = res;
+
+  if(rows.length !== 1){
+    throw new Error(' couldn\'t find a visit with id:'+visitId)
+  }
+  const row = rows[0]
+  const visits = [{
+    visit_type: row.visit_type,
+    visit_date: row.visit_date,
+    provider_id: row.provider_id,
+    provider_name: row.provider_name,
+    height: row.height,
+    height_percent: row.height_percent,
+    weight: row.weight,
+    weight_percent: row.weight_percent,
+    bmi_percent: row.bmi_percent
+  }]
+
+  const patient = {
+    id: row.id,
+    name: row.name,
+    visits
+  }
+  return [patient]
+}
 module.exports = new Patient()
