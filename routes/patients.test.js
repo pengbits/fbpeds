@@ -59,6 +59,7 @@ describe('patients', () => {
       expectAttributes(patient, ['name','id','visits'])
       const visitDetails = patient.visits[0]
       expectAttributes(visitDetails, [
+        'provider_name',
         'visit_type',
         'visit_date',
         'height',
@@ -66,7 +67,6 @@ describe('patients', () => {
         'weight',
         'weight_percent',
         'bmi_percent'
-        //... and all above attributes
       ])
     })
   })

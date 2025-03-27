@@ -68,7 +68,7 @@ Patient.prototype.find = async (id, opts={}) => {
 
 Patient.prototype.findVisit = async (id, visitId) => {
   const query = `
-    SELECT * FROM visits AS v
+    SELECT v.*, pro.name AS provider_name, pat.*, g.* FROM visits as v
     LEFT JOIN growth AS g ON (v.visit_date = g.date)
     JOIN providers AS pro ON (v.provider_id = pro.id)
     JOIN patients AS pat  ON (v.patient_id = pat.id)
@@ -85,6 +85,7 @@ Patient.prototype.findVisit = async (id, visitId) => {
     visit_type: row.visit_type,
     visit_date: row.visit_date,
     provider_id: row.provider_id,
+    provider_name: row.provider_name,
     height: row.height,
     height_percent: row.height_percent,
     weight: row.weight,
