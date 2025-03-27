@@ -74,6 +74,7 @@ Patient.prototype.findVisit = async (id, visitId) => {
     JOIN patients AS pat  ON (v.patient_id = pat.id)
     WHERE visit_id = $1`
   console.log(query)
+
   const res = await pool.query(query, [visitId])
   const {rows} = res;
 
@@ -108,6 +109,7 @@ Patient.prototype.findPrescriptions = async (id) => {
   INNER JOIN pharmacies ph  ON s.pharmacy_id=ph.id
   WHERE p.id = $1`;
   console.log(query, id)
+  
   const res = await pool.query(query, [id])
   const {rows} = res;
   if(rows.length === 0){
