@@ -7,7 +7,6 @@ router.get('/', async (req, res) => {
     const rows = await Patient.read()
     res.json(rows)
   } catch (e){
-    console.log(e)
     res.status(400).json({
       error: e.message
     })

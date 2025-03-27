@@ -95,9 +95,10 @@ describe('patients', () => {
         'date',           //  2024-11-18T05:00:00.000Z',
         'age_years',      //  10,
         'height',         //  57.9,
-        'weight',         //  null TODO populate this,
+        'weight',         //  
         'height_percent', //  85,
-        'weight_percent'  // null TODO populate this
+        'weight_percent', // 
+        'bmi_percent'     //
       ])
     })
   })
