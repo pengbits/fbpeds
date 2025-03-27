@@ -39,21 +39,17 @@ describe('patients', () => {
       expect(patient.visits.length).toBeGreaterThan(0)
       const visit = patient.visits[0]
       expectAttributes(visit, [
+        'visit_id',
         'visit_type',
         'visit_date',
-        'provider_id',
-        'height',
-        'height_percent',
-        'weight',
-        'weight_percent',
-        'bmi_percent'
+        'provider_id'
       ])
       expect(['WELL','SICK']).toContain(visit.visit_type)
     })
   })
 
   describe('GET /patients/:id/visits/:visit_id', () => {
-    it('returns the visit details', async () => {
+    it('returns the visit details for a well visit', async () => {
       const res = await request(app)
         .get('/api/patients/1/visits/123');
 
@@ -65,8 +61,22 @@ describe('patients', () => {
       expectAttributes(visitDetails, [
         'visit_type',
         'visit_date',
+        'height',
+        'height_percent',
+        'weight',
+        'weight_percent',
+        'bmi_percent'
         //... and all above attributes
       ])
+    })
+  })
+
+  describe('GET /patients/:id/visits/:visit_id', () => {
+    it('returns the visit details for a sick visit', async () => {
+      const res = await request(app)
+        .get('/api/patients/1/visits/124');
+
+      expect(res.status).toBe(200)
     })
   })
 

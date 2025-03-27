@@ -69,14 +69,14 @@ Patient.prototype.find = async (id, opts={}) => {
 Patient.prototype.findVisit = async (id, visitId) => {
   const query = `
     SELECT * FROM visits AS v
-    JOIN growth AS g      ON (v.visit_date = g.date)
+    LEFT JOIN growth AS g ON (v.visit_date = g.date)
     JOIN providers AS pro ON (v.provider_id = pro.id)
     JOIN patients AS pat  ON (v.patient_id = pat.id)
     WHERE visit_id = $1`
   console.log(query)
   const res = await pool.query(query, [visitId])
   const {rows} = res;
- 
+
   if(rows.length !== 1){
     throw new Error(' couldn\'t find a visit with id:'+visitId)
   }
