@@ -100,4 +100,35 @@ Patient.prototype.findVisit = async (id, visitId) => {
   }
   return [patient]
 }
+
+Patient.prototype.findPrescriptions = async (id) => {
+  const query = `SELECT p.*, s.*, ph.name AS pharmacy_name
+  FROM patients p
+  LEFT JOIN prescriptions s ON s.patient_id=p.id 
+  INNER JOIN pharmacies ph  ON s.pharmacy_id=ph.id
+  WHERE p.id = $1`;
+  console.log(query, id)
+  const res = await pool.query(query, [id])
+  const {rows} = res;
+  if(rows.length === 0){
+    throw new Error(' couldn\'t find a Patient with id:'+id)
+  }
+
+  const row = rows[0]
+  const patient = {
+    id: row.id,
+    name: row.name,
+    prescriptions: rows.map(p => ({
+      date: p.date,
+      name: p.prescription_name,
+      directions: p.directions,
+      pharmacy: {
+        id: p.pharmacy_id,
+        name: p.pharmacy_name
+      }
+
+    }))
+  }
+  return [patient]
+}
 module.exports = new Patient()

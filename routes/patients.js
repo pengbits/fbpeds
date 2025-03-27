@@ -33,13 +33,27 @@ router.get('/:id/visits', (req, res) => {
 })
 
 router.get('/:id/visits/:visitId', async (req, res) => {
-  const {id,visitId} = req.params
-  const rows = await Patient.findVisit(Number(id), Number(visitId))
-  res.json(rows)
+  try {
+    const {id,visitId} = req.params
+    const rows = await Patient.findVisit(Number(id), Number(visitId))
+    res.json(rows)
+  } catch (e){
+    res.status(400).json({
+      error: e.message
+    })
+  }
 })
 
-router.get('/:id/prescriptions', (req, res) => {
-  return getPatient(req, res, {include:'prescriptions'})
+router.get('/:id/prescriptions', async (req, res) => {
+  try {
+      const {id} = req.params
+      const rows = await Patient.findPrescriptions(Number(id))
+      res.json(rows)
+    } catch (e){
+      res.status(400).json({
+        error: e.message
+      })
+    }
 })
 
 router.get('/:id/immunizations', (req, res) => {
