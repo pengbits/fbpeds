@@ -73,5 +73,11 @@ INSERT INTO growth (patient_id,date,age_years,weight,weight_percent,bmi_percent)
 INSERT INTO growth (patient_id,date,age_years,weight,weight_percent,bmi_percent) VALUES (3, '2/24/22', 2.2, 11.7, 25, 13.82);
 INSERT INTO growth (patient_id,date,age_years,weight,weight_percent,bmi_percent) VALUES (3, '1/07/22', 0.7, 8.9, 51, 0);
 INSERT INTO growth (patient_id,date,age_years,weight,weight_percent,bmi_percent) VALUES (3, '12/22/21', 0.1, 8.0, 65, 13.65);
-INSERT INTO growth (patient_id,date,age_years,weight,weight_percent,bmi_percent) VALUES (3, '12/20/21', 0.1, 7.8, 62, 0);	
 INSERT INTO growth (patient_id,date,age_years,weight,weight_percent,bmi_percent) VALUES (3, '12/18/21', 0, 8.1, 73, 14.22);
+
+/* visit doesn't exist for 12/18 as this growth was birth weight*/
+
+UPDATE growth as g
+SET visit_id = v.visit_id
+FROM visits AS v
+WHERE g.date = v.visit_date
