@@ -24,7 +24,7 @@ app.use('/api/patients',      routes.patients)
 app.use('/api/providers',     routes.providers)
 
 app.get('/api', (req,res) => {
-  res.send('ahoy')
+  res.json({greeting:'ahoy'})
 })
 
 // const port = process.env.PORT || 5000
