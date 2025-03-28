@@ -1,6 +1,5 @@
-const { engine } = require('../app')
+const dayjs = require('dayjs')
 const pool = require('../db/pool')
-
 const Patient = function(){
 }
 
@@ -60,6 +59,12 @@ Patient.prototype.find = async (id, opts={}) => {
         [opts.include] : clean
       }]
     }
+    // add image
+    if(rows[0].last_image && rows[0].last_image !== ''){
+      const date = dayjs(rows[0].last_image).format('YYYY-MM-DD')
+      rows[0].image = `/images/patients/${id}/${date}.png`
+    }
+
     return rows
   } catch(e){
     throw e

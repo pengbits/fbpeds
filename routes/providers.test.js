@@ -25,8 +25,10 @@ describe('providers', () => {
         .get('/api/providers/1')
 
       expect(status).toBe(200)
-      expect(body[0].about.length).toBeGreaterThan(100)
-      expect(body[0].about.length).toBeLessThan(1000)
+      const provider = body[0];
+      expectAttributes(provider, ['id','name','medical_degree','about','image'])
+      expect(provider.about.length).toBeGreaterThan(100)
+      expect(provider.about.length).toBeLessThan(1000)
     })
   })
 
