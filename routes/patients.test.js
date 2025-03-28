@@ -17,9 +17,9 @@ describe('patients', () => {
       const res = await request(app)
         .get('/api/patients/1');
 
-      
       const patient = res.body[0]
       expect(patient.id).toBe(1)
+      expectAttributes(patient, ['id','name','birthdate','image'])
     })
     it('returns an error for an invalid id', async () => {
       const res = await request(app)
