@@ -40,7 +40,9 @@ describe('providers', () => {
       const provider = body[0]
       // TODO should not be scoped to only 1 day,
       // a more realistic model would be an array of dates with slots for each date
-      expect(provider.availability).toEqual(expect.arrayContaining([{
+      const day = provider.availability[0]
+      expect(day.date).toBe('2025-04-01')
+      expect(day.slots).toEqual(expect.arrayContaining([{
         start: expect.objectContaining({
           hours: expect.any(Number), 
           mins: expect.any(Number)

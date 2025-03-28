@@ -29,13 +29,19 @@ Provider.prototype.find = async (id) => {
   }
 }
 
-Provider.prototype.findAvailable = async (date) => {
-  console.log(`Provider.findAvailable ${date}`)
+Provider.prototype.findAvailable = async (dateStr) => {
+  console.log(`Provider.findAvailable ${dateStr}`)
   const providers = await Provider.prototype.read()
-
-  return providers.map((provider) => ({
-    ...provider,
-    availability: Appointment.getMocks(date, 10)
+  // TODO
+  // expand scope from 1 day to a range,
+  // parse date param instead of blind reuse
+  const dateRange = [dateStr]
+  return providers.map((attrs) => ({
+    ...attrs,
+    availability: dateRange.map(date => ({
+      date,
+      slots: Appointment.getMocks()
+    }))
   }))
 }
 
