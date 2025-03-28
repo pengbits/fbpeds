@@ -1,4 +1,5 @@
 const pool = require('../db/pool')
+const Appointment = require('./Appointment')
 
 const Provider = function(){
 }
@@ -26,6 +27,22 @@ Provider.prototype.find = async (id) => {
   } catch (e){
     throw(e)
   }
+}
+
+Provider.prototype.findWithAvailability = async (dateStr) => {
+  console.log(`Provider.findWithAvailability ${dateStr}`)
+  const providers = await Provider.prototype.read()
+  // TODO
+  // expand scope from 1 day to a range,
+  // parse date param instead of blind reuse
+  const dateRange = [dateStr]
+  return providers.map((attrs) => ({
+    ...attrs,
+    availability: dateRange.map(date => ({
+      date,
+      slots: Appointment.getMocks()
+    }))
+  }))
 }
 
 module.exports = new Provider()
