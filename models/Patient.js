@@ -42,7 +42,7 @@ Patient.prototype.find = async (id, opts={}) => {
 
       // discard redundant attributes in each related record
       const related = rows.map(row => {
-        const {name, id, birthdate, patient_id, ...attrs} = row
+        const {name, id, birthdate, patient_id, last_image, ...attrs} = row
         return attrs
       })
       // filter out null entries in left join case where there were no relateds
