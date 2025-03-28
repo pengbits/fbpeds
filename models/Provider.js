@@ -29,8 +29,8 @@ Provider.prototype.find = async (id) => {
   }
 }
 
-Provider.prototype.findAvailable = async (dateStr) => {
-  console.log(`Provider.findAvailable ${dateStr}`)
+Provider.prototype.findWithAvailability = async (dateStr) => {
+  console.log(`Provider.findWithAvailability ${dateStr}`)
   const providers = await Provider.prototype.read()
   // TODO
   // expand scope from 1 day to a range,

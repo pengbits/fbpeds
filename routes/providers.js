@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/availability/:date', async (req, res) => {
   try {
     const {date} = req.params
-    const rows = await Provider.findAvailable(date)
+    const rows = await Provider.findWithAvailability(date)
     res.json(rows)
   } catch (e){
     res.status(400).json({
