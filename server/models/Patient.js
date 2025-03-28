@@ -3,9 +3,20 @@ const pool = require('../db/pool')
 const Patient = function(){
 }
 
+const withImage = (patient) => {
+  const {last_image, ...attrs} = patient
+  const date = dayjs(attrs.last_image).format('YYYY-MM-DD')
+  // TODO resolve why this is coming through as current-date.png 
+  console.log(last_image, date)
+
+  return {...attrs, 
+    image: last_image ? `/images/patients/${patient.id}/${date}.png` : null
+  }
+}
+
 Patient.prototype.read = async () => {
     const result = await pool.query('SELECT * FROM patients')
-    return result.rows
+    return result.rows.map(attrs => withImage(attrs))
 }
 
 const related_types = [
@@ -59,13 +70,8 @@ Patient.prototype.find = async (id, opts={}) => {
         [opts.include] : clean
       }]
     }
-    // add image
-    if(rows[0].last_image && rows[0].last_image !== ''){
-      const date = dayjs(rows[0].last_image).format('YYYY-MM-DD')
-      rows[0].image = `/images/patients/${id}/${date}.png`
-    }
 
-    return rows
+    return rows.map(attrs => withImage(attrs))
   } catch(e){
     throw e
   }
