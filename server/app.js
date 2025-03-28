@@ -1,4 +1,5 @@
 var express = require('express');
+var ViteExpress = require("vite-express");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser')
@@ -26,4 +27,11 @@ app.get('/api', (req,res) => {
   res.send('ahoy')
 })
 
+// const port = process.env.PORT || 5000
+// const server = app.listen(port, () => {
+//   console.log(`listening on ${port}...`)
+// })
+
+// ViteExpress.bind(app, server)
+app.ViteExpress = ViteExpress
 module.exports = app;

@@ -21,6 +21,10 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+// Wire in ViteExpress
+var ViteExpress = app.ViteExpress
+ViteExpress.bind(app, server)
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -28,6 +32,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 /**
  * Normalize a port into a number, string, or false.
