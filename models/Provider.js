@@ -1,4 +1,5 @@
 const pool = require('../db/pool')
+const Appointment = require('./Appointment')
 
 const Provider = function(){
 }
@@ -26,6 +27,16 @@ Provider.prototype.find = async (id) => {
   } catch (e){
     throw(e)
   }
+}
+
+Provider.prototype.findAvailable = async (date) => {
+  console.log(`Provider.findAvailable ${date}`)
+  const providers = await Provider.prototype.read()
+
+  return providers.map((provider) => ({
+    ...provider,
+    availability: Appointment.getMocks(date, 10)
+  }))
 }
 
 module.exports = new Provider()

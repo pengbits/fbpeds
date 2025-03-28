@@ -27,4 +27,47 @@ Appointment.prototype.create = async ({datetime, provider_id, patient_id}) => {
   return result.rows
 }
 
+Appointment.prototype.getMocks = () => {
+  // 8 am first appt
+  const slot_window_start = 8
+  // 8am-4pm window is 8 hours is 480 mins
+  const slots_total_mins = 480
+  // slots could be any of these lengths
+  const slot_sizes = [20,30,35,40,45]
+  // reject how many of the slots as unavailable?
+  const slot_unavailable_ratio = 0.5
+  // convenince method
+  const getSize = () => (slot_sizes[Math.floor(Math.random() * slot_sizes.length )])
+
+  let slots = [{start:0, end:0 + getSize()}]
+  let end = 0
+
+  while(end < slots_total_mins){
+    const prev = slots[slots.length-1]
+    end = prev.end + getSize()
+    slots.push({
+      start: prev.end,
+      end
+    })
+  }
+  
+  // expand raw values into objects with hours and mins,
+  // starting from 8am
+  const formatted = slots.map(slot => ({
+    start: {
+      hours : Math.floor(slot.start / 60) + slot_window_start,
+      mins  : slot.start % 60
+    },
+    end: {
+      hours : Math.floor(slot.end / 60) + slot_window_start,
+      mins  : slot.end % 60
+    }
+  }))
+
+  // reject some of the times as unvailable
+  return formatted.filter(slot => {
+    return (Math.random() > slot_unavailable_ratio)
+  })
+}
+
 module.exports = new Appointment()

@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/availability/:date', async (req, res) => {
+  try {
+    const {date} = req.params
+    const rows = await Provider.findAvailable(date)
+    res.json(rows)
+  } catch (e){
+    res.status(400).json({
+      error: e.message
+    })
+  }
+});
+
 
 router.get('/:id', async (req, res) => {
   try {

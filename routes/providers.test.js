@@ -29,4 +29,14 @@ describe('providers', () => {
       expect(body[0].about.length).toBeLessThan(1000)
     })
   })
+
+  describe('GET /providers/availability', () => {
+    it('returns providers and their availability for a date', async () => {
+      const {status,body} = await request(app)
+        .get('/api/providers/availability/2025-04-01')
+    
+      console.log(body)
+      expect(status).toBe(200)
+    })
+  })
 })
