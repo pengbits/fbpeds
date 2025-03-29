@@ -5,9 +5,7 @@ const Patient = function(){
 
 const withImage = (patient) => {
   const {last_image, ...attrs} = patient
-  const date = dayjs(attrs.last_image).format('YYYY-MM-DD')
-  // TODO resolve why this is coming through as current-date.png 
-  console.log(last_image, date)
+  const date = dayjs(last_image).format('YYYY-MM-DD')
 
   return {...attrs, 
     image: last_image ? `/images/patients/${patient.id}/${date}.png` : null

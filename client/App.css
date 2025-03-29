@@ -1,0 +1,18 @@
+.patient {
+}
+.patient__image {
+  background-color: #ccc;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.patient__image img {
+  display: block;
+  width: 170%;
+  height: auto;
+  position: relative;
+  left: -35%;
+  top:-25%
+}

@@ -1,3 +1,4 @@
+import "./App.css"
 import { useState, useEffect } from "react";
 import { getPatients } from "./api/patients";
 
@@ -32,7 +33,9 @@ function App() {
         {patients && patients.length ? patients.map(p => (
           <div className="patient" key={p.id}>
             <h3>{p.name}</h3>
-            <img src={p.image} />
+            <div className="patient__image">
+              <img src={p.image} />
+            </div>
           </div>
         )): null}
       </div>
