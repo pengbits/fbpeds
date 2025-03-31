@@ -7,7 +7,7 @@ import PatientsPage from "./pages/PatientsPage";
 import PatientDetailsPage from "./pages/PatientDetailsPage";
 
 import ProvidersPage from "./pages/ProvidersPage";
-import { getPatients } from "./api/patients";
+import { getPatients, getPatient } from "./api/patients";
 import App from "./App"
 
 const loadPatients = async () => {
@@ -36,9 +36,7 @@ const router = createBrowserRouter([
       {
         path: 
         '/patients/:id', 
-        loader: () => {
-          return Promise.resolve([{name:'Laila'}])
-        },
+        loader: (({params}) => getPatient(params.id)),
         Component: PatientDetailsPage
       },
       {
