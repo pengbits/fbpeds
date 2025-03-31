@@ -8,6 +8,7 @@
   overflow: hidden;
   border-radius: 50%;
 }
+
 .patient__image img {
   display: block;
   width: 170%;
@@ -15,4 +16,9 @@
   position: relative;
   left: -35%;
   top:-25%
+}
+
+.patient__image--large {
+  width: 200px;
+  height: 200px;
 }

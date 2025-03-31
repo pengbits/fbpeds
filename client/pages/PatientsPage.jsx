@@ -1,4 +1,4 @@
-import { useLoaderData, NavLink } from "react-router"
+import { useLoaderData, NavLink, useNavigation } from "react-router"
 
 const PatientLink = ({id,children}) => (
   <NavLink to={`/patients/${id}`}>
@@ -8,6 +8,7 @@ const PatientLink = ({id,children}) => (
 
 const PatientsPage = () => {
   const {patients} = useLoaderData()
+  const {state} = useNavigation()
 
   return (<div className="patients">
     <h2>Patients</h2>
