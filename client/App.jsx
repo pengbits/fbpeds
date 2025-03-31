@@ -10,12 +10,11 @@ function App() {
     const fetchPatients = async () => {
       try {
         const patients = await getPatients()
-        console.log(patients)
         setPatients(patients)
       } catch(e){
         console.log(e)
       } finally {
-      setLoading(false)
+        setLoading(false)
       }
     }
 
