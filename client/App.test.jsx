@@ -1,6 +1,6 @@
 import {describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, act } from '@testing-library/react'
-import App from './App'
+import App from '../public/App.bak/index.js'
 import getPatientsMock from './mocks/getPatients.js'
 
 beforeEach(() => {
