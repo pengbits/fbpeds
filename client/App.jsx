@@ -3,13 +3,16 @@ import { Outlet } from "react-router";
 
 import "./App.css"
 
+
 function App() {
-  return (
-    <div className="app">
+  return (<>
+    <header class="header">
       <h1>Flatbush Pediatrics</h1>
+    </header>
+    <main className="content">
       <Outlet />
-   </div>
-  )
+    </main>
+  </>)
 }
 
 export default App;

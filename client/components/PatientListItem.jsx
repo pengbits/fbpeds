@@ -1,5 +1,6 @@
 import PatientLink from "./PatientLink"
-const PatientListItem = (({id,name,image}  )=> (<div key={id} className="patient">
+const PatientListItem = (({id,name,image}  )=> (
+<div key={id} className="patient">
   <h3 data-testid="patient-name" className="patient__name">
     <PatientLink id={id}>
     {name}

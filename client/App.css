@@ -1,4 +1,23 @@
+#root {
+  box-sizing: border-box;
+  /* display: flex; */
+  /* flex-direction: column; */
+  min-height: 100%;
+}
+.content {
+  margin: 0;
+  padding: 0;
+
+}
+
+
+.header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+}
 .patient {
+  margin-bottom: 15px;
 }
 .patient__image {
   background-color: #ccc;
@@ -21,4 +40,17 @@
 .patient__image--large {
   width: 200px;
   height: 200px;
+}
+
+.footer .btn {
+  background-color: #FFF;
+  text-decoration: none;
+  padding: 12px 15px;
+  border-radius: 10px;
+  color: #000;
+  cursor: pointer;
+}
+.footer .btn:hover {
+  text-decoration: underline;
+  background-color: #F1F1F1;
 }

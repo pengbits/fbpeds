@@ -35,5 +35,8 @@ describe('Patients Page', () => {
       expect(screen.queryAllByTestId('patient-name')).toHaveLength(3)
       expect(screen.queryAllByAltText('image of patient')).toHaveLength(3)
     })
+    it('has a call to action to schedule an appointment', () => {
+      expect(screen.getByText('Book Your Next Appointment')).toBeInTheDocument()
+    })
   })
 })
