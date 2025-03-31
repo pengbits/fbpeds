@@ -8,7 +8,6 @@ const PatientLink = ({id,children}) => (
 
 const PatientsPage = () => {
   const patients = useLoaderData()
-
   return (<div className="patients">
     <h2>Patients</h2>
     {patients && patients.map(({name,image,id}) => (
