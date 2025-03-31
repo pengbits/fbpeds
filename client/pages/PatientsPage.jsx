@@ -1,29 +1,14 @@
-import { useLoaderData, NavLink } from "react-router"
-
-const PatientLink = ({id,children}) => (
-  <NavLink to={`/patients/${id}`}>
-    {children}
-  </NavLink>
-)
+import { useLoaderData } from "react-router"
+import PatientListItem from "../components/PatientListItem"
 
 const PatientsPage = () => {
   const patients = useLoaderData()
-  return (<div className="patients">
-    <h2>Patients</h2>
-    {patients && patients.map(({name,image,id}) => (
-      <div key={id} className="patient">
-        <h3 data-testid="patient-name" className="patient__name">
-          <PatientLink id={id}>
-          {name}
-          </PatientLink>
-        </h3>
-        <div className="patient__image">
-          <PatientLink id={id}>
-            <img src={image} alt="image of patient" />
-          </PatientLink>
-        </div>
-      </div>
-    ))}
-  </div>)
+  
+  return (
+    <div className="patients">
+      <h2>Patients</h2>
+      {patients.map(PatientListItem)}
+    </div>
+  )
 }
 export default PatientsPage
