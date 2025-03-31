@@ -32,6 +32,7 @@ describe('Patients Page', () => {
     })
 
     it('has a name and image for each patient', () => {
+      expect(screen.queryAllByTestId('patient-name')).toHaveLength(3)
       expect(screen.queryAllByAltText('image of patient')).toHaveLength(3)
     })
   })

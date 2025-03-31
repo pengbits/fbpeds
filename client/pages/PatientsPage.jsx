@@ -12,7 +12,7 @@ const PatientsPage = () => {
     <h2>Patients</h2>
     {patients && patients.map(({name,image,id}) => (
       <div key={id} className="patient">
-        <h3>
+        <h3 data-testid="patient-name" className="patient__name">
           <PatientLink id={id}>
           {name}
           </PatientLink>
