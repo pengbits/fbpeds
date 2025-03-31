@@ -11,8 +11,7 @@ import { getPatients } from "./api/patients";
 import App from "./App"
 
 const loadPatients = async () => {
-  const patients = await getPatients()
-  return {patients}
+  return getPatients()
 }
 
 const loadProviders = async () => {
