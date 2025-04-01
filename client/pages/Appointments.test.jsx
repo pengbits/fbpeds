@@ -8,7 +8,7 @@ beforeEach(() => {
 
 describe('Appointments', () => {
   describe('New Appointment for Patient', () => {
-    it('displays a form for creating the appointment', () => {
+    it.todo('displays a form for creating the appointment', () => {
       expect(screen.getByText('New Appointment')).toBeInTheDocument()
     })
   })

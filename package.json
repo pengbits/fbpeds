@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./server/bin/www -w server",
     "test:server": "jest ./server --watchAll --detectOpenHandles",
-    "test:client": "vitest client"
+    "test:client": "vitest client",
+    "test": "vitest client"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
