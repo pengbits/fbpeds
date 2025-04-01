@@ -6,7 +6,7 @@ import "./App.css"
 
 function App() {
   return (<>
-    <header class="header">
+    <header className="header">
       <h1>Flatbush Pediatrics</h1>
     </header>
     <main className="content">

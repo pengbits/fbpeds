@@ -1,28 +1,17 @@
-import { describe, expect } from 'vitest'
-import { render, screen, act } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import getPatientMock from '../mocks/getPatient'
 import PatientDetailsPage from './PatientDetailsPage'
-import { beforeEach } from 'vitest'
-import { createMemoryRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router'
+import { renderComponentWithRoute } from '../test/routerUtils'
 
 beforeEach(() => {
   vi.mock('react-router', async (importOriginal) => {
     const module = await importOriginal()
     return {
-      ...module,
-      useLoaderData: vi.fn(() => {
-        // console.log('useLoaderData Mock')
-        return getPatientMock
-      })
+      ...module, 
+      useLoaderData: vi.fn(() => getPatientMock)
     }
   })
-  const router = createMemoryRouter(
-    createRoutesFromElements(
-    <Route path="/" Component={PatientDetailsPage} />)
-  )
-  render(<RouterProvider router={router}>
-    <PatientDetailsPage />
-  </RouterProvider>)
+ renderComponentWithRoute(PatientDetailsPage)
 })
 
 describe('Patients Page', () => {
