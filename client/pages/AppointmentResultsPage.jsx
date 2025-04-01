@@ -1,6 +1,5 @@
 import AppointmentSearchResults from "../components/AppointmentSearchResults"
-const AppointmentResultsPage = ({date}) => {
-  console.log(date)
+const AppointmentResultsPage = () => {
   return (<AppointmentSearchResults />)
 }
 export default AppointmentResultsPage

@@ -1,24 +1,29 @@
-import { screen } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import getPatientMock from '../mocks/getPatient'
 import PatientDetailsPage from './PatientDetailsPage'
 import { renderComponentWithRoute } from '../test/routerUtils'
 
-beforeEach(() => {
+
+beforeEach(async () => {
+  // fetch.resetMocks()
   vi.mock('react-router', async (importOriginal) => {
     const module = await importOriginal()
     return {
-      ...module, 
-      useLoaderData: vi.fn(() => getPatientMock)
+      ...module,
+      useParams:() => {
+        return {id:'1'}
+      }
     }
   })
- renderComponentWithRoute(PatientDetailsPage)
+  fetch.mockResponseOnce(JSON.stringify(getPatientMock))
+  await renderComponentWithRoute(PatientDetailsPage)
 })
 
 describe('Patients Page', () => {
   describe('getPatient()', () => {
     it('returns a detail view for the patient', () => {
-      expect(screen.getByText('Laila Paul')).toBeInTheDocument()
+      expect(screen.getAllByText('Laila Paul')).toHaveLength(1)
+      // TODO expect(screen.getByText('08-12-2014')).toBeInDocument()
     })
-
   })
 })

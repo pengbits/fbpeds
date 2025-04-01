@@ -17,6 +17,7 @@ const AppointmentForm = () => {
     if(!attrs.child_id || !attrs.visit_type || !date){
       throw new Error('missing required fields')
     }
+    
     console.log('component', attrs)
   }
 
