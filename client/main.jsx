@@ -8,16 +8,7 @@ import PatientDetailsPage from "./pages/PatientDetailsPage";
 import AppointmentSearchPage from "./pages/AppointmentSearchPage";
 import AppointmentResultsPage from "./pages/AppointmentResultsPage"
 import ProvidersPage from "./pages/ProvidersPage";
-import { getPatients, getPatient } from "./api/patients";
 import App from "./App"
-
-const loadPatients = async () => {
-  return getPatients()
-}
-
-const loadProviders = async () => {
-  return Promise.resolve({providers:[]})
-}
 
 const router = createBrowserRouter([
   {
@@ -25,19 +16,14 @@ const router = createBrowserRouter([
     children: [
       {
         index:true, 
-        loader: loadPatients, 
         Component: PatientsPage
       },
       {
-        path: 
-        '/patients', 
-        loader: loadPatients,
+        path: '/patients', 
         Component: PatientsPage
       },
       {
-        path: 
-        '/patients/:id', 
-        loader: (({params}) => getPatient(params.id)),
+        path: '/patients/:id', 
         Component: PatientDetailsPage
       },
       {
@@ -50,17 +36,8 @@ const router = createBrowserRouter([
       },
       {
         path: '/appointments/providers', 
-        Component: AppointmentResultsPage,
-        action: async ({ request }) => {
-          const formData = await request.formData();
-          const attrs= ['child_id','visit_type','date'].reduce((attrs,k) => {
-            attrs[k] = formData.get(k)
-            return attrs
-          }, {})
-          console.log('route.action', attrs)
-          return attrs
-        },
-      },
+        Component: AppointmentResultsPage
+      }
     ]
   }
 ]);
