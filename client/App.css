@@ -10,15 +10,29 @@
 
 }
 
-
+.header {
+  padding-top: 15px;
+}
 .header h1 {
-  margin: 0;
   font-size: 20px;
   font-weight: normal;
 }
-.patient {
-  margin-bottom: 15px;
+
+h1, h2 {
+  margin-top: 0;
+  margin-left: 15px;
+  text-decoration: none;
 }
+
+.patient,
+.provider {
+  padding: 15px;
+  background-color: #FFF;
+  border: #000 solid 1px;
+  border-radius: 10px;
+  margin: 15px
+}
+
 .patient__image {
   background-color: #ccc;
   width: 100px;
@@ -42,15 +56,26 @@
   height: 200px;
 }
 
-.footer .btn {
-  background-color: #FFF;
+.provider__image {
+  width: 100px;
+  height: 100px;
+}
+.provider__image img {
+  width: 100%;
+  height: auto;
+}
+
+.btn {
+  display: inline-block;
+  margin-left: 15px;
+  background-color: #0000FF;
   text-decoration: none;
   padding: 12px 15px;
   border-radius: 10px;
-  color: #000;
+  color: #FFF;
   cursor: pointer;
 }
-.footer .btn:hover {
+.btn:hover {
   text-decoration: underline;
-  background-color: #F1F1F1;
+  background-color: #0303cc;
 }

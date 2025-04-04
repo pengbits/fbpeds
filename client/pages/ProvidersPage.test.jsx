@@ -24,13 +24,16 @@ describe('Providers Page', () => {
       expect(await screen.findByText('Providers')).toBeInTheDocument()
       const {length} = getProvidersMock
       expect(await screen.findAllByTestId('provider-entry')).toHaveLength(length)
+      
+      const providersWithImage = getProvidersMock.filter(p => !!p.image)
+      expect(await screen.findAllByAltText('image of provider')).toHaveLength(providersWithImage.length)
     })  
 
     it('displays an error on failure', async() => {
       fetch.mockReject(new Error('network error'))
       await renderComponentWithRoute(ProvidersPage)
       expect(await screen.findByTestId('error-message'))
-      .toBeInTheDocument()
+        .toBeInTheDocument()
       //expect(screen.findAllByText('error')).toBeInTheDocument()
     })
 

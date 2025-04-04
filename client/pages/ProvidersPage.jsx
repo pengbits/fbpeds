@@ -8,11 +8,15 @@ const ProvidersPage = () => {
       <h4>An Error occurred</h4>
       <p>{error.message}</p>
     </div>}
+    
     {isLoading ? (<p>loading...</p>) : (
       <div className="provider-list">
         {(data || []).map(p => (
         <div data-testid="provider-entry" className="provider" key={p.id}>
           <h3>{p.name}</h3>
+          {p.image && <div className="provider__image">
+            <img src={p.image} alt="image of provider" />
+          </div>}
         </div>
         ))}
       </div>
