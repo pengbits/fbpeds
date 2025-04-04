@@ -1,4 +1,4 @@
-import AppointmentSearchForm from "../features/appointments/AppointmentSearchForm"
+import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 
 const AppointmentSearchPage = () => {
   return <AppointmentSearchForm />

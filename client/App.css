@@ -28,8 +28,8 @@ h1, h2 {
 .provider {
   padding: 15px;
   background-color: #FFF;
-  border: #000 solid 1px;
-  border-radius: 10px;
+  border: #999 solid 2px;
+  border-radius: 15px;
   margin: 15px
 }
 

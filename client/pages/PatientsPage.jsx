@@ -1,6 +1,6 @@
 import useFetch from "../hooks/useFetch"
 import PatientList from "../components/patients/PatientList"
-import ErrorMessage from "../components/errors/ErrorMessage"
+import {ErrorMessage} from "../components/errors/ErrorMessage"
 
 const PatientsPage = () => {
   const {
