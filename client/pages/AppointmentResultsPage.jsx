@@ -1,4 +1,4 @@
-import AppointmentSearchResults from "../components/AppointmentSearchResults"
+import AppointmentSearchResults from "../features/appointments/AppointmentSearchResults"
 const AppointmentResultsPage = () => {
   return (<AppointmentSearchResults />)
 }

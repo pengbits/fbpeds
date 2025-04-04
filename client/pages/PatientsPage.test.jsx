@@ -1,10 +1,8 @@
 import { screen, render, act } from '@testing-library/react'
-import { createMemoryRouter, createRoutesFromElements, RouterProvider, Route, useLoaderData } from "react-router"
-
-import { getPatients } from '../api/patients'
 import getPatientsMock from '../mocks/getPatients'
 import PatientsPage from './PatientsPage'
 import { renderComponentWithRoute } from '../test/routerUtils'
+
 beforeEach(async () => {
   // fetch.resetMocks()
   fetch.mockResponseOnce(JSON.stringify(getPatientsMock))

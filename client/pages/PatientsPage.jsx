@@ -1,4 +1,4 @@
-import PatientList from "../components/PatientList"
+import PatientList from "../features/patients/PatientList"
 import { useState, useEffect } from "react"
 import {getPatients} from "../api/patients"
 

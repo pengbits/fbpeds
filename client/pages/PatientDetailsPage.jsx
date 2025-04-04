@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router"
-import PatientsDetails from "../components/PatientDetails"
+import PatientsDetails from "../features/patients/PatientDetails"
 import {getPatient} from "../api/patients"
 
 const PatientsDetailsPage = () => {
