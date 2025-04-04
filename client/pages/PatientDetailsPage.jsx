@@ -1,31 +1,21 @@
-import { useState, useEffect } from "react"
+import useFetch from "../hooks/useFetch"
 import { useParams } from "react-router"
-import PatientsDetails from "../features/patients/PatientDetails"
-import {getPatient} from "../api/patients"
+import PatientsDetails from "../components/patients/PatientDetails"
+import {ErrorMessage} from "../components/errors/ErrorMessage"
 
 const PatientsDetailsPage = () => {
-  const [loading,setIsLoading] = useState(false)
-  const [patient, setPatient] = useState({})
   const params = useParams()
-
-  const fetchPatients = async () => {
-    try {
-      setIsLoading(true)
-      const [data] = await getPatient(params.id)
-      setPatient(data)
-    } catch(e){
-      console.log(e)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchPatients()
-  },[])
+  const {
+    data,
+    isLoading,
+    isError,
+    error
+  } = useFetch(`/api/patients/${params.id}`)
+  const patient = data && data.length ? data[0] : {}
 
   return (<>
-    {loading ? <p>loading...</p> : <PatientsDetails {...patient} />}
+    {isError && <ErrorMessage error={error} />}
+    {isLoading ? <p>loading...</p> : <PatientsDetails {...patient} />}
   </>)
   
 }

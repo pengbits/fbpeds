@@ -1,14 +1,10 @@
 import useFetch from '../hooks/useFetch'
-
+import { ErrorMessage } from '../components/errors/ErrorMessage'
 const ProvidersPage = () => {
   const {data,isLoading,isError,error} = useFetch(`/api/providers`)
   return (<div className="providers">
     <h2>Providers</h2>
-    {isError && <div className="error" data-testid="error-message">
-      <h4>An Error occurred</h4>
-      <p>{error.message}</p>
-    </div>}
-    
+    {isError && <ErrorMessage error={error} />}
     {isLoading ? (<p>loading...</p>) : (
       <div className="provider-list">
         {(data || []).map(p => (

@@ -1,32 +1,18 @@
-import PatientList from "../features/patients/PatientList"
-import { useState, useEffect } from "react"
-import {getPatients} from "../api/patients"
+import useFetch from "../hooks/useFetch"
+import PatientList from "../components/patients/PatientList"
+import ErrorMessage from "../components/errors/ErrorMessage"
 
 const PatientsPage = () => {
-  const [loading,setIsLoading] = useState(false)
-  const [patients, setPatients] = useState([])
-
-  const fetchPatients = async () => {
-    try {
-      setIsLoading(true)
-      const data = await getPatients()
-      setPatients(data)
-    } catch(e){
-      console.log(e)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchPatients()
-  },[])
-  
-  const attrs = {patients}
-
+  const {
+    data,
+    isLoading,
+    isError,
+    error
+  } = useFetch(`/api/patients`)
   return (
     <>
-      {loading ? <p>loading... </p> : <PatientList {...attrs} />}
+      {isError && <ErrorMessage error={error} />}
+      {isLoading ? <p>loading... </p> : <PatientList patients={data} />}
       <a className="btn btn--large" 
           href="/appointments/new">Book Your Next Appointment
       </a>

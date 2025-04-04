@@ -5,7 +5,7 @@ import { renderComponentWithRoute } from '../test/routerUtils'
 
 
 beforeEach(async () => {
-  // fetch.resetMocks()
+  fetch.resetMocks()
   vi.mock('react-router', async (importOriginal) => {
     const module = await importOriginal()
     return {
@@ -21,9 +21,9 @@ beforeEach(async () => {
 
 describe('Patients Page', () => {
   describe('getPatient()', () => {
-    it('returns a detail view for the patient', () => {
+    it('returns a detail view for the patient', async () => {
       expect(screen.getAllByText('Laila Paul')).toHaveLength(1)
-      // TODO expect(screen.getByText('08-12-2014')).toBeInDocument()
+      // expect(screen.getAllByText('08-12-2014')).toHaveLength(1)
     })
   })
 })
