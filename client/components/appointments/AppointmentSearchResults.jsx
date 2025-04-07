@@ -1,17 +1,5 @@
 import dayjs from 'dayjs'
-
-const ProviderResult = ({id,name,image}) => {
-  return (<div 
-    className="provider"
-  >
-    <h3>{name}</h3>
-    <div className='provider__image'>
-      {image && <img src={image} alt="image of provider" />}
-    </div>
-
-    <div className="provider__availability"></div>
-  </div>)
-}
+import AppointmentProviderList from './AppointmentProviderList'
 
 const AppointmentSearchResults = ({
   visit_type,
@@ -25,9 +13,7 @@ const AppointmentSearchResults = ({
   return (
     <>
       <h2>{headerText}</h2>
-      <div data-testid="appointment-providers" className="appointment-providers">
-      {providers.map(p => <ProviderResult key={p.id} {...p} />)}
-      </div>
+      <AppointmentProviderList providers={providers} />
     </>
 
   )

@@ -54,6 +54,7 @@ describe('Appointments', () => {
       expect(screen.getByTestId('appointment-providers')).toBeInTheDocument()
       const header =  await screen.findByText('Sick Visits in Brooklyn after May 1 with any Provider')
       expect(header).toBeInTheDocument()
+      expect(screen.getAllByTestId('provider-entry')).toHaveLength(getProviderAvailibilityMock.length)
     })
   })
 })
