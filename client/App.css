@@ -79,3 +79,8 @@ h1, h2 {
   text-decoration: underline;
   background-color: #0303cc;
 }
+
+.appointment-search {
+  padding:15px;
+  background-color: #FFF;
+}

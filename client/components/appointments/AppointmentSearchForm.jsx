@@ -13,8 +13,9 @@ const AppointmentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(attrs.date)
     
-    if(!attrs.child_id || !attrs.visit_type || !date){
+    if(!attrs.child_id || !attrs.visit_type || !attrs.date){
       throw new Error('missing required fields')
     }
     
@@ -33,12 +34,13 @@ const AppointmentForm = () => {
   ]
   
 
-  return (<div className="appointment">
+  return (<div className="appointment-search">
     <h3>New Appointment</h3>
     <form onSubmit={handleSubmit}>
       <p>
       <label htmlFor="child_id">Choose a Child</label><br />
       <select id="child_id" value={attrs.child_name} onChange={handleChange}>
+        <option>Select a Child:</option>
         {child_name_options.map(c => (
           <option key={c.id} value={c.id}> {c.name}</option>
         ))}
@@ -47,6 +49,7 @@ const AppointmentForm = () => {
        <p>
       <label htmlFor="visit_type">Visit Type</label><br />
       <select id="visit_type" value={attrs.visit_type} onChange={handleChange}>
+        <option>Select visit Type:</option>
         {visit_type_options.map(t => (
           <option key={t.value} value={t.value}>{t.label}</option>
         ))}

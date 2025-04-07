@@ -2,7 +2,7 @@ import { screen, render, act } from '@testing-library/react'
 import getProvidersMock from '../mocks/getProviders'
 import ProvidersPage from './ProvidersPage'
 import { renderComponentWithRoute } from '../test/routerUtils'
-import { afterEach } from 'vitest'
+import { afterEach, describe } from 'vitest'
 
 beforeEach(async () => {
   // // fetch.resetMocks()
@@ -34,9 +34,7 @@ describe('Providers Page', () => {
       await renderComponentWithRoute(ProvidersPage)
       expect(await screen.findByTestId('error-message'))
         .toBeInTheDocument()
-      //expect(screen.findAllByText('error')).toBeInTheDocument()
     })
-
   })
 })
 

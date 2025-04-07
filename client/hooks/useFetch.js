@@ -8,7 +8,7 @@ const useFetch = (url, opts={method:'GET'}) => {
   const fetchData = async () => {
     try {
       setLoading(true)
-      console.log(`useFetch.fetch('${url}')`, opts)
+      // console.log(`useFetch.fetch('${url}')`, opts)
       const response = await fetch(url, opts)
       const json = await response.json()
       setData(json)
