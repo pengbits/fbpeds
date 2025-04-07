@@ -53,6 +53,7 @@ describe('Appointments', () => {
       await act(() => fireEvent.click(screen.getByText('Search')))
       expect(screen.getByTestId('appointment-providers')).toBeInTheDocument()
       const header =  await screen.findByText('Sick Visits in Brooklyn after May 1 with any Provider')
-     })
+      expect(header).toBeInTheDocument()
+    })
   })
 })

@@ -5,6 +5,7 @@ const Provider = function(){
 }
 const withImage = (provider) => {
   const {has_image, ...attrs} = provider
+  // console.log(`Provider#withImage(${has_image})`)
   return {...attrs, 
     image: has_image ? `/images/providers/${provider.id}.png` : null
   }
@@ -44,7 +45,7 @@ Provider.prototype.findWithAvailability = async (dateStr) => {
   // parse date param instead of blind reuse
   const dateRange = [dateStr]
   return providers.map((attrs) => ({
-    ...withImage(attrs),
+    ...attrs,
     availability: dateRange.map(date => ({
       date,
       slots: Appointment.getMocks()

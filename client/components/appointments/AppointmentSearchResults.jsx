@@ -5,9 +5,11 @@ const ProviderResult = ({id,name,image}) => {
     className="provider"
   >
     <h3>{name}</h3>
-    <img src={image} alt="image of provider" />
-    <div className="provider__availability">
+    <div className='provider__image'>
+      {image && <img src={image} alt="image of provider" />}
     </div>
+
+    <div className="provider__availability"></div>
   </div>)
 }
 
