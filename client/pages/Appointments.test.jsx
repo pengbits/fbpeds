@@ -14,10 +14,10 @@ afterEach(() => {
   fetch.resetMocks()
 })
 
-const populateForm  = async (user) => {
-  await user.selectOptions(screen.getByLabelText('Choose a Child'), ['1'])
-  await user.selectOptions(screen.getByLabelText('Visit Type'), ['WELL'])
-  fireEvent.change(screen.getByLabelText('Date'), {target:{value:'2025-05-01'}})
+const populateForm  = async (user, attrs) => {
+  await user.selectOptions(screen.getByLabelText('Choose a Child'), [`${attrs.patient_id}`])
+  await user.selectOptions(screen.getByLabelText('Visit Type'), [attrs.visit_type])
+  fireEvent.change(screen.getByLabelText('Date'), {target:{value:attrs.date}})
 }
 
 describe('Appointments', () => {
@@ -31,7 +31,7 @@ describe('Appointments', () => {
 
     it('should accept input', async ()=>{
       const {user} = await renderComponentWithRoute(AppointmentSearchPage, {withUser:true})
-      await populateForm(user)
+      await populateForm(user, {patient_id:1, visit_type:'WELL', date:'2025-05-01'})
       expect(screen.getByLabelText('Choose a Child').value).toBe('1')
       expect(screen.getByLabelText('Visit Type').value).toBe('WELL')
       expect(screen.getByLabelText('Date').value).toBe('2025-05-01')
@@ -49,9 +49,10 @@ describe('Appointments', () => {
       fetch.mockResponseOnce(JSON.stringify(getProviderAvailibilityMock)) 
 
       const {user} = await renderComponentWithRoute(AppointmentSearchPage, {withUser:true})
-      await populateForm(user)  
+      await populateForm(user, {patient_id:1, visit_type:'SICK', date:'2025-05-01'})
       await act(() => fireEvent.click(screen.getByText('Search')))
       expect(screen.getByTestId('appointment-providers')).toBeInTheDocument()
-    })
+      const header =  await screen.findByText('Sick Visits in Brooklyn after May 1 with any Provider')
+     })
   })
 })

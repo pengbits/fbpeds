@@ -1,25 +1,31 @@
-import daysjs from 'dayjs'
+import dayjs from 'dayjs'
 
-const AppointmentSearchResults = ({data}) => {
+const ProviderResult = ({id,name,image}) => {
+  return (<div 
+    className="provider"
+  >
+    <h3>{name}</h3>
+    <img src={image} alt="image of provider" />
+    <div className="provider__availability">
+    </div>
+  </div>)
+}
 
-  console.log('AppointmentSearchResults', data)
+const AppointmentSearchResults = ({
+  visit_type,
+  date,
+  patient_id,
+  providers
+}) => {
+  const visitPretty = visit_type == 'SICK' ? 'Sick' : 'Well'
+  const datePretty = dayjs(date).format('MMM D')
+  const headerText = `${visitPretty} Visits in Brooklyn after ${datePretty} with any Provider`
   return (
     <>
-    <h2>Well Visits in Brooklyn after April 1 with any Provider</h2>
-    <div data-testid="appointment-providers" className="appointment-providers">
-      <div className="provider">
-        <h3>Dr Augustine Gaw</h3>
-        <div className="provider__availability">
-          ....
-        </div>
+      <h2>{headerText}</h2>
+      <div data-testid="appointment-providers" className="appointment-providers">
+      {providers.map(p => <ProviderResult key={p.id} {...p} />)}
       </div>
-      <div className="provider">
-        <h3>Dr Karen Teoh</h3>
-        <div className="provider__availability">
-          ....
-        </div>
-      </div>
-    </div>
     </>
 
   )

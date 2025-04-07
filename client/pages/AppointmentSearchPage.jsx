@@ -5,21 +5,22 @@ import AppointmentSearchResults from "../components/appointments/AppointmentSear
 
 
 const AppointmentSearchPage = () => {
+  const [attrs, setAttrs] = useState({})
   let [url,setUrl] = useState(null)
   let [isFetching, setIsFetching] = useState(false)
   let [view,setView] = useState('form') // form || results
   const {data,isLoading,isError} = useFetch(url)
   
-  const getAvailability = async (attrs) => {
+  const getAvailability = async () => {
     if(!attrs.child_id || !attrs.visit_type || !attrs.date){
       throw new Error('missing required fields')
     }
-    console.log('getAvailability '+attrs.date)
+    // console.log('getAvailability '+attrs.date)
     setUrl(`/api/providers/availability/${attrs.date}`)
   }
 
   if(!isFetching && isLoading) {
-    console.log('fetch availability')
+    // console.log('fetch availability')
     setIsFetching(true)
   }
   if(isFetching && !isLoading) {
@@ -32,15 +33,21 @@ const AppointmentSearchPage = () => {
   if(isLoading) {
     return <p>loading... </p>
   }
+  
   else {
     return isForm ? (
-      <AppointmentSearchForm 
+      <AppointmentSearchForm
+        attrs={attrs}
+        setAttrs={setAttrs}
         getAvailability={getAvailability}
       />
     )
     :
     (
-      <AppointmentSearchResults data={data} />
+      <AppointmentSearchResults
+        {...attrs}
+        providers={data}
+      />
     ) 
   }
 }

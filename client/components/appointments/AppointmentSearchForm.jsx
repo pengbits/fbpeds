@@ -1,9 +1,6 @@
-import { useState } from "react"
-import { useNavigate } from "react-router"
 
-const AppointmentForm = ({getAvailability}) => {
-  const [attrs, setAttrs] = useState({})
-  
+const AppointmentForm = ({attrs,setAttrs,getAvailability}) => {
+ 
   const handleChange = (e) => {
     setAttrs(attrs => ({
       ...attrs,
