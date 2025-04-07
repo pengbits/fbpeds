@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router"
 
-const AppointmentForm = () => {
+const AppointmentForm = ({getAvailability}) => {
   const [attrs, setAttrs] = useState({})
   
   const handleChange = (e) => {
@@ -13,13 +13,7 @@ const AppointmentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(attrs.date)
-    
-    if(!attrs.child_id || !attrs.visit_type || !attrs.date){
-      throw new Error('missing required fields')
-    }
-    
-    console.log('component', attrs)
+    getAvailability(attrs)
   }
 
   const child_name_options = [
@@ -36,7 +30,7 @@ const AppointmentForm = () => {
 
   return (<div className="appointment-search">
     <h3>New Appointment</h3>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} role="form">
       <p>
       <label htmlFor="child_id">Choose a Child</label><br />
       <select id="child_id" value={attrs.child_name} onChange={handleChange}>

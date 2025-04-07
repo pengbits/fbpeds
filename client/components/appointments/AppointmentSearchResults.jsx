@@ -1,13 +1,12 @@
 import daysjs from 'dayjs'
-import { useLoaderData } from "react-router";
 
-const AppointmentSearchResults = () => {
-  const data = useLoaderData()
-  console.log('component', data)
+const AppointmentSearchResults = ({data}) => {
+
+  console.log('AppointmentSearchResults', data)
   return (
     <>
     <h2>Well Visits in Brooklyn after April 1 with any Provider</h2>
-    <div className="appointment-providers">
+    <div data-testid="appointment-providers" className="appointment-providers">
       <div className="provider">
         <h3>Dr Augustine Gaw</h3>
         <div className="provider__availability">

@@ -4,7 +4,7 @@ const useFetch = (url, opts={method:'GET'}) => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState()
   const [error, setError] = useState(false)
-  
+
   const fetchData = async () => {
     try {
       setLoading(true)
@@ -20,7 +20,7 @@ const useFetch = (url, opts={method:'GET'}) => {
   }
 
   useEffect(() => {
-    fetchData(url)
+    url && fetchData(url)
   },
 
   [url])
