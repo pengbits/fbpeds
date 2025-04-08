@@ -57,6 +57,7 @@ h1, h2 {
 }
 
 .provider__image {
+  margin-bottom: 15px;
   width: 100px;
   height: 100px;
 }
@@ -83,4 +84,23 @@ h1, h2 {
 .appointment-search {
   padding:15px;
   background-color: #FFF;
+}
+.availability {}
+.availability__date {
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+
+.availability__slots .slot {
+  display: inline-block;
+  background-color: #ccc;
+  padding: 8px 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.availability__slots .slot:hover {
+  background-color: #999;
 }

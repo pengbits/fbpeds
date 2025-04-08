@@ -51,10 +51,24 @@ describe('Appointments', () => {
       const {user} = await renderComponentWithRoute(AppointmentSearchPage, {withUser:true})
       await populateForm(user, {patient_id:1, visit_type:'SICK', date:'2025-05-01'})
       await act(() => fireEvent.click(screen.getByText('Search')))
+      
+      // check header
+      expect(await screen.findByText('Sick Visits in Brooklyn after May 1 with any Provider')).toBeInTheDocument()
+      // for each provider ...
       expect(screen.getByTestId('appointment-providers')).toBeInTheDocument()
-      const header =  await screen.findByText('Sick Visits in Brooklyn after May 1 with any Provider')
-      expect(header).toBeInTheDocument()
-      expect(screen.getAllByTestId('provider-entry')).toHaveLength(getProviderAvailibilityMock.length)
+      // check availability ...
+      expect(await screen.findAllByTestId('provider-entry')).toHaveLength(getProviderAvailibilityMock.length)
+      const availability  = await screen.findAllByTestId('provider-availability')
+      expect(availability.length).toBe(getProviderAvailibilityMock.length)
+      // generate expected slot times ...
+      const slotTimes = getProviderAvailibilityMock[0].availability[0].slots.map(({start}) => {
+        return start.hours + ':' + (`${start.mins}`.length == 1 ? `${start.mins}0` : start.mins)
+      })
+      // pick one at random ...
+      const s = Math.floor(Math.random() * slotTimes.length)
+      const slotText = slotTimes[s]
+      // check present in document
+      expect(await screen.findByText(slotText)).toBeInTheDocument()
     })
   })
 })
