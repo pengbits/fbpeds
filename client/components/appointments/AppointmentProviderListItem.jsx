@@ -5,7 +5,7 @@ const formattedStart = start => {
   str += `${start.mins}`.length == 1 ? `${start.mins}0` : start.mins
   return str
 }
-export default ({id,name,image,availability}) => {
+export default ({id,name,image,availability,handleSelectTime}) => {
   return (<div 
     className="provider"
     data-testid="provider-entry"
@@ -22,7 +22,17 @@ export default ({id,name,image,availability}) => {
           {dayjs(date).format('MMM D')} 
         </div>
         <div className="availability__slots">
-        {slots.map(({start},i) => (<span key={i} className="slot">{formattedStart(start)}</span>))}
+          {slots.map(({start},i) => {
+            return (<a 
+              href='#' 
+              role="link" 
+              key={i} 
+              onClick={handleSelectTime}
+              data-time={formattedStart(start)}
+              data-provider-id={id}
+              className="slot">{formattedStart(start)}</a>
+            )
+          })}
         </div>
     </div>))}
   </div>)

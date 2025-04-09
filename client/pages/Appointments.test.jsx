@@ -1,5 +1,7 @@
 import { screen, render, act, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import AppointmentSearchPage from "./AppointmentSearchPage"
+import AppointmentSearchResults from '../components/appointments/AppointmentSearchResults'
 import getProviderAvailibilityMock from "../mocks/getProviderAvailibility"
 import { renderComponentWithRoute } from '../test/routerUtils'
 import { afterEach, describe } from 'vitest'
@@ -12,6 +14,7 @@ beforeEach(async () => {
 
 afterEach(() => {
   fetch.resetMocks()
+  vi.restoreAllMocks()
 })
 
 const populateForm  = async (user, attrs) => {
@@ -40,7 +43,7 @@ describe('Appointments', () => {
     })
  
     // given  there is a patient_id, date and appt_type
-    // when   I submit
+    // when   I click on the search button
     // then   there will be a list of providers with appointment times
     it('should fetch a list of providers with appointment times', async () => {
       fetch.mockResponseOnce(JSON.stringify(getProviderAvailibilityMock)) 
@@ -65,7 +68,30 @@ describe('Appointments', () => {
       const s = Math.floor(Math.random() * slotTimes.length)
       const slotText = slotTimes[s]
       // check present in document
-      expect(await screen.findByText(slotText)).toBeInTheDocument()
+      const slotElements = await screen.findAllByText(slotText)
+      expect(slotElements.length).toBeGreaterThan(0)
     })
+  })
+
+  // given  there is a patient_id, date and appt_type and a list of available times
+  // when   I click on a time slot
+  // then   it will send the appointment attrs to the server
+  // when   it loads
+  // then   there will be a new appointment associated with the patient
+  it('should create a new appointment for the time selected', async () => {
+    // const await render()
+    const user = userEvent.setup()
+   
+    render(<AppointmentSearchResults 
+        visit_type={'SICK'}
+        date={'2025-05-01'}
+        patient_id={'1'}
+        providers={getProviderAvailibilityMock}
+    />)
+
+    const slotElements = screen.findByRole('link')
+    const s = Math.floor(Math.random() * slotElements.length)
+    user.click(slotElements[s])
+
   })
 })
