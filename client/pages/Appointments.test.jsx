@@ -39,12 +39,9 @@ describe('Appointments', () => {
       // fireEvent.click(screen.getByText('Search'))
     })
  
-    // given
-      // there is a patient_id, date and appt_type
-    // when
-      // i submit
-    // then
-      // there will be a list of providers with appointment times
+    // given  there is a patient_id, date and appt_type
+    // when   I submit
+    // then   there will be a list of providers with appointment times
     it('should fetch a list of providers with appointment times', async () => {
       fetch.mockResponseOnce(JSON.stringify(getProviderAvailibilityMock)) 
 
