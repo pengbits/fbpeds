@@ -3,18 +3,22 @@ import userEvent from '@testing-library/user-event'
 import AppointmentSearchPage from "./AppointmentSearchPage"
 import AppointmentSearchResults from '../components/appointments/AppointmentSearchResults'
 import getProviderAvailibilityMock from "../mocks/getProviderAvailibility"
+import createAppointmentMock from '../mocks/createAppointment'
 import { renderComponentWithRoute } from '../test/routerUtils'
-import { afterEach, describe } from 'vitest'
+import { afterEach, describe, expect } from 'vitest'
 import { useNavigate } from 'react-router'
+import { get } from '../../server/app'
 
 beforeEach(async () => {
   // // fetch.resetMocks()
+  // vi.resetMocks()
   // fetch.mockResponseOnce(JSON.stringify(getProvidersMock)) 
 })
 
 afterEach(() => {
   fetch.resetMocks()
-  vi.restoreAllMocks()
+  vi.resetAllMocks()
+  vi.clearAllMocks()
 })
 
 const populateForm  = async (user, attrs) => {
@@ -81,17 +85,40 @@ describe('Appointments', () => {
   it('should create a new appointment for the time selected', async () => {
     // const await render()
     const user = userEvent.setup()
-   
+    fetch.mockResponseOnce(JSON.stringify(createAppointmentMock)) 
+    const availability = getProviderAvailibilityMock[1].availability.slice(0)
+    
+
+    // this works but pollutes other tests,
+    // might be worth trying this approach:
+    // https://stackblitz.com/~/edit/vitest-dev-vitest-afppg3?file=test/basic.test.ts
+    // vi.mocked(math.sum).mockImplementationOnce((a, b) => a + 100)
+    // const mockListItem= vi.mock('@/components/appointments/ProviderAvailabilityListItem', async (Component) => {
+    //   await Component
+    //   console.log('hello from mock', Component)
+
+    //   return {
+    //     default: (props) => {
+    //       return (<a role="link"
+    //         onClick={(e) => console.log('clicked!')}>
+    //         click me
+    //       </a>)
+    //     }
+    //   } 
+    // })
+
     render(<AppointmentSearchResults 
         visit_type={'SICK'}
         date={'2025-05-01'}
-        patient_id={'1'}
-        providers={getProviderAvailibilityMock}
+        patient_id={'2'}
+        providers={getProviderAvailibilityMock.slice(0)}
     />)
 
-    const slotElements = screen.findByRole('link')
-    const s = Math.floor(Math.random() * slotElements.length)
-    user.click(slotElements[s])
 
+    // const slotElements = screen.findByRole('link')
+    // const s = Math.floor(Math.random() * slotElements.length)
+    // await act(async () => user.click(slotElements[s]))
+    
+    // expect(await screen.findByText('Your appointment has been created')).toBeInTheDocument()
   })
 })
