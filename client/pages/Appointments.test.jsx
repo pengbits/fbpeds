@@ -17,8 +17,7 @@ beforeEach(async () => {
 
 afterEach(() => {
   fetch.resetMocks()
-  vi.resetAllMocks()
-  vi.clearAllMocks()
+  vi.restoreAllMocks()
 })
 
 const populateForm  = async (user, attrs) => {
@@ -93,7 +92,11 @@ describe('Appointments', () => {
     // might be worth trying this approach:
     // https://stackblitz.com/~/edit/vitest-dev-vitest-afppg3?file=test/basic.test.ts
     // vi.mocked(math.sum).mockImplementationOnce((a, b) => a + 100)
-   
+    vi.mock('@/components/appointments/ProviderAvailabilityListItem', async (Component) => {
+      const og = await Component()
+      return og
+    })
+
     // const mockListItem= vi.mock('@/components/appointments/ProviderAvailabilityListItem', async (Component) => {
     //   await Component
     //   console.log('hello from mock', Component)
@@ -108,10 +111,14 @@ describe('Appointments', () => {
     //   } 
     // })
 
-    const handleSelectTime = (e) => {
+    const handleSelectTime = function(e) {
       console.log(`handleSelectTime()`)
     }
-    const mock = vi.fn().mockImplementation(handleSelectTime)
+    // vi.mocked(handleSelectTime).mockImplementation((e) => {
+    //   console.log('mocked() handleSelect', e)
+    // })
+
+    const spy = vi.spyOn({handleSelectTime}, 'handleSelectTime')
     render(<AppointmentSearchResults 
         visit_type={'SICK'}
         date={'2025-05-01'}
@@ -121,11 +128,15 @@ describe('Appointments', () => {
     />)
 
 
-    // const slotElements = await screen.findAllByRole('link')
-    // const s = Math.floor(Math.random() * slotElements.length)
-    // await act(async () => user.click(slotElements[s]))
-    // expect(mock).toHaveBeenCalledTimes(1) // 'expected spyOn to have been called' issue
- 
+    const slotElements = await screen.findAllByRole('link')
+    const s = Math.floor(Math.random() * slotElements.length)
+    await act(async () => {
+      return user.click(slotElements[s])
+    })
+
+    // this looks it might work, but spy returns called zero times
+    // expect(spy).toHaveBeenCalledTimes(1)
+ // 'expected spyOn to have been called' issue
     // expect(await screen.findByText('Your appointment has been created')).toBeInTheDocument()
   })
 })
