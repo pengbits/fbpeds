@@ -1,5 +1,6 @@
 import { useState } from "react"
 import useFetch from "../hooks/useFetch"
+import { redirect } from "react-router"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
 
@@ -64,8 +65,10 @@ const AppointmentSearchPage = () => {
 
   if(isCreatingAppointment && !isLoading) {
     console.log('success!')
-    console.log(data) 
-    return <p>Your appointment has been created</p>
+    return (<p>Your appointment has been created</p>)
+    // wanted this, but it didnt seem so easy:
+    // return redirect('/patients')
+    // toastMessage.set('Your appointment has been created') etc
   }
 
   if(isLoading) {

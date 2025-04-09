@@ -93,6 +93,7 @@ describe('Appointments', () => {
     // might be worth trying this approach:
     // https://stackblitz.com/~/edit/vitest-dev-vitest-afppg3?file=test/basic.test.ts
     // vi.mocked(math.sum).mockImplementationOnce((a, b) => a + 100)
+   
     // const mockListItem= vi.mock('@/components/appointments/ProviderAvailabilityListItem', async (Component) => {
     //   await Component
     //   console.log('hello from mock', Component)
@@ -107,18 +108,24 @@ describe('Appointments', () => {
     //   } 
     // })
 
+    const handleSelectTime = (e) => {
+      console.log(`handleSelectTime()`)
+    }
+    const mock = vi.fn().mockImplementation(handleSelectTime)
     render(<AppointmentSearchResults 
         visit_type={'SICK'}
         date={'2025-05-01'}
         patient_id={'2'}
+        handleSelectTime={handleSelectTime}
         providers={getProviderAvailibilityMock.slice(0)}
     />)
 
 
-    // const slotElements = screen.findByRole('link')
+    // const slotElements = await screen.findAllByRole('link')
     // const s = Math.floor(Math.random() * slotElements.length)
     // await act(async () => user.click(slotElements[s]))
-    
+    // expect(mock).toHaveBeenCalledTimes(1) // 'expected spyOn to have been called' issue
+ 
     // expect(await screen.findByText('Your appointment has been created')).toBeInTheDocument()
   })
 })
