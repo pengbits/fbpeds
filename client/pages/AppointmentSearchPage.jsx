@@ -1,6 +1,6 @@
 import { useState } from "react"
 import useFetch from "../hooks/useFetch"
-import { redirect } from "react-router"
+import { useNavigate } from "react-router"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
 
@@ -22,7 +22,7 @@ const AppointmentSearchPage = () => {
   let [view,setView] = useState('form') // form || results
   let isForm = view == 'form'
   const {data,isLoading,isError,error} = useFetch(url, fetchOpts)
-  
+  const navigate = useNavigate()
   const getAvailability = async () => {
     if(!attrs.patient_id || !attrs.visit_type || !attrs.date){
       throw new Error('missing required fields')
@@ -64,11 +64,7 @@ const AppointmentSearchPage = () => {
   }
 
   if(isCreatingAppointment && !isLoading) {
-    console.log('success!')
-    return (<p>Your appointment has been created</p>)
-    // wanted this, but it didnt seem so easy:
-    // return redirect('/patients')
-    // toastMessage.set('Your appointment has been created') etc
+    return navigate('/patients')
   }
 
   if(isLoading) {
