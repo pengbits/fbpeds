@@ -1,6 +1,5 @@
 const dayjs = require('dayjs')
 const pool = require('../db/pool')
-const { appointments } = require('../routes')
 const Patient = function(){
 }
 
@@ -14,8 +13,15 @@ const withImage = (patient) => {
 }
 
 Patient.prototype.read = async () => {
-  const result = await pool.query(`SELECT * FROM patients LEFT JOIN appointments
-    ON appointments.patient_id = patients.id`
+  const result = await pool.query(`SELECT 
+    p.name as name, p.id as id, p.last_image as last_image, a.appointment_id as appointment_id,
+    a.provider_id as provider_id, a.patient_id as patient_id,
+    a.datetime as datetime, ps.name as provider_name
+  FROM patients p
+  LEFT JOIN appointments a
+  ON a.patient_id = p.id
+  LEFT JOIN providers ps
+  ON a.provider_id = ps.id`
   )
   if(!result.rows.length){
     return []
@@ -29,7 +35,8 @@ Patient.prototype.read = async () => {
       provider_id,
       datetime,
       patient_id,
-      appointment_id
+      appointment_id,
+      provider_name
     } = row
 
     // console.log(`isAppt? ${!!appointment_id}`, row)
@@ -57,7 +64,8 @@ Patient.prototype.read = async () => {
         memo[patient_id].appointments =(memo[patient_id].appointments || [])
         memo[patient_id].appointments.push({
           datetime,
-          provider_id
+          provider_id,
+          provider_name
         })
       } else {
         // console.log(`is an appt, no id found for ${patient_id}`)
@@ -67,7 +75,8 @@ Patient.prototype.read = async () => {
           last_image,
           appointments: [{
             datetime,
-            provider_id
+            provider_id,
+            provider_name
           }]
         }
       }
