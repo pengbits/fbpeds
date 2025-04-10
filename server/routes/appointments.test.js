@@ -10,7 +10,7 @@ describe('appointments', () => {
 
       expect(body.length).toBeGreaterThan(0)
       expectAttributes(body[0], [
-        'id',
+        'appointment_id',
         'datetime',
         'provider_id',
         'patient_id'
@@ -31,7 +31,7 @@ describe('appointments', () => {
         expect(res.status).toBe(201)
         const {body} = res;
         expect(body.appointment).toEqual(expect.objectContaining({
-          id: expect.any(Number),
+          appointment_id: expect.any(Number),
           datetime: expect.any(String),
           provider_id: expect.any(Number),
           patient_id: expect.any(Number),

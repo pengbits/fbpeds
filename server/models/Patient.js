@@ -1,5 +1,6 @@
 const dayjs = require('dayjs')
 const pool = require('../db/pool')
+const { appointments } = require('../routes')
 const Patient = function(){
 }
 
@@ -13,12 +14,76 @@ const withImage = (patient) => {
 }
 
 Patient.prototype.read = async () => {
-    const result = await pool.query('SELECT * FROM patients')
-    return result.rows.map(attrs => withImage(attrs))
+  const result = await pool.query(`SELECT * FROM patients LEFT JOIN appointments
+    ON appointments.patient_id = patients.id`
+  )
+  if(!result.rows.length){
+    return []
+  }
+
+  const patient_map = result.rows.reduce((memo,row) => {
+    const {
+      id,
+      name,
+      last_image,
+      provider_id,
+      datetime,
+      patient_id,
+      appointment_id
+    } = row
+
+    // console.log(`isAppt? ${!!appointment_id}`, row)
+    const appt = !!appointment_id ? {
+      datetime,
+      provider_id,
+      patient_id
+    } : null
+
+    if(!appt) {
+      // if(memo[id]){
+        // console.log(`not an appt, id already exists for ${id}`)
+      // } else {
+        // console.log(`not an appt, new entry: ${id}`)
+        memo[id] = {
+          name,
+          id,
+          last_image,
+          appointments: []
+        }
+      // }
+    } else {
+      if(memo[patient_id]) {
+        // console.log(`is an appt, found id ${patient_id}`)
+        memo[patient_id].appointments =(memo[patient_id].appointments || [])
+        memo[patient_id].appointments.push({
+          datetime,
+          provider_id
+        })
+      } else {
+        // console.log(`is an appt, no id found for ${patient_id}`)
+        memo[patient_id] = {
+          id: patient_id,
+          name,
+          last_image,
+          appointments: [{
+            datetime,
+            provider_id
+          }]
+        }
+      }
+    }
+    return memo
+  }, {})    
+
+  let results = []
+  for(const id in patient_map){
+    results.push(withImage(patient_map[id]))
+  }
+  return results
 }
 
 const related_types = [
-  'appointments',
+  // 'appointments',
   'visits',
   'growth',
   'prescriptions',
