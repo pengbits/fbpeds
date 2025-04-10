@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import PatientsPage from "./pages/PatientsPage";
 import PatientDetailsPage from "./pages/PatientDetailsPage";
 import AppointmentSearchPage from "./pages/AppointmentSearchPage";
-import AppointmentResultsPage from "./pages/AppointmentResultsPage"
 import ProvidersPage from "./pages/ProvidersPage";
 import App from "./App"
 
@@ -33,10 +32,6 @@ const router = createBrowserRouter([
       {
         path: '/appointments/new',
         Component: AppointmentSearchPage
-      },
-      {
-        path: '/appointments/providers', 
-        Component: AppointmentResultsPage
       }
     ]
   }
