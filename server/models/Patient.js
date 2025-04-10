@@ -14,7 +14,7 @@ const withImage = (patient) => {
 
 Patient.prototype.read = async () => {
   const result = await pool.query(`SELECT 
-    p.name as name, p.id as id, p.last_image as last_image, a.appointment_id as appointment_id,
+    p.name as name, p.id as id, p.birthdate as birthdate, p.last_image as last_image, a.appointment_id as appointment_id,
     a.provider_id as provider_id, a.patient_id as patient_id,
     a.datetime as datetime, ps.name as provider_name
   FROM patients p
@@ -31,6 +31,7 @@ Patient.prototype.read = async () => {
     const {
       id,
       name,
+      birthdate,
       last_image,
       provider_id,
       datetime,
@@ -54,6 +55,7 @@ Patient.prototype.read = async () => {
         memo[id] = {
           name,
           id,
+          birthdate,
           last_image,
           appointments: []
         }
@@ -72,6 +74,7 @@ Patient.prototype.read = async () => {
         memo[patient_id] = {
           id: patient_id,
           name,
+          birthdate,
           last_image,
           appointments: [{
             datetime,
