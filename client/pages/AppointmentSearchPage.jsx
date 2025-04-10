@@ -64,7 +64,8 @@ const AppointmentSearchPage = () => {
   }
 
   if(isCreatingAppointment && !isLoading) {
-    return navigate('/patients')
+    // return navigate('/patients') this breaks the submit functionality
+    return <p>your appointment was created successfully</p>
   }
 
   if(isLoading) {
