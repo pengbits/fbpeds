@@ -1,11 +1,13 @@
 import dayjs from 'dayjs'
 import AppointmentProviderList from './AppointmentProviderList'
 
+
+
 const AppointmentSearchResults = ({
   visit_type,
   date,
-  patient_id,
-  providers
+  providers,
+  handleSelectTime
 }) => {
   const visitPretty = visit_type == 'SICK' ? 'Sick' : 'Well'
   const datePretty = dayjs(date).format('MMM D')
@@ -13,7 +15,10 @@ const AppointmentSearchResults = ({
   return (
     <>
       <h2>{headerText}</h2>
-      <AppointmentProviderList providers={providers} />
+      <AppointmentProviderList 
+        providers={providers} 
+        handleSelectTime={handleSelectTime}
+      />
     </>
 
   )

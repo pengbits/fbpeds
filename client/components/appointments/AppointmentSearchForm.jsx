@@ -29,8 +29,8 @@ const AppointmentForm = ({attrs,setAttrs,getAvailability}) => {
     <h3>New Appointment</h3>
     <form onSubmit={handleSubmit} role="form">
       <p>
-      <label htmlFor="child_id">Choose a Child</label><br />
-      <select id="child_id" value={attrs.child_name} onChange={handleChange}>
+      <label htmlFor="patient_id">Choose a Child</label><br />
+      <select id="patient_id" value={attrs.child_name} onChange={handleChange}>
         <option>Select a Child:</option>
         {child_name_options.map(c => (
           <option key={c.id} value={c.id}> {c.name}</option>

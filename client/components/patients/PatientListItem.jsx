@@ -1,5 +1,7 @@
 import PatientLink from "./PatientLink"
-const PatientListItem = (({id,name,image}  )=> (
+import PatientAppointmentsList from "./PatientAppointmentsList"
+
+const PatientListItem = (({id,name,image,appointments}  ) => (
 <div key={id} className="patient">
   <h3 data-testid="patient-name" className="patient__name">
     <PatientLink id={id}>
@@ -11,6 +13,7 @@ const PatientListItem = (({id,name,image}  )=> (
       <img src={image} alt="image of patient" />
     </PatientLink>
   </div>
+  <PatientAppointmentsList appointments={appointments} />
 </div>))
 
 export default PatientListItem

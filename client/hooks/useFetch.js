@@ -7,8 +7,11 @@ const useFetch = (url, opts={method:'GET'}) => {
 
   const fetchData = async () => {
     try {
+       if(['PUT','POST'].includes(opts.method) && !opts.body){
+        throw new Error(`method ${opts.method} assumes a body, but none was found`)
+      } 
+      opts.headers =  {"Content-Type": "application/json"}
       setLoading(true)
-      // console.log(`useFetch.fetch('${url}')`, opts)
       const response = await fetch(url, opts)
       const json = await response.json()
       setData(json)

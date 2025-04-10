@@ -1,11 +1,6 @@
-import dayjs from "dayjs"
-const formattedStart = start => {
-  let str = start.hours
-  str += ':'
-  str += `${start.mins}`.length == 1 ? `${start.mins}0` : start.mins
-  return str
-}
-export default ({id,name,image,availability}) => {
+import ProviderAvailabilityList from '@/components/appointments/ProviderAvailabilityList'
+
+export default ({id,name,image,availability,handleSelectTime}) => {
   return (<div 
     className="provider"
     data-testid="provider-entry"
@@ -14,16 +9,10 @@ export default ({id,name,image,availability}) => {
     <div className='provider__image'>
       {image && <img src={image} alt="image of provider" />}
     </div>
-    
-    {availability.map(({date,slots}) => (<div key={date} 
-      data-testid="provider-availability" 
-      className="availability">
-        <div className="availability__date">
-          {dayjs(date).format('MMM D')} 
-        </div>
-        <div className="availability__slots">
-        {slots.map(({start},i) => (<span key={i} className="slot">{formattedStart(start)}</span>))}
-        </div>
-    </div>))}
+    <ProviderAvailabilityList
+      providerId={id}
+      availability={availability}
+      handleSelectTime={handleSelectTime} 
+    />
   </div>)
 }

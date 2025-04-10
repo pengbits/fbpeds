@@ -1,37 +1,79 @@
 import { useState } from "react"
 import useFetch from "../hooks/useFetch"
+import { useNavigate } from "react-router"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
 
+// .post('/api/appointments')
+//   .set('Accept', 'application/json')
+//   .send({
+//     provider_id: 1,
+//     patient_id: 1,
+//     datetime: '04-04-2025T10:00'
+//   })
+
 
 const AppointmentSearchPage = () => {
-  const [attrs, setAttrs] = useState({})
+  let [attrs, setAttrs] = useState({})
   let [url,setUrl] = useState(null)
-  let [isFetching, setIsFetching] = useState(false)
+  let [fetchOpts, setFetchOpts] = useState({})
+  let [isFetchingAvailability, setIsFetching] = useState(false)
+  let [isCreatingAppointment, setIsCreatingAppointment] = useState(false)
   let [view,setView] = useState('form') // form || results
-  const {data,isLoading,isError} = useFetch(url)
-  
+  let isForm = view == 'form'
+  const {data,isLoading,isError,error} = useFetch(url, fetchOpts)
+  const navigate = useNavigate()
   const getAvailability = async () => {
-    if(!attrs.child_id || !attrs.visit_type || !attrs.date){
+    if(!attrs.patient_id || !attrs.visit_type || !attrs.date){
       throw new Error('missing required fields')
     }
-    // console.log('getAvailability '+attrs.date)
     setUrl(`/api/providers/availability/${attrs.date}`)
   }
 
-  if(!isFetching && isLoading) {
-    // console.log('fetch availability')
+  const handleSelectTime = (e) => {
+    e.preventDefault()
+    
+    const time        = e.target.getAttribute('data-time')
+    const providerId  = e.target.getAttribute('data-provider-id')
+
+    setUrl(`/api/appointments`)
+    setFetchOpts({
+      method: 'POST',
+      body: JSON.stringify({
+        provider_id: providerId,
+        patient_id: attrs.patient_id,
+        datetime: `${attrs.date}T${time}`
+      })
+    })
+    setIsCreatingAppointment(true)
+  }
+
+  if(!isFetchingAvailability && isLoading) {
     setIsFetching(true)
   }
-  if(isFetching && !isLoading) {
+
+  if(isFetchingAvailability && !isLoading) {
     console.log('fetch done, render results')
     setIsFetching(false)
     setView('results')
   }
-  const isForm = view == 'form'
+  if(isCreatingAppointment && isLoading) {
+    console.log(`POST ${url}`, fetchOpts)
+  
+    return <p>loading... </p>
+  }
+
+  if(isCreatingAppointment && !isLoading) {
+    // return navigate('/patients') this breaks the submit functionality
+    return <p>your appointment was created successfully</p>
+  }
 
   if(isLoading) {
     return <p>loading... </p>
+  }
+
+  if(isError){
+    return <p style={{border:'red solid 2px', color:'red'}}>{error.message}</p>
   }
   
   else {
@@ -47,6 +89,7 @@ const AppointmentSearchPage = () => {
       <AppointmentSearchResults
         {...attrs}
         providers={data}
+        handleSelectTime={handleSelectTime}
       />
     ) 
   }

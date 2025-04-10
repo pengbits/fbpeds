@@ -13,12 +13,89 @@ const withImage = (patient) => {
 }
 
 Patient.prototype.read = async () => {
-    const result = await pool.query('SELECT * FROM patients')
-    return result.rows.map(attrs => withImage(attrs))
+  const result = await pool.query(`SELECT 
+    p.name as name, p.id as id, p.birthdate as birthdate, p.last_image as last_image, a.appointment_id as appointment_id,
+    a.provider_id as provider_id, a.patient_id as patient_id,
+    a.datetime as datetime, ps.name as provider_name
+  FROM patients p
+  LEFT JOIN appointments a
+  ON a.patient_id = p.id
+  LEFT JOIN providers ps
+  ON a.provider_id = ps.id`
+  )
+  if(!result.rows.length){
+    return []
+  }
+
+  const patient_map = result.rows.reduce((memo,row) => {
+    const {
+      id,
+      name,
+      birthdate,
+      last_image,
+      provider_id,
+      datetime,
+      patient_id,
+      appointment_id,
+      provider_name
+    } = row
+
+    // console.log(`isAppt? ${!!appointment_id}`, row)
+    const appt = !!appointment_id ? {
+      datetime,
+      provider_id,
+      patient_id
+    } : null
+
+    if(!appt) {
+      // if(memo[id]){
+        // console.log(`not an appt, id already exists for ${id}`)
+      // } else {
+        // console.log(`not an appt, new entry: ${id}`)
+        memo[id] = {
+          name,
+          id,
+          birthdate,
+          last_image,
+          appointments: []
+        }
+      // }
+    } else {
+      if(memo[patient_id]) {
+        // console.log(`is an appt, found id ${patient_id}`)
+        memo[patient_id].appointments =(memo[patient_id].appointments || [])
+        memo[patient_id].appointments.push({
+          datetime,
+          provider_id,
+          provider_name
+        })
+      } else {
+        // console.log(`is an appt, no id found for ${patient_id}`)
+        memo[patient_id] = {
+          id: patient_id,
+          name,
+          birthdate,
+          last_image,
+          appointments: [{
+            datetime,
+            provider_id,
+            provider_name
+          }]
+        }
+      }
+    }
+    return memo
+  }, {})    
+
+  let results = []
+  for(const id in patient_map){
+    results.push(withImage(patient_map[id]))
+  }
+  return results
 }
 
 const related_types = [
-  'appointments',
+  // 'appointments',
   'visits',
   'growth',
   'prescriptions',

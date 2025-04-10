@@ -1,8 +1,20 @@
 import AppointmentProviderListItem from './AppointmentProviderListItem'
 
-export default ({providers, datePretty}) => {
+export default ({
+  datePretty,
+  providers, 
+  handleSelectTime
+}) => {
   return (<div data-testid="appointment-providers" className="appointment-providers">
-    {providers.map(p => <AppointmentProviderListItem key={p.id} {...p} datePretty={datePretty} />)}
+    {providers.map(p => {
+      return (
+        <AppointmentProviderListItem 
+          key={p.id}
+          datePretty={datePretty}  
+          handleSelectTime={handleSelectTime}
+          {...p} 
+        />)
+    })}
   </div>)
 }
 

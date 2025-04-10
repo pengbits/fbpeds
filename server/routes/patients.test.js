@@ -8,7 +8,8 @@ describe('patients', () => {
         .get('/api/patients')
 
       expect(body.length).toBeGreaterThan(0)
-      expectAttributes(body[0], ['id','name','birthdate'])
+      // TODO +appointments
+      expectAttributes(body[0], ['id','name','birthdate','appointments'])
     })
   })
 
