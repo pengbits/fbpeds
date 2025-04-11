@@ -1,21 +1,29 @@
 import useFetch from "../hooks/useFetch"
+import { useState, useEffect } from "react"
 import PatientList from "../components/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
+import {usePatientStore} from "../store/patients"
 
 const PatientsPage = () => {
   const {
-    data,
-    isLoading,
-    isError,
-    error
-  } = useFetch(`/api/patients`)
+    patients,
+    loading,
+    fetchPatients
+  } = usePatientStore()
+
+  useEffect(() => {
+    fetchPatients()
+  }, 
+  [])
+
+1
+  
   return (
     <>
-      {isError && <ErrorMessage error={error} />}
-      {isLoading ? <p>loading... </p> : <PatientList patients={data} />}
-      <a className="btn btn--large" 
-          href="/appointments/new">Book Your Next Appointment
-      </a>
+      {loading ? <p>loading...</p> : <p>Ahoy</p>}
+      <p>{patients.map(p => {
+        return `${p}, `
+      })}</p>
     </>
   )
 }
