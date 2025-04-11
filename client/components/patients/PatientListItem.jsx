@@ -11,7 +11,7 @@ export default (({id,name,image,appointments}) => (
   </h3>
   {image && <div className="patient__image">
     <PatientLink id={id}>
-      <img src={image} />
+      <img src={image} alt="image of patient" />
     </PatientLink>
   </div>}
   <Link to={`/appointments/new/patient/${id}`}>

@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 
 const PatientAppointmentsList = ({appointments}) => {
-  if(!appointments.length) return null
+  if(!appointments || !appointments.length) return null
 
   return (<>
   <h4>Upcoming Appointments:</h4>
