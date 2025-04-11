@@ -1,6 +1,6 @@
 import { useState } from "react"
 import useFetch from "../hooks/useFetch"
-import { useNavigate } from "react-router"
+import { useNavigate, redirect, useParams } from "react-router"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
 
@@ -14,7 +14,12 @@ import AppointmentSearchResults from "../components/appointments/AppointmentSear
 
 
 const AppointmentSearchPage = () => {
-  let [attrs, setAttrs] = useState({})
+    
+  const navigate = useNavigate()
+  const {patientId} = useParams()
+  const initialAttrs =  patientId ? {patient_id:patientId} : {}
+  console.log(initialAttrs)
+  let [attrs, setAttrs] = useState(initialAttrs)
   let [url,setUrl] = useState(null)
   let [fetchOpts, setFetchOpts] = useState({})
   let [isFetchingAvailability, setIsFetching] = useState(false)
@@ -22,7 +27,8 @@ const AppointmentSearchPage = () => {
   let [view,setView] = useState('form') // form || results
   let isForm = view == 'form'
   const {data,isLoading,isError,error} = useFetch(url, fetchOpts)
-  const navigate = useNavigate()
+
+
   const getAvailability = async () => {
     if(!attrs.patient_id || !attrs.visit_type || !attrs.date){
       throw new Error('missing required fields')
@@ -64,6 +70,7 @@ const AppointmentSearchPage = () => {
   }
 
   if(isCreatingAppointment && !isLoading) {
+    // return redirect('/patients') this is just an error with a loop before it
     // return navigate('/patients') this breaks the submit functionality
     return <p>your appointment was created successfully</p>
   }

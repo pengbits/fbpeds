@@ -2,7 +2,7 @@ import dayjs from "dayjs"
 
 const PatientAppointmentsList = ({appointments}) => {
   if(!appointments.length) return null
-  console.log(appointments)
+
   return (<>
   <h4>Upcoming Appointments:</h4>
   <ul>

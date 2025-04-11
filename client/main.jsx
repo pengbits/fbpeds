@@ -32,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/appointments/new',
         Component: AppointmentSearchPage
+      },
+      {
+        path: '/appointments/new/patient/:patientId',
+        Component: AppointmentSearchPage
       }
     ]
   }

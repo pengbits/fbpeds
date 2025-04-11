@@ -6,10 +6,10 @@ export default ({
   handleSelectTime
 }) => {
   return (<div data-testid="appointment-providers" className="appointment-providers">
-    {providers.map(p => {
+    {providers.map((p,idx) => {
       return (
         <AppointmentProviderListItem 
-          key={p.id}
+          key={idx}
           datePretty={datePretty}  
           handleSelectTime={handleSelectTime}
           {...p} 
