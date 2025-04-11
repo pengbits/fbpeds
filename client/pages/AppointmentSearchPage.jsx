@@ -18,7 +18,7 @@ const AppointmentSearchPage = () => {
   const navigate = useNavigate()
   const {patientId} = useParams()
   const initialAttrs =  patientId ? {patient_id:patientId} : {}
-  console.log(initialAttrs)
+
   let [attrs, setAttrs] = useState(initialAttrs)
   let [url,setUrl] = useState(null)
   let [fetchOpts, setFetchOpts] = useState({})
