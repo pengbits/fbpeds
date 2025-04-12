@@ -51,13 +51,13 @@ const AppointmentSearchPage = () => {
   }
 
   
-  console.log('render', {
-    loading,
-    error,
-    isForm,
-    fetchingAvailability,
-    creatingAppointment
-  })
+  // console.log('render', {
+  //   loading,
+  //   error,
+  //   isForm,
+  //   fetchingAvailability,
+  //   creatingAppointment
+  // })
 
   if(loading) {
     return <p>loading... </p>
@@ -82,6 +82,7 @@ const AppointmentSearchPage = () => {
     (
       <AppointmentSearchResults
         providers={providersWithAvailability}
+        {...appointment}
         handleSelectTime={handleSelectTime}
       />
     ) 

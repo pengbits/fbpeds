@@ -18,7 +18,6 @@ const reducer = (set,get) => {
     ...initialState,
 
     setAppointment: (attrs) => {
-      console.log('setAppointment', attrs)
       set(state => {state[k].appointment = attrs})
     },
     

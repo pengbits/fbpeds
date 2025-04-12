@@ -1,6 +1,6 @@
 import { screen, render, act } from '@testing-library/react'
 import getPatientsMock from '../mocks/getPatients'
-import PatientsPage from './PatientsPageBAK'
+import PatientsPage from './PatientsPage'
 import { renderComponentWithRoute } from '../test/routerUtils'
 
 beforeEach(async () => {
