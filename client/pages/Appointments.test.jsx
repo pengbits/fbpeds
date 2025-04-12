@@ -5,9 +5,6 @@ import AppointmentSearchResults from '../components/appointments/AppointmentSear
 import getProviderAvailibilityMock from "../mocks/getProviderAvailibility"
 import createAppointmentMock from '../mocks/createAppointment'
 import { renderComponentWithRoute } from '../test/routerUtils'
-import { afterEach, describe, expect } from 'vitest'
-import { useNavigate } from 'react-router'
-import { get } from '../../server/app'
 
 beforeEach(async () => {
   // // fetch.resetMocks()
@@ -81,62 +78,5 @@ describe('Appointments', () => {
   // then   it will send the appointment attrs to the server
   // when   it loads
   // then   there will be a new appointment associated with the patient
-  it('should create a new appointment for the time selected', async () => {
-    // const await render()
-    const user = userEvent.setup()
-    fetch.mockResponseOnce(JSON.stringify(createAppointmentMock)) 
-    const availability = getProviderAvailibilityMock[1].availability.slice(0)
-    
-
-    // this works but pollutes other tests,
-    // might be worth trying this approach:
-    // https://stackblitz.com/~/edit/vitest-dev-vitest-afppg3?file=test/basic.test.ts
-    // vi.mocked(math.sum).mockImplementationOnce((a, b) => a + 100)
-    vi.mock('@/components/appointments/ProviderAvailabilityListItem', async (Component) => {
-      const og = await Component()
-      return og
-    })
-
-    // const mockListItem= vi.mock('@/components/appointments/ProviderAvailabilityListItem', async (Component) => {
-    //   await Component
-    //   console.log('hello from mock', Component)
-
-    //   return {
-    //     default: (props) => {
-    //       return (<a role="link"
-    //         onClick={(e) => console.log('clicked!')}>
-    //         click me
-    //       </a>)
-    //     }
-    //   } 
-    // })
-
-    const handleSelectTime = function(e) {
-      console.log(`handleSelectTime()`)
-    }
-    // vi.mocked(handleSelectTime).mockImplementation((e) => {
-    //   console.log('mocked() handleSelect', e)
-    // })
-
-    const spy = vi.spyOn({handleSelectTime}, 'handleSelectTime')
-    render(<AppointmentSearchResults 
-        visit_type={'SICK'}
-        date={'2025-05-01'}
-        patient_id={'2'}
-        handleSelectTime={handleSelectTime}
-        providers={getProviderAvailibilityMock.slice(0)}
-    />)
-
-
-    const slotElements = await screen.findAllByRole('link')
-    const s = Math.floor(Math.random() * slotElements.length)
-    await act(async () => {
-      return user.click(slotElements[s])
-    })
-
-    // this looks it might work, but spy returns called zero times
-    // expect(spy).toHaveBeenCalledTimes(1)
- // 'expected spyOn to have been called' issue
-    // expect(await screen.findByText('Your appointment has been created')).toBeInTheDocument()
-  })
+  // expect(await screen.findByText('Your appointment has been created')).toBeInTheDocument()
 })

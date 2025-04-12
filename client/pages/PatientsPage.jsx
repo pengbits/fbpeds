@@ -1,18 +1,27 @@
-import useFetch from "../hooks/useFetch"
+import { useEffect } from "react"
 import PatientList from "../components/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
+import useStore from "../store/appStore"
 
 const PatientsPage = () => {
   const {
-    data,
-    isLoading,
-    isError,
-    error
-  } = useFetch(`/api/patients`)
+    patients,
+    loading,
+    error,
+    fetchPatients
+  } = useStore((state) => state.patients)
+
+  useEffect(() => {
+    fetchPatients()
+  }, 
+  [])
+
+
+  
   return (
     <>
-      {isError && <ErrorMessage error={error} />}
-      {isLoading ? <p>loading... </p> : <PatientList patients={data} />}
+      {error && <ErrorMessage error={error} />}
+      {loading ? <p>loading... </p> : <PatientList patients={patients} />}
       <a className="btn btn--large" 
           href="/appointments/new">Book Your Next Appointment
       </a>

@@ -1,11 +1,13 @@
+import { useState } from "react"
 
-const AppointmentForm = ({attrs,setAttrs,getAvailability}) => {
- 
+const AppointmentForm = ({initialAttributes, getAvailability}) => {
+  const [attrs, setAttrs] = useState(initialAttributes)
+
   const handleChange = (e) => {
-    setAttrs(attrs => ({
+    setAttrs({
       ...attrs,
       [e.target.id] : e.target.value
-    }))
+    })
   }
 
   const handleSubmit = (e) => {

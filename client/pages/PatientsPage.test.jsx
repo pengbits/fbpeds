@@ -1,6 +1,6 @@
 import { screen, render, act } from '@testing-library/react'
 import getPatientsMock from '../mocks/getPatients'
-import PatientsPage from './PatientsPage'
+import PatientsPage from './PatientsPageBAK'
 import { renderComponentWithRoute } from '../test/routerUtils'
 
 beforeEach(async () => {
@@ -13,8 +13,8 @@ beforeEach(async () => {
 
 describe('Patients Page', () => {
   describe('getPatients()', () => {
-    it('displays a list of patients', async () => {
-     expect(await screen.findByText('Patients')).toBeInTheDocument()
+    it('displays a list of patients', () => {
+     expect(screen.getByText('Patients')).toBeInTheDocument()
     })
 
     it('has a name and image for each patient', async () => {

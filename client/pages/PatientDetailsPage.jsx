@@ -1,21 +1,28 @@
-import useFetch from "../hooks/useFetch"
 import { useParams } from "react-router"
+import { useEffect } from "react"
+import useStore from "../store/appStore"
 import PatientsDetails from "../components/patients/PatientDetails"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 
 const PatientsDetailsPage = () => {
-  const params = useParams()
-  const {
-    data,
-    isLoading,
-    isError,
-    error
-  } = useFetch(`/api/patients/${params.id}`)
-  const patient = data && data.length ? data[0] : {}
 
+  const {
+    patients,
+    loading,
+    error,
+    fetchPatient
+  } = useStore(state => state.patients)
+  
+  const params = useParams()
+
+  useEffect(() => {
+    fetchPatient(params.id)
+  }, [])
+
+  const patient = patients.length ? patients[0] : {}
   return (<>
-    {isError && <ErrorMessage error={error} />}
-    {isLoading ? <p>loading...</p> : <PatientsDetails {...patient} />}
+    {error && <ErrorMessage error={error} />}
+    {loading ? <p>loading...</p> : <PatientsDetails {...patient} />}
   </>)
   
 }

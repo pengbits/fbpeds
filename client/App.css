@@ -105,3 +105,12 @@ h1, h2 {
 .availability__slots .slot:hover {
   background-color: #999;
 }
+
+.error {
+  padding: 15px;
+  margin-left: 15px;
+  border: #FF0000 solid 2px;
+  background-color: #FFFFFF;
+  color: #FF0000;
+  max-width: 400px;
+}
