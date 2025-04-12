@@ -10,7 +10,7 @@ const PatientAppointmentsList = ({appointments}) => {
       const datePretty = dayjs(datetime).format('MMM DD')
       const timePretty = dayjs(datetime).format('H:MM')
       const key = provider_id+ '__'+dayjs(datetime).format('YYYY-MM-DDTHH:mm:ss')
-      console.log(key)
+      // console.log(key)
       return <li key={key}>Well visit on {datePretty} at {timePretty} with {provider_name}</li>
     })}
   </ul>
