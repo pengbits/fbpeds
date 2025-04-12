@@ -1,6 +1,7 @@
-import { create } from "zustand";
-import { immer } from "zustand/middleware/immer"
-import { getProviderAvailability } from "../api/appointments";
+import { 
+  getProviderAvailability, 
+  createAppointment 
+} from "../api/appointments";
 
 const initialState = {
   appointment: {},
@@ -8,7 +9,8 @@ const initialState = {
   providersWithAvailability:[],
   loading:false,
   error:false,
-  fetchingAvailability:false
+  fetchingAvailability:false,
+  creatingAppointment:false
 }
 const k = 'appointments'
 const reducer = (set,get) => {
@@ -28,6 +30,18 @@ const reducer = (set,get) => {
         console.log(`fetchProviderAvailability`, providers)
         set(state => {state[k].providersWithAvailability = providers})
       } catch(e){
+        set(state => {state[k].error = e})
+      } finally {
+        set(state => {state[k].loading = false})
+      }
+    },
+
+    createAppointment: async (attrs) => {
+      try {
+        set(state => {state[k].loading = true; state[k].creatingAppointment = true})
+        const appt = await createAppointment(attrs)
+        set(state => {state[k].appointment = appt})
+      } catch(e) {
         set(state => {state[k].error = e})
       } finally {
         set(state => {state[k].loading = false})

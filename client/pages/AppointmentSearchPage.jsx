@@ -21,7 +21,9 @@ const AppointmentSearchPage = () => {
     setAppointment,
     fetchProviderAvailability,
     fetchingAvailability,
-    providersWithAvailability
+    providersWithAvailability,
+    createAppointment,
+    creatingAppointment
     } = useStore(state => state.appointments)
 
   const {patientId} = useParams()
@@ -34,23 +36,18 @@ const AppointmentSearchPage = () => {
     await fetchProviderAvailability()
   }
 
-  const handleSelectTime = (e) => {
+  const handleSelectTime = async (e) => {
     e.preventDefault()
     
     const time        = e.target.getAttribute('data-time')
     const providerId  = e.target.getAttribute('data-provider-id')
-
-    console.log(`fetch /api/appointments`, {
-      method: 'POST',
-      body: JSON.stringify({
-        provider_id: providerId,
-        patient_id: appointment.patient_id,
-        datetime: `${appointment.date}T${time}`
-      })
+    await createAppointment({
+      provider_id: providerId,
+      patient_id: appointment.patient_id,
+      datetime: `${appointment.date}T${time}`
     })
   }
 
-  console.log('render', {fetchingAvailability, providersWithAvailability, appointment})
 
   if(loading) {
     return <p>loading... </p>
@@ -58,6 +55,9 @@ const AppointmentSearchPage = () => {
 
   if(error){
     return <p style={{border:'red solid 2px', color:'red'}}>{error.message}</p>
+  }
+  if(!loading && creatingAppointment){
+    return <p>Your appointment has been created</p>
   }
   
   else {
