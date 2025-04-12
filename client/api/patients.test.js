@@ -20,7 +20,7 @@ describe('patients API', () => {
   })
 
   describe('getPatient', () => {
-    it('fetches the details for the ', async () => {
+    it('fetches the details for the patient id provided', async () => {
       fetch.mockResponseOnce(JSON.stringify(getPatientMock))
       
       const patients = await getPatient('1')
