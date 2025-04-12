@@ -8,38 +8,35 @@ const initialState = {
   loading:false,
   error:false
 }
-
+const k = 'patients'
 const reducer = set => {
   return {
     ...initialState,
     fetchPatients: async () => {
       try {
-        set((state) => {state.loading = true})
+        set((state) => {state[k].loading = true})
         const patients = await getPatients()
-        set((state) => {state.patients = patients})
+        set((state) => {state[k].patients = patients})
       } catch(e){
-        set((state) => {state.error = e})
+        set((state) => {state[k].error = e})
       } finally {
-        set((state) => {state.loading = false})
+        set((state) => {state[k].loading = false})
       }
     },
 
     fetchPatient: async (id) => {
       try {
         if(!id) throw new Error('id is required')
-        set((state) => {state.loading = true})
+        set((state) => {state[k].loading = true})
         const patients = await getPatient(id)
-        set((state) => {state.patients = patients})
+        set((state) => {state[k].patients = patients})
       } catch(e){
-        set((state) => {state.error = e})
+        set((state) => {state[k].error = e})
       } finally {
-        set((state) => {state.loading = false})
+        set((state) => {state[k].loading = false})
       }
     }
   }
 }
 
-export const usePatientStore = create(
-  immer((set) => reducer(set))
-)
-// cam we export a vanilla version as well, for testing purposes?
+export default reducer

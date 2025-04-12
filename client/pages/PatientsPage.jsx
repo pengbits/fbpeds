@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import PatientList from "../components/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
-import {usePatientStore} from "../store/patients"
+import useStore from "../store/appStore"
 
 const PatientsPage = () => {
   const {
@@ -9,14 +9,14 @@ const PatientsPage = () => {
     loading,
     error,
     fetchPatients
-  } = usePatientStore()
+  } = useStore((state) => state.patients)
 
   useEffect(() => {
     fetchPatients()
   }, 
   [])
 
-1
+
   
   return (
     <>

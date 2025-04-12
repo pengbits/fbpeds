@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import useFetch from "../hooks/useFetch"
 import { useNavigate, redirect, useParams } from "react-router"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
+import useStore from "../store/appStore"
 
 // .post('/api/appointments')
 //   .set('Accept', 'application/json')
@@ -14,7 +15,20 @@ import AppointmentSearchResults from "../components/appointments/AppointmentSear
 
 
 const AppointmentSearchPage = () => {
-    
+  const {
+    loading, 
+    fetchProviderAvailability,
+    fetchingAvailability,
+    } = useStore(state => state.appointments)
+
+  useEffect(() => {
+    fetchProviderAvailability()
+  }, [])
+
+
+
+
+
   const navigate = useNavigate()
   const {patientId} = useParams()
   const initialAttrs =  patientId ? {patient_id:patientId} : {}
@@ -84,6 +98,7 @@ const AppointmentSearchPage = () => {
   }
   
   else {
+    console.log('useStore', loading, fetchingAvailability)
     return isForm ? (
       <AppointmentSearchForm
         attrs={attrs}

@@ -1,17 +1,17 @@
 import { useParams } from "react-router"
 import { useEffect } from "react"
-import {usePatientStore} from "../store/patients"
+import useStore from "../store/appStore"
 import PatientsDetails from "../components/patients/PatientDetails"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 
 const PatientsDetailsPage = () => {
 
-const {
+  const {
     patients,
     loading,
     error,
     fetchPatient
-  } = usePatientStore()
+  } = useStore(state => state.patients)
   
   const params = useParams()
 
