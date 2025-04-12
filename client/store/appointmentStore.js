@@ -25,9 +25,12 @@ const reducer = (set,get) => {
     fetchProviderAvailability: async () => {
       const {appointment} = get()[k]
       try {
-        set(state => {state[k].loading = true; state[k].fetchingAvailability = true })
+        set(state => {
+          state[k].loading = true; 
+          state[k].creatingAppointment = false
+          state[k].fetchingAvailability = true 
+        })
         const providers = await getProviderAvailability(appointment)
-        console.log(`fetchProviderAvailability`, providers)
         set(state => {state[k].providersWithAvailability = providers})
       } catch(e){
         set(state => {state[k].error = e})
@@ -38,13 +41,21 @@ const reducer = (set,get) => {
 
     createAppointment: async (attrs) => {
       try {
-        set(state => {state[k].loading = true; state[k].creatingAppointment = true})
+        set(state => {
+          state[k].loading = true; 
+          state[k].fetchingAvailability = false;
+          state[k].creatingAppointment = true
+        })
         const appt = await createAppointment(attrs)
         set(state => {state[k].appointment = appt})
       } catch(e) {
         set(state => {state[k].error = e})
       } finally {
-        set(state => {state[k].loading = false})
+        set(state => {
+          state[k].loading = false; 
+          state[k].fetchingAvailability = false
+          state[k].appointment = {}
+        })
       }
     }
   }

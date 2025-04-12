@@ -1,5 +1,5 @@
 import { useState,  } from "react"
-import { useParams } from "react-router"
+import { useParams, redirect, useNavigate, Link } from "react-router"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
 import useStore from "../store/appStore"
@@ -14,6 +14,8 @@ import useStore from "../store/appStore"
 
 
 const AppointmentSearchPage = () => {
+  const navigate = useNavigate()
+
   const {
     loading, 
     error,
@@ -29,7 +31,7 @@ const AppointmentSearchPage = () => {
   const {patientId} = useParams()
   // this is unsetting form state
   const initialAttributes =  patientId ? {patient_id:patientId} : {}
-  const isForm = !fetchingAvailability
+  const isForm = !fetchingAvailability && !creatingAppointment
 
   const getAvailability = async (attrs) => {
     setAppointment(attrs)
@@ -48,6 +50,14 @@ const AppointmentSearchPage = () => {
     })
   }
 
+  
+  console.log('render', {
+    loading,
+    error,
+    isForm,
+    fetchingAvailability,
+    creatingAppointment
+  })
 
   if(loading) {
     return <p>loading... </p>
@@ -57,9 +67,10 @@ const AppointmentSearchPage = () => {
     return <p style={{border:'red solid 2px', color:'red'}}>{error.message}</p>
   }
   if(!loading && creatingAppointment){
-    return <p>Your appointment has been created</p>
+    // return navigate('/patients')
+
+    return <p>success! <a href="/patients">Home</a></p>
   }
-  
   else {
     return isForm ? (
       <AppointmentSearchForm
