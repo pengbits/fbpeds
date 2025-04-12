@@ -21,18 +21,17 @@ const AppointmentSearchPage = () => {
     setAppointment,
     fetchProviderAvailability,
     fetchingAvailability,
+    providersWithAvailability
     } = useStore(state => state.appointments)
 
   const {patientId} = useParams()
+  // this is unsetting form state
   const initialAttributes =  patientId ? {patient_id:patientId} : {}
-  const isForm = true
+  const isForm = !fetchingAvailability
 
   const getAvailability = async (attrs) => {
-    console.log(attrs)
-    // if(!appointment.patient_id || !appointment.visit_type || !appointment.date){
-    //   throw new Error('missing required fields')
-    // }
-    console.log(`fetch /api/providers/availability/${attrs.date}`)
+    setAppointment(attrs)
+    await fetchProviderAvailability()
   }
 
   const handleSelectTime = (e) => {
@@ -45,13 +44,14 @@ const AppointmentSearchPage = () => {
       method: 'POST',
       body: JSON.stringify({
         provider_id: providerId,
-        patient_id: attrs.patient_id,
-        datetime: `${attrs.date}T${time}`
+        patient_id: appointment.patient_id,
+        datetime: `${appointment.date}T${time}`
       })
     })
   }
 
- 
+  console.log('render', {fetchingAvailability, providersWithAvailability, appointment})
+
   if(loading) {
     return <p>loading... </p>
   }
@@ -70,8 +70,7 @@ const AppointmentSearchPage = () => {
     :
     (
       <AppointmentSearchResults
-        {...attrs}
-        providers={[]}
+        providers={providersWithAvailability}
         handleSelectTime={handleSelectTime}
       />
     ) 

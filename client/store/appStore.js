@@ -4,9 +4,9 @@ import appointmentsSlice from './appointmentStore'
 import patientsSlice from './patientStore'
 
 const useAppStore = create(
-  immer((set) => ({
-    'appointments': appointmentsSlice(set),
-    'patients': patientsSlice(set)
+  immer((...args) => ({
+    'appointments': appointmentsSlice(...args),
+    'patients': patientsSlice(...args)
   }))
 )
 
