@@ -1,9 +1,9 @@
 import {getPatients, getPatient} from './patients'
 import getPatientsMock from '../mocks/getPatients'
 import getPatientMock from '../mocks/getPatient'
-import { afterEach } from 'vitest'
 
 
+// TODO test the store, not the api so we can assert against state
 
 describe('patients API', () => {
   describe('getPatients', () => {
@@ -20,13 +20,11 @@ describe('patients API', () => {
   })
 
   describe('getPatient', () => {
-    it('fetches the patient details', async () => {
+    it('fetches the details for the ', async () => {
       fetch.mockResponseOnce(JSON.stringify(getPatientMock))
       
       const patients = await getPatient('1')
       expect(patients.length).toBe(1)
-      const patient = patients[0]
-      console.log(patient)
     })
   })
 })
