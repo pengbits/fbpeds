@@ -1,5 +1,4 @@
-import useFetch from "../hooks/useFetch"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import PatientList from "../components/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import {usePatientStore} from "../store/patients"
@@ -8,6 +7,7 @@ const PatientsPage = () => {
   const {
     patients,
     loading,
+    error,
     fetchPatients
   } = usePatientStore()
 
@@ -20,10 +20,11 @@ const PatientsPage = () => {
   
   return (
     <>
-      {loading ? <p>loading...</p> : <p>Ahoy</p>}
-      <p>{patients.map(p => {
-        return `${p}, `
-      })}</p>
+      {error && <ErrorMessage error={error} />}
+      {loading ? <p>loading... </p> : <PatientList patients={patients} />}
+      <a className="btn btn--large" 
+          href="/appointments/new">Book Your Next Appointment
+      </a>
     </>
   )
 }

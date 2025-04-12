@@ -1,5 +1,5 @@
 import { create } from "zustand";
-
+import {getPatients, getPatient} from '../api/patients'
 
 const initialState = {
   patient: {},
@@ -12,9 +12,15 @@ export const usePatientStore = create((set) => {
   return {
     ...initialState,
     fetchPatients: async () => {
-      set(state => ({...state, loading: true}))
-      const response = await new Promise(res => setTimeout(res, 1000, {data:[1,2,3]}))
-      set(state => ({...state, loading: false, patients: response.data}))
+      try {
+        set(state => ({...state, loading: true}))
+        const patients = await getPatients()
+        set(state => ({...state, patients}))
+      } catch(e){
+        set(state => ({...state, error:e}))
+      } finally {
+        set(state => ({...state, loading:false}))
+      }
     }
   }
 })
