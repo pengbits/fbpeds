@@ -10,9 +10,14 @@ const initialState = {
   fetchingAvailability:false
 }
 const k = 'appointments'
-const reducer = set => {
+const reducer = (set,get) => {
   return {
     ...initialState,
+
+    setAppointment: (attrs) => {
+      set(state => {state[k].appointment = attrs})
+    },
+    
     fetchProviderAvailability: async () => {
       set(state => {state[k].loading = true; state[k].fetchingAvailability = true })
       const providers = await getProviderAvailability()
