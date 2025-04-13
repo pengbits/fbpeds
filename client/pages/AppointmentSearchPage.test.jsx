@@ -67,11 +67,4 @@ describe('Appointments', () => {
       expect(slotElements.length).toBeGreaterThan(0)
     })
   })
-
-  // given  there is a patient_id, date and appt_type and a list of available times
-  // when   I click on a time slot
-  // then   it will send the appointment attrs to the server
-  // when   it loads
-  // then   there will be a new appointment associated with the patient
-  // expect(await screen.findByText('Your appointment has been created')).toBeInTheDocument()
 })

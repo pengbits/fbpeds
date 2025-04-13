@@ -12,8 +12,10 @@
 // createAppointment
 describe('Store', () => {
   describe('create appointment ', () => {
-    test.todo('given a provider_id, patient_id, visit_type and datetime')
-    test.todo('when I submit')
+    test.todo('given a provider_id, patient_id, visit_type and a list of available times')
+    test.todo('when I click on a time slot')
+    test.todo('then it will send the appointment attrs to the server')
+    test.todo('it loads')
     test.todo('the appointment will be created')
   })
 })
