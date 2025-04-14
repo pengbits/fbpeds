@@ -15,7 +15,7 @@ describe('Store', () => {
     test.todo('given a provider_id, patient_id, visit_type and a list of available times')
     test.todo('when I click on a time slot')
     test.todo('then it will send the appointment attrs to the server')
-    test.todo('it loads')
+    test.todo('when it loads')
     test.todo('the appointment will be created')
   })
 })
