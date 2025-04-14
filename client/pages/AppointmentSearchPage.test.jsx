@@ -1,9 +1,6 @@
 import { screen, render, act, fireEvent } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import AppointmentSearchPage from "./AppointmentSearchPage"
-import AppointmentSearchResults from '../components/appointments/AppointmentSearchResults'
 import getProviderAvailibilityMock from "../mocks/getProviderAvailibility"
-import createAppointmentMock from '../mocks/createAppointment'
 import { renderComponentWithRoute } from '../test/routerUtils'
 
 beforeEach(async () => {
@@ -38,8 +35,6 @@ describe('Appointments', () => {
       expect(screen.getByLabelText('Choose a Child').value).toBe('1')
       expect(screen.getByLabelText('Visit Type').value).toBe('WELL')
       expect(screen.getByLabelText('Date').value).toBe('2025-05-01')
-      
-      // fireEvent.click(screen.getByText('Search'))
     })
  
     // given  there is a patient_id, date and appt_type
@@ -72,11 +67,4 @@ describe('Appointments', () => {
       expect(slotElements.length).toBeGreaterThan(0)
     })
   })
-
-  // given  there is a patient_id, date and appt_type and a list of available times
-  // when   I click on a time slot
-  // then   it will send the appointment attrs to the server
-  // when   it loads
-  // then   there will be a new appointment associated with the patient
-  // expect(await screen.findByText('Your appointment has been created')).toBeInTheDocument()
 })
