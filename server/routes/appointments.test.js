@@ -24,9 +24,10 @@ describe('appointments', () => {
         .post('/api/appointments')
         .set('Accept', 'application/json')
         .send({
+          datetime: '04-04-2025T10:00',
+          visit_type: 'WELL',
           provider_id: 1,
           patient_id: 1,
-          datetime: '04-04-2025T10:00'
         })
         expect(res.status).toBe(201)
         const {body} = res;
@@ -35,6 +36,8 @@ describe('appointments', () => {
           datetime: expect.any(String),
           provider_id: expect.any(Number),
           patient_id: expect.any(Number),
+          visit_type: 'WELL'
+
         }))
     })
   })

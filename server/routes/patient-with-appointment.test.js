@@ -13,7 +13,7 @@ describe('patient with appointment', () => {
   it('given there is a patient_id, provider_id, visit_type and datetime', () => {
     attrs.patient_id = 2
     attrs.provider_id = 3
-    // attrs.visit_type= 'SICK'
+    attrs.visit_type= 'SICK'
     attrs.datetime = '2025-05-01T09:00'
   })
   it('when i post the attributes to /appointments', async () => {
@@ -30,7 +30,8 @@ describe('patient with appointment', () => {
           appointment_id: expect.any(Number),
           datetime: expect.any(String),
           patient_id: 2,
-          provider_id: 3
+          provider_id: 3,
+          visit_type:'SICK'
         }
       })
   })
