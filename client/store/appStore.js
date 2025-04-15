@@ -11,4 +11,3 @@ const useAppStore = create(
 )
 
 export default useAppStore
-// cam we export a vanilla version as well, for testing purposes?
