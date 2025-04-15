@@ -141,3 +141,12 @@ h1, h2 {
 .patient-tabs__head a.active {
   background-color: #CCC;
 }
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+td, th {
+  padding: 10px;
+}

@@ -18,12 +18,27 @@ const PatientDetails = ({
 
   const renderTabBody = (type, data) => {
     switch(type){
+      case 'growth':
+        return <>
+          <Table 
+            cols={['date','weight','weight_percent']}
+            rows={data}
+          />
+          <Table 
+            cols={['date','height','height_percent']}
+            rows={data}
+          />
+          </>
       case 'immunizations':
         return <Table 
           cols={['date','type']} 
           rows={data} 
         />
-        
+      case 'prescriptions':
+        return <Table 
+          cols={['date','name','directions']}
+          rows={data} 
+        />
       default:
         return <p>x</p>
     }

@@ -18,7 +18,7 @@ const TableBody = ({cols,rows}) => (
 )
 export const Table = ({cols,rows}) => {
   return (
-    <table border="1">
+    <table border="1" width="100%">
       <TableHead cols={cols} />
       <TableBody cols={cols} rows={rows} />
     </table>
