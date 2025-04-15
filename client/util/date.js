@@ -9,3 +9,7 @@ export const dateTimePretty = (datetime) => {
   const timePretty = dayjs(datetime).format('H:MM')
   return `${datePretty} at ${timePretty}`
 }
+
+export const birthdatePretty = date => {
+  return dayjs(date).format('MM-DD-YYYY')
+}

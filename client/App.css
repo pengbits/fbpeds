@@ -25,6 +25,7 @@ h1, h2 {
 }
 
 .patient,
+.patient-details,
 .provider {
   padding: 15px;
   background-color: #FFF;
@@ -86,7 +87,7 @@ h1, h2 {
   padding:15px;
   background-color: #FFF;
 }
-.availability {}
+
 .availability__date {
   font-size: 18px;
   line-height: 24px;
@@ -113,4 +114,8 @@ h1, h2 {
   background-color: #FFFFFF;
   color: #FF0000;
   max-width: 400px;
+}
+
+.patient-details h2 {
+  margin-left: 0;
 }

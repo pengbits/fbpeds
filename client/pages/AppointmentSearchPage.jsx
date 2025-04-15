@@ -34,7 +34,7 @@ const AppointmentSearchPage = () => {
   const isForm = !fetchingAvailability && !creatingAppointment
 
   const getAvailability = async (attrs) => {
-    console.log('getAvailability', attrs)
+    // console.log('getAvailability', attrs)
     setAppointment(attrs)
     await fetchProviderAvailability()
   }

@@ -23,6 +23,9 @@ const PatientsDetailsPage = () => {
   return (<>
     {error && <ErrorMessage error={error} />}
     {loading ? <p>loading...</p> : <PatientsDetails {...patient} />}
+     <a className="btn btn--large" 
+        href={`/appointments/new/patient/${params.id}`}>Book a Visit
+    </a>
   </>)
   
 }
