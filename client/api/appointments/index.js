@@ -6,7 +6,7 @@ export const getProviderAvailability = async (attrs) => {
 }
 
 export const createAppointment = async (attrs) => {
-  console.log(`API.createAppointment`, attrs)
+  // console.log(`API.createAppointment`, attrs)
   const url = `/api/appointments`
   const response = await fetch(url, {
     method:'POST',

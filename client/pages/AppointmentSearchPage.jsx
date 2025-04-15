@@ -35,7 +35,6 @@ const AppointmentSearchPage = () => {
 
   const getAvailability = async (attrs) => {
     setAppointment(attrs)
-    console.log(`getAvailability`, attrs)
     await fetchProviderAvailability()
   }
 
