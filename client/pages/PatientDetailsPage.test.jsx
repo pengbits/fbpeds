@@ -44,13 +44,25 @@ describe('Patients Page', () => {
         await userEvent.click(tab) 
         content = await screen.findByTestId('tabs-content')
       })
-      // {
-      //   immunization_id: 36,
-      //   date: '2019-10-10T04:00:00.000Z',
-      //   type: 'FLU-IIV4 6m+ pf'
-      // },
+      // { immunization_id: 36, date: '2019-10-10T04:00:00.000Z', type: 'FLU-IIV4 6m+ pf' },
       const entry = await within(content).findByText('Oct 10:FLU-IIV4 6m+ pf')
       expect(entry).toBeInTheDocument()
+    })
+  })
+
+  describe('setView(growth)', async () => {
+    it('fetches the growth data when I click on the tab', async () => {
+      // fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock))
+      
+      // await act(async() => {
+      //   tab = await screen.findByText('immunizations')
+      //   expect(tab).toBeInTheDocument()
+      //   await userEvent.click(tab) 
+      //   content = await screen.findByTestId('tabs-content')
+      // })
+      // { immunization_id: 36, date: '2019-10-10T04:00:00.000Z', type: 'FLU-IIV4 6m+ pf' },
+      // const entry = await within(content).findByText('Oct 10:FLU-IIV4 6m+ pf')
+      // expect(entry).toBeInTheDocument()
     })
   })
 })
