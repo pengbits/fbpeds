@@ -119,3 +119,25 @@ h1, h2 {
 .patient-details h2 {
   margin-left: 0;
 }
+.patient-tabs {
+  max-width: 400px;
+}
+.patient-tabs__head {
+  display: flex;
+  border: #CCC solid 1px;
+  justify-content: center;
+}
+.patient-tabs__head li {
+  list-style: none;
+}
+.patient-tabs__head a {
+  display: inline-block;
+  padding:10px 15px;
+  text-decoration: none;
+}
+.patient-tabs__head a:hover {
+  text-decoration: underline;
+}
+.patient-tabs__head a.active {
+  background-color: #CCC;
+}

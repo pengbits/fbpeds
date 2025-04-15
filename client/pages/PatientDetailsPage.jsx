@@ -7,10 +7,13 @@ import {ErrorMessage} from "../components/errors/ErrorMessage"
 const PatientsDetailsPage = () => {
 
   const {
-    patients,
+    patient,
     loading,
     error,
-    fetchPatient
+    fetchPatient,
+    view,
+    setView,
+    fetchView,
   } = useStore(state => state.patients)
   
   const params = useParams()
@@ -19,12 +22,27 @@ const PatientsDetailsPage = () => {
     fetchPatient(params.id)
   }, [])
 
-  const patient = patients.length ? patients[0] : {}
+  const handleSetView = (view) => {
+    // console.log(`Patient.handleSetView ${view}`)
+    setView(view) 
+    fetchView(view)
+  }
+  if(error) { 
+    return <ErrorMessage error={error} />
+  }
+
+  if(loading){
+    return <p>loading...</p>
+  }
+
   return (<>
-    {error && <ErrorMessage error={error} />}
-    {loading ? <p>loading...</p> : <PatientsDetails {...patient} />}
-     <a className="btn btn--large" 
-        href={`/appointments/new/patient/${params.id}`}>Book a Visit
+    <PatientsDetails 
+      {...patient}
+      setView={handleSetView} 
+      view={view}
+    />
+    <a className="btn btn--large" 
+      href={`/appointments/new/patient/${params.id}`}>Book a Visit
     </a>
   </>)
   

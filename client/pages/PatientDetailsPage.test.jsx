@@ -1,6 +1,7 @@
-import { screen, act, fireEvent } from '@testing-library/react'
+import { screen, act, fireEvent, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import getPatientMock from '../mocks/getPatient'
+import getPatientImmunizationsMock from '../mocks/getPatientImmunizations'
 import PatientDetailsPage from './PatientDetailsPage'
 import { renderComponentWithRoute } from '../test/routerUtils'
 
@@ -31,15 +32,25 @@ describe('Patients Page', () => {
     })
   })
 
-  describe('setView(immunizations)', () => {
-    it('updates the tabs to display immunizations data when clicked', async () => {
+  let container,content
+  describe('setView(immunizations)', async () => {
+    it('when I click on the immunizations tab', async () => {
       await act(async () => {
-        userEvent.click(screen.getByText('immunizations'))
+        await userEvent.click(screen.getByText('immunizations'))
       })
-      const container = screen.getByTestId('tabs-content-growth')
+    })
+    it('then the tabs will show a loading state', () => {
+      container = screen.getByTestId('tabs-content')
       expect(container).toBeInTheDocument()
-      const content = within(container).getByText('loading')
-      expect(content).toBeInTheDocument()
+      content = within(container).getByText('loading...')
+      expect(content).toBeInTheDocument()  
+    })
+    it('and it will fetch the data for the tab content', async () => {
+      fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock)) 
+      
+      await act(async () => {
+
+      })
     })
   })
 })
