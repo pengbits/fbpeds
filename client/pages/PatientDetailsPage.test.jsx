@@ -52,8 +52,10 @@ describe('Patients Page', () => {
 
   describe('setView(growth)', async () => {
     it('fetches the growth data when I click on the tab', async () => {
-      // fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock))
+      // fetch.mockResponseOnce(JSON.stringify(getPatientGrowthMock))
       
+      // TODO
+
       // await act(async() => {
       //   tab = await screen.findByText('immunizations')
       //   expect(tab).toBeInTheDocument()

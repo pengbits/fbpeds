@@ -1,6 +1,6 @@
 
 import { datePretty, birthdatePretty } from "../../util/date"
-
+import Table from "../tables/Table"
 
 const PatientDetails = ({
   name,
@@ -14,6 +14,19 @@ const PatientDetails = ({
     // console.log(`PatientDetails.handleSetView('${e.target.innerHTML}')`)
     e.preventDefault()
     setView(e.target.innerHTML)
+  }
+
+  const renderTabBody = (type, data) => {
+    switch(type){
+      case 'immunizations':
+        return <Table 
+          cols={['date','type']} 
+          rows={data} 
+        />
+        
+      default:
+        return <p>x</p>
+    }
   }
 
   return (<div className="patient-details">
@@ -33,9 +46,7 @@ const PatientDetails = ({
         </ul> 
         <div className="patient-tabs__body">
           <div data-testid="tabs-content">
-            {view.loading ? <p>loading... </p> : (view.data || []).map(row => {
-              return <p key={row.immunization_id}>{`${datePretty(row.date)}:${row.type}`}</p>
-            })}
+            {view.loading ? <p>loading... </p> : renderTabBody(view.type, view.data || [])}
           </div>
         </div>
       </div>
