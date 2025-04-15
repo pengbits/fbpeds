@@ -8,9 +8,9 @@ Appointment.prototype.read = async () => {
     return result.rows
 }
 
-Appointment.prototype.create = async ({datetime, provider_id, patient_id}) => {
-  if(!provider_id || !patient_id){
-    throw new Error('must provide patient_id and provider_id to appointment')
+Appointment.prototype.create = async ({datetime, provider_id, patient_id, visit_type}) => {
+  if(!datetime || !provider_id || !patient_id || !visit_type){
+    throw new Error('must provide datetime, patient_id, provider_id and visit_type to appointment')
   }
 
   // todo validate date
@@ -19,9 +19,9 @@ Appointment.prototype.create = async ({datetime, provider_id, patient_id}) => {
   }
 
   const result = await pool.query (
-    `INSERT INTO appointments (datetime, provider_id, patient_id)
-     VALUES ($1, $2, $3) RETURNING appointment_id, datetime, provider_id, patient_id`, 
-    [datetime, provider_id, patient_id]
+    `INSERT INTO appointments (datetime, visit_type, provider_id, patient_id)
+     VALUES ($1, $2, $3, $4) RETURNING appointment_id, datetime, visit_type, provider_id, patient_id`, 
+    [datetime, visit_type, provider_id, patient_id]
   )
   // console.log(result.rows)
   return result.rows
