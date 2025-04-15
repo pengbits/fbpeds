@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import { datePretty } from '../../util/date'
 import AppointmentProviderList from './AppointmentProviderList'
 
 
@@ -10,8 +10,7 @@ const AppointmentSearchResults = ({
   handleSelectTime
 }) => {
   const visitPretty = visit_type == 'SICK' ? 'Sick' : 'Well'
-  const datePretty = dayjs(date).format('MMM D')
-  const headerText = `${visitPretty} Visits in Brooklyn after ${datePretty} with any Provider`
+  const headerText = `${visitPretty} Visits in Brooklyn after ${datePretty(date)} with any Provider`
   return (
     <>
       <h2>{headerText}</h2>

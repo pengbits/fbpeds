@@ -1,6 +1,6 @@
 import ProviderAvailabilityListItem from '@/components/appointments/ProviderAvailabilityListItem'
+import { datePretty } from '../../util/date'
 
-import dayjs from "dayjs"
 const formattedStart = start => {
   let str = start.hours
   str += ':'
@@ -15,7 +15,7 @@ export default ({
   data-testid="provider-availability" 
   className="availability">
     <div className="availability__date">
-      {dayjs(date).format('MMM D')} 
+      {datePretty(date)} 
     </div>
     <div className="availability__slots">
       {slots.map(({start},i) => {

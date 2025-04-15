@@ -1,5 +1,4 @@
-import dayjs from "dayjs"
-
+import { datePretty,dateTimePretty } from "../../util/date"
 const PatientAppointmentsList = ({appointments}) => {
   if(!appointments || !appointments.length) return null
 
@@ -7,11 +6,8 @@ const PatientAppointmentsList = ({appointments}) => {
   <h4>Upcoming Appointments:</h4>
   <ul>
     {appointments.map(({datetime,provider_name,provider_id}) => {
-      const datePretty = dayjs(datetime).format('MMM DD')
-      const timePretty = dayjs(datetime).format('H:MM')
-      const key = provider_id+ '__'+dayjs(datetime).format('YYYY-MM-DDTHH:mm:ss')
-      // console.log(key)
-      return <li key={key}>Well visit on {datePretty} at {timePretty} with {provider_name}</li>
+      const key = `${provider_id}__${datePretty(datetime).replace(' ','__')}`
+      return <li key={key}>Well visit on {dateTimePretty(datetime)} with {provider_name}</li>
     })}
   </ul>
   </>)
