@@ -31,26 +31,26 @@ describe('Patients Page', () => {
       expect(screen.getByText('prescriptions')).toBeInTheDocument()
     })
   })
-
-  let container,content
+  
+  // getting this warning: The current testing environment is not configured to support act(...)
+  let container,content,tab;
   describe('setView(immunizations)', async () => {
-    it('when I click on the immunizations tab', async () => {
-      await act(async () => {
-        await userEvent.click(screen.getByText('immunizations'))
-      })
-    })
-    it('then the tabs will show a loading state', () => {
-      container = screen.getByTestId('tabs-content')
-      expect(container).toBeInTheDocument()
-      content = within(container).getByText('loading...')
-      expect(content).toBeInTheDocument()  
-    })
-    it('and it will fetch the data for the tab content', async () => {
-      fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock)) 
+    it('fetches the immunization data when I click on the tab', async () => {
+      fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock))
       
-      await act(async () => {
-
+      await act(async() => {
+        tab = await screen.findByText('immunizations')
+        expect(tab).toBeInTheDocument()
+        await userEvent.click(tab) 
+        content = await screen.findByTestId('tabs-content')
       })
+      // {
+      //   immunization_id: 36,
+      //   date: '2019-10-10T04:00:00.000Z',
+      //   type: 'FLU-IIV4 6m+ pf'
+      // },
+      const entry = await within(content).findByText('Oct 10:FLU-IIV4 6m+ pf')
+      expect(entry).toBeInTheDocument()
     })
   })
 })

@@ -11,6 +11,7 @@ const PatientDetails = ({
 }) => {
     
   const handleSetView = (e) => {
+    // console.log(`PatientDetails.handleSetView('${e.target.innerHTML}')`)
     e.preventDefault()
     setView(e.target.innerHTML)
   }
@@ -33,7 +34,7 @@ const PatientDetails = ({
         <div className="patient-tabs__body">
           <div data-testid="tabs-content">
             {view.loading ? <p>loading... </p> : (view.data || []).map(row => {
-              return <p key={row.immunization_id}>{datePretty(row.date)}{':'}{row.type}</p>
+              return <p key={row.immunization_id}>{`${datePretty(row.date)}:${row.type}`}</p>
             })}
           </div>
         </div>

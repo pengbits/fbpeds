@@ -1,7 +1,6 @@
 import {
   getPatients, 
-  getPatient,
-  getPatientImmunizations
+  getPatient
 } from '../api/patients'
 
 const initialState = {
@@ -77,19 +76,18 @@ const reducer = (set,get) => {
             state[k].view.loading = true
           })
 
-          if(type == 'immunizations'){ // getPatient(id, {include: type})
-            const data = await getPatientImmunizations(state_[k].patient.id)
-            if(data.length !== 1) throw new Error('expected data for one patient')
-              console.log(data[0][type])
-              set((state) => {
-              // store the data in cache
-              state[k].views[type] = {
-                'data' : data[0][type]
-              }
-              // store the data in active view
-              state[k].view.data = data[0][type]
-            })
-          }
+          const data = await getPatient(state_[k].patient.id, {include: type})
+          if(data.length !== 1) throw new Error('expected data for one patient')
+          if(!data[0][type])    throw new Error('bad response for '+type)
+
+          set((state) => {
+            // store the data in cache
+            state[k].views[type] = {
+              'data' : data[0][type]
+            }
+            // store the data in active view
+            state[k].view.data = data[0][type]
+          })
         }
       } catch(e) {
         set((state) => {state[k].view.error = e})

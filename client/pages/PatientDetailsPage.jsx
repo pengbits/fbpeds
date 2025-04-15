@@ -22,10 +22,10 @@ const PatientsDetailsPage = () => {
     fetchPatient(params.id)
   }, [])
 
-  const handleSetView = (view) => {
-    // console.log(`Patient.handleSetView ${view}`)
+  const handleSetView = async (view) => {
+    console.log(`Patient.handleSetView ${view}`)
     setView(view) 
-    fetchView(view)
+    await fetchView(view)
   }
   if(error) { 
     return <ErrorMessage error={error} />

@@ -15,11 +15,3 @@ export const getPatient = async (id, opts={}) => {
   return await response.json()
 }
 
-export const getPatientImmunizations = async (id) => {
-  // simulate latency
-  console.log(`API.getPatientImmunizations ${id}`)
-  await new Promise((res) => setTimeout(res, 1000))
-  const data = await  getPatient(id, {include:'immunizations'})
-  console.log(`API.getPatientImmunizations READY`)
-  return data
-}
