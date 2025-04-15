@@ -35,6 +35,7 @@ const AppointmentSearchPage = () => {
 
   const getAvailability = async (attrs) => {
     setAppointment(attrs)
+    console.log(`getAvailability`, attrs)
     await fetchProviderAvailability()
   }
 
@@ -46,6 +47,7 @@ const AppointmentSearchPage = () => {
     await createAppointment({
       provider_id: providerId,
       patient_id: appointment.patient_id,
+      visit_type: appointment.visit_type,
       datetime: `${appointment.date}T${time}`
     })
   }
