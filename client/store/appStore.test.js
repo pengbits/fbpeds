@@ -44,7 +44,6 @@ describe('Store', () => {
       await act(async () => {
         await getState(result).fetchProviderAvailability()
       })
-
     })
     
     test('then there will be a list of time slots', () => {
@@ -74,9 +73,9 @@ describe('Store', () => {
     })
 
     test('the appointment will be created', () => {
-      // a little odd to assert, but the form will be
-      // emptied of attributes on success - showing 
-      // the appointment happens in a different page
+      // this is a counter-inituitve assertion but the form 
+      // will be emptied of attributes on success...
+      // display of the new appointment happens in a different page
       expect(getState(result).appointment).toEqual({})
     })
   })
