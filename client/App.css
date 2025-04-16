@@ -34,8 +34,14 @@ h1, h2 {
   margin: 15px
 }
 
+.patient__head {
+  display: flex;
+  flex-direction: row;
+}
+
 .patient__image {
   margin-bottom: 15px;
+  margin-right: 15px;
   background-color: #ccc;
   width: 100px;
   height: 100px;

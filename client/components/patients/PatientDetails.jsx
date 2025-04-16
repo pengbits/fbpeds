@@ -17,7 +17,10 @@ const PatientDetails = ({
     setView(e.target.innerHTML)
   }
 
-  const renderTabBody = (type='growth', data) => {
+  const renderTabBody = (type, data) => {
+    if(!type || data.length == 0){
+      return null
+    }
     switch(type){
       case 'growth':
         return <>

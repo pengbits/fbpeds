@@ -65,13 +65,13 @@ const reducer = (set,get) => {
     fetchView: async (id = null) => {
       const state_ = get()
       const type = state_[k].view.type
-
+      const id_ = id || state_[k].patient.id
       try {
         // check cache
-        if(!!state_[k].views[type] && !!state_[k].views[type][id || state_[k].patient.id]){
+        if(!!state_[k].views[type] && !!state_[k].views[type][id_]){
           console.log(`fetchView(${type}) is in cache`)
           set((state) => {
-            state[k].view.data = state[k].views[type]
+            state[k].view.data = state[k].views[type][id_]
           })
         } 
         else {
@@ -79,7 +79,7 @@ const reducer = (set,get) => {
             state[k].view.loading = true
           })
 
-          const data = await getPatient(id || state_[k].patient.id, {include: type})
+          const data = await getPatient(id_, {include: type})
           if(data.length !== 1) throw new Error('expected data for one patient')
           if(!data[0][type])    throw new Error('bad response for '+type)
 
