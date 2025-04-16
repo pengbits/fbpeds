@@ -26,7 +26,8 @@ h1, h2 {
 
 .patient,
 .patient-details,
-.provider {
+.provider,
+.card {
   padding: 15px;
   background-color: #FFF;
   border: #999 solid 2px;
