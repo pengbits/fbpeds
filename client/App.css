@@ -124,16 +124,32 @@ h1, h2 {
 }
 .patient-tabs__head {
   display: flex;
-  border: #CCC solid 1px;
-  justify-content: center;
+  padding: 0;
+  border-bottom: #CCC solid 1px;
+  justify-content: center
 }
-.patient-tabs__head li {
+.patient-tabs__tab {
   list-style: none;
+  position: relative;
+  border-bottom: #CCC solid 1px;
+}
+.patient-tabs__tab::before {
+  content: '';
+  position: absolute;
+  border:  #FFF solid 1px;
+  left:0;
+  right:0;
+  bottom: -1px;
+}
+.patient-tabs__tab--active {
+  font-weight: bold;
+  border: #CCC solid 1px;
+  border-bottom:0;
 }
 .patient-tabs__head a {
   display: inline-block;
   padding:10px 15px;
-  text-decoration: none;
+  text-decoration: none;  color: #000;
 }
 .patient-tabs__head a:hover {
   text-decoration: underline;
@@ -149,4 +165,5 @@ table {
 
 td, th {
   padding: 10px;
+  border-color: #ccc;
 }

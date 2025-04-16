@@ -43,6 +43,7 @@ const PatientDetails = ({
         return <p>x</p>
     }
   }
+  console.log(view.type)
 
   return (<div className="patient-details">
     <div className="patient-details__head">
@@ -55,9 +56,15 @@ const PatientDetails = ({
     <div className="patient-details__body">
       <div className="patient-tabs">
         <ul className="patient-tabs__head">
-          <li><a onClick={handleSetView} href="#">growth</a></li>
-          <li><a onClick={handleSetView} href="#">immunizations</a></li>
-          <li><a onClick={handleSetView} href="#">prescriptions</a></li>
+          <li className={`patient-tabs__tab ${view.type == 'growth' ? 'patient-tabs__tab--active' : ''}`}>
+            <a onClick={handleSetView} href="#">growth</a>
+          </li>
+          <li className={`patient-tabs__tab ${view.type == 'immunizations' ? 'patient-tabs__tab--active' : ''}`}>
+            <a onClick={handleSetView} href="#">immunizations</a>
+          </li>
+          <li className={`patient-tabs__tab ${view.type == 'prescriptions' ? 'patient-tabs__tab--active' : ''}`}>
+            <a onClick={handleSetView} href="#">prescriptions</a>
+          </li>
         </ul> 
         <div className="patient-tabs__body">
           <div data-testid="tabs-content">
