@@ -2,7 +2,7 @@ import { datePretty } from "../../util/date"
 const TableHead = ({cols}) => (
   <thead>
     <tr>
-      {cols.map(c => <th key={c}>{c}</th>)}
+      {cols.map(c => <th key={c}>{c.replace('_',' ')}</th>)}
     </tr>
   </thead>
 )
