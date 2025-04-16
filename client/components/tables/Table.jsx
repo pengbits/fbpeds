@@ -8,7 +8,7 @@ const isBool = column => (is_bool_regex.test(column))
 const formattedCellContent = (column, value) => {
   if(isDate(column)) return datePretty(value)
   if(isBool(column)) return !!value ? '√' : null
-  console.log(column, isBool(column))
+  // console.log(column, isBool(column))
   return value
 }
 

@@ -68,10 +68,10 @@ const reducer = (set,get) => {
 
       try {
         // check cache
-        if(!!state_[k].views[type]){
+        if(!!state_[k].views[type] && !!state_[k].views[type][id || state_[k].patient.id]){
           console.log(`fetchView(${type}) is in cache`)
           set((state) => {
-            state[k].view.data = state[k].views[type].data
+            state[k].view.data = state[k].views[type]
           })
         } 
         else {
@@ -84,10 +84,11 @@ const reducer = (set,get) => {
           if(!data[0][type])    throw new Error('bad response for '+type)
 
           set((state) => {
-            // store the data in cache
+            // store the data in cache, under patient_id 
             state[k].views[type] = {
-              'data' : sortData(data[0][type], type)
+              [id || state_[k].patient.id ] : sortData(data[0][type], type)
             }
+
             // store the data in active view
             state[k].view.data = data[0][type]
           

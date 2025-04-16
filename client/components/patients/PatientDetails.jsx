@@ -18,7 +18,7 @@ const PatientDetails = ({
   }
 
   const renderTabBody = (type='growth', data) => {
-    console.log(data[data.length-1])
+    // console.log(data[data.length-1])
     switch(type){
       case 'growth':
         return <>
