@@ -1,6 +1,7 @@
 
 import { datePretty, birthdatePretty } from "../../util/date"
 import Table from "../tables/Table"
+import { view_types } from "../../store/patientStore"
 
 const PatientDetails = ({
   name,
@@ -39,6 +40,13 @@ const PatientDetails = ({
           cols={['date','name','directions']}
           rows={data} 
         />
+
+      case 'visits':
+        return <Table 
+          cols={['visit_date','visit_type','provider_id']}
+          rows={data} 
+        />
+
       default:
     }
   }
@@ -54,15 +62,11 @@ const PatientDetails = ({
     <div className="patient-details__body">
       <div className="patient-tabs">
         <ul className="patient-tabs__head">
-          <li className={`patient-tabs__tab ${view.type == 'growth' ? 'patient-tabs__tab--active' : ''}`}>
-            <a onClick={handleSetView} href="#">growth</a>
+          {view_types.map(viewType => (
+          <li className={`patient-tabs__tab ${view.type == viewType ? 'patient-tabs__tab--active' : ''}`}>
+            <a onClick={handleSetView} href="#">{viewType}</a>
           </li>
-          <li className={`patient-tabs__tab ${view.type == 'immunizations' ? 'patient-tabs__tab--active' : ''}`}>
-            <a onClick={handleSetView} href="#">immunizations</a>
-          </li>
-          <li className={`patient-tabs__tab ${view.type == 'prescriptions' ? 'patient-tabs__tab--active' : ''}`}>
-            <a onClick={handleSetView} href="#">prescriptions</a>
-          </li>
+          ))}
         </ul> 
         <div className="patient-tabs__body">
           <div data-testid="tabs-content">

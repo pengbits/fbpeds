@@ -15,10 +15,11 @@ const initialState = {
   views: {}
 }
 
-const view_types = [
+export const view_types = [
   'growth',
   'immunizations',
-  'prescriptions'
+  'prescriptions',
+  'visits'
 ]
 const k = 'patients'
 const reducer = (set,get) => {
