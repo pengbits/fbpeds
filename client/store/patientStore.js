@@ -68,7 +68,7 @@ const reducer = (set,get) => {
         if(!!state_[k].views[type]){
           console.log(`fetchView(${type}) is in cache`)
           set((state) => {
-            state.view.data = state.views[type].data
+            state[k].view.data = state[k].views[type].data
           })
         } 
         else {
