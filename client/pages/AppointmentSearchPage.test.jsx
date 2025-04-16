@@ -48,7 +48,7 @@ describe('Appointments', () => {
       await act(() => fireEvent.click(screen.getByText('Search')))
       
       // check header
-      expect(await screen.findByText('Sick Visits in Brooklyn after May 1 with any Provider')).toBeInTheDocument()
+      expect(await screen.findByText('Sick Visits in Brooklyn after May 1 2025 with any Provider')).toBeInTheDocument()
       // for each provider ...
       expect(screen.getByTestId('appointment-providers')).toBeInTheDocument()
       // check availability ...
