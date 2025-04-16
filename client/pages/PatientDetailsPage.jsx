@@ -25,7 +25,7 @@ const PatientsDetailsPage = () => {
   const handleSetView = async (view) => {
     console.log(`Patient.handleSetView ${view}`)
     setView(view) 
-    await fetchView(view)
+    await fetchView()
   }
   if(error) { 
     return <ErrorMessage error={error} />

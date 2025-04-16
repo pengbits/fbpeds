@@ -59,7 +59,6 @@ const reducer = (set,get) => {
       }
       set((state) => {
         state[k].view.type = view
-        state[k].view.loading = true
       })
     },
 
@@ -83,7 +82,7 @@ const reducer = (set,get) => {
           const data = await getPatient(id || state_[k].patient.id, {include: type})
           if(data.length !== 1) throw new Error('expected data for one patient')
           if(!data[0][type])    throw new Error('bad response for '+type)
-        
+
           set((state) => {
             // store the data in cache
             state[k].views[type] = {

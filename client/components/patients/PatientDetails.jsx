@@ -18,6 +18,7 @@ const PatientDetails = ({
   }
 
   const renderTabBody = (type='growth', data) => {
+    console.log(data[data.length-1])
     switch(type){
       case 'growth':
         return <>
@@ -43,7 +44,7 @@ const PatientDetails = ({
 
       case 'visits':
         return <Table 
-          cols={['visit_date','visit_type','provider_id']}
+          cols={['visit_date','visit_type','provider_id','has_image']}
           rows={data} 
         />
 
@@ -63,7 +64,7 @@ const PatientDetails = ({
       <div className="patient-tabs">
         <ul className="patient-tabs__head">
           {view_types.map(viewType => (
-          <li className={`patient-tabs__tab ${view.type == viewType ? 'patient-tabs__tab--active' : ''}`}>
+          <li key={viewType} className={`patient-tabs__tab ${view.type == viewType ? 'patient-tabs__tab--active' : ''}`}>
             <a onClick={handleSetView} href="#">{viewType}</a>
           </li>
           ))}

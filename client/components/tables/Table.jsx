@@ -1,4 +1,17 @@
 import { datePretty } from "../../util/date"
+
+const is_date_regex = /date$/
+const isDate = column => (is_date_regex.test(column))
+const is_bool_regex = /^has_/
+const isBool = column => (is_bool_regex.test(column))
+
+const formattedCellContent = (column, value) => {
+  if(isDate(column)) return datePretty(value)
+  if(isBool(column)) return !!value ? '√' : null
+  console.log(column, isBool(column))
+  return value
+}
+
 const TableHead = ({cols}) => (
   <thead>
     <tr>
@@ -11,7 +24,9 @@ const TableBody = ({cols,rows}) => (
   <tbody>
   {rows.map((row,idx) => (
     <tr key={idx}>
-      {cols.map(c => <td key={c}>{c == 'date' ? datePretty(row[c]) : row[c]}</td>)}
+      {cols.map(c => <td key={c}>
+        {formattedCellContent(c, row[c])}
+        </td>)}
     </tr>)
   )}
   </tbody>
