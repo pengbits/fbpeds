@@ -16,16 +16,16 @@ const PatientDetails = ({
     setView(e.target.innerHTML)
   }
 
-  const renderTabBody = (type, data) => {
+  const renderTabBody = (type='growth', data) => {
     switch(type){
       case 'growth':
         return <>
           <Table 
-            cols={['date','weight','weight_percent']}
+            cols={['date','age_years','weight','weight_percent']}
             rows={data}
           />
           <Table 
-            cols={['date','height','height_percent']}
+            cols={['date','age_years','height','height_percent']}
             rows={data}
           />
           </>
@@ -40,15 +40,13 @@ const PatientDetails = ({
           rows={data} 
         />
       default:
-        return <p>x</p>
     }
   }
-  console.log(view.type)
 
   return (<div className="patient-details">
     <div className="patient-details__head">
       <h2>{name}</h2>
-      <p>{birthdatePretty(birthdate)}</p>
+      <p><b>Birthdate</b><br />{birthdatePretty(birthdate)}</p>
       <div className="patient__image patient__image--large">
         <img alt="image of patient" src={image} />
       </div>

@@ -10,7 +10,6 @@ const PatientsDetailsPage = () => {
     patient,
     loading,
     error,
-    fetchPatient,
     view,
     setView,
     fetchView,
@@ -19,7 +18,8 @@ const PatientsDetailsPage = () => {
   const params = useParams()
 
   useEffect(() => {
-    fetchPatient(params.id)
+    setView('growth');
+    fetchView(params.id)
   }, [])
 
   const handleSetView = async (view) => {

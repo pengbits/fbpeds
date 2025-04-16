@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 
 export const datePretty = (date) => {
-  return dayjs(date).format('MMM D')
+  return dayjs(date).format('MMM D YYYY')
 }
 
 export const dateTimePretty = (datetime) => {

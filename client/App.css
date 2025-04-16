@@ -120,7 +120,8 @@ h1, h2 {
   margin-left: 0;
 }
 .patient-tabs {
-  max-width: 400px;
+  max-width: 500px;
+  min-height: 250px;
 }
 .patient-tabs__head {
   display: flex;
