@@ -18,7 +18,6 @@ const PatientDetails = ({
   }
 
   const renderTabBody = (type='growth', data) => {
-    // console.log(data[data.length-1])
     switch(type){
       case 'growth':
         return <>
@@ -71,7 +70,7 @@ const PatientDetails = ({
         </ul> 
         <div className="patient-tabs__body">
           <div data-testid="tabs-content">
-            {view.loading ? <p>loading... </p> : renderTabBody(view.type, view.data || [])}
+            {view.loading ? <p>loading... </p> : renderTabBody(view.type, (view.data || []))}
           </div>
         </div>
       </div>

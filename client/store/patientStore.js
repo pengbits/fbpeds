@@ -109,8 +109,20 @@ const reducer = (set,get) => {
     }
   }
 }
+
 export const sortData = (data, type) => {
-  return data
+  let sortBy = 'date'
+  let desc = true
+
+  // console.log('sortData '+type)
+  if(type == 'visits') { sortBy = 'visit_date'}
+
+  const sorted = !sortBy ? data : (
+    data.sort((a,b) => a[sortBy] < b[sortBy] ? -1 : 1)
+  )
+  const ordered = desc? sorted.reverse() : sorted
+  // console.log(ordered.map(o => `'${o.date}'`).join(","))
+  return ordered
 }
 
 export default reducer
