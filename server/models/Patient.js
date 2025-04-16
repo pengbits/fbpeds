@@ -212,6 +212,8 @@ Patient.prototype.findPrescriptions = async (id) => {
   const patient = {
     id: row.id,
     name: row.name,
+    birthdate: row.birthdate,
+    last_image: row.last_image,
     prescriptions: rows.map(p => ({
       date: p.date,
       name: p.prescription_name,
@@ -223,6 +225,6 @@ Patient.prototype.findPrescriptions = async (id) => {
 
     }))
   }
-  return [patient]
+  return [withImage(patient)]
 }
 module.exports = new Patient()
