@@ -123,7 +123,8 @@ Patient.prototype.find = async (id, opts={}) => {
       const {
         name,
         id,
-        birthdate
+        birthdate,
+        last_image
       } = (rows[0])
 
       // discard redundant attributes in each related record
@@ -138,10 +139,14 @@ Patient.prototype.find = async (id, opts={}) => {
         return related !== emptyObject && related[pk] !== null
       })
 
-      return [{
+      const patient_attrs = withImage({
         name,
         id,
         birthdate,
+        last_image
+      })
+      return [{
+        ...patient_attrs,
         [opts.include] : clean
       }]
     }
@@ -207,6 +212,8 @@ Patient.prototype.findPrescriptions = async (id) => {
   const patient = {
     id: row.id,
     name: row.name,
+    birthdate: row.birthdate,
+    last_image: row.last_image,
     prescriptions: rows.map(p => ({
       date: p.date,
       name: p.prescription_name,
@@ -218,6 +225,6 @@ Patient.prototype.findPrescriptions = async (id) => {
 
     }))
   }
-  return [patient]
+  return [withImage(patient)]
 }
 module.exports = new Patient()

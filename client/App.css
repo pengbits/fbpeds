@@ -25,6 +25,7 @@ h1, h2 {
 }
 
 .patient,
+.patient-details,
 .provider {
   padding: 15px;
   background-color: #FFF;
@@ -86,7 +87,7 @@ h1, h2 {
   padding:15px;
   background-color: #FFF;
 }
-.availability {}
+
 .availability__date {
   font-size: 18px;
   line-height: 24px;
@@ -113,4 +114,57 @@ h1, h2 {
   background-color: #FFFFFF;
   color: #FF0000;
   max-width: 400px;
+}
+
+.patient-details h2 {
+  margin-left: 0;
+}
+.patient-tabs {
+  max-width: 500px;
+  min-height: 250px;
+}
+.patient-tabs__head {
+  display: flex;
+  padding: 0;
+  border-bottom: #CCC solid 1px;
+  justify-content: center
+}
+.patient-tabs__tab {
+  list-style: none;
+  position: relative;
+  border-bottom: #CCC solid 1px;
+}
+.patient-tabs__tab::before {
+  content: '';
+  position: absolute;
+  border:  #FFF solid 1px;
+  left:0;
+  right:0;
+  bottom: -1px;
+}
+.patient-tabs__tab--active {
+  font-weight: bold;
+  border: #CCC solid 1px;
+  border-bottom:0;
+}
+.patient-tabs__head a {
+  display: inline-block;
+  padding:10px 15px;
+  text-decoration: none;  color: #000;
+}
+.patient-tabs__head a:hover {
+  text-decoration: underline;
+}
+.patient-tabs__head a.active {
+  background-color: #CCC;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+td, th {
+  padding: 10px;
+  border-color: #ccc;
 }

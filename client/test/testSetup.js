@@ -11,3 +11,4 @@ global.expectAttributes = (object, keys) => {
   const attrs = Object.keys(object)
   expect(attrs).toEqual(expect.arrayContaining(keys))
 }
+

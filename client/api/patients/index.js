@@ -7,9 +7,11 @@ export const getPatients = async () => {
   return json
 }
 
-export const getPatient = async (id) => {
-  const url = `/api/patients/${id}`
+export const getPatient = async (id, opts={}) => {
+  let url = `/api/patients/${id}`
+  if(opts.include) url = `${url}/${opts.include}`
   // console.log(`getPatient() ${url}`)
   const response = await fetch(url, {method:'GET'})
   return await response.json()
 }
+
