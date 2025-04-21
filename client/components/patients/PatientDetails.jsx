@@ -11,6 +11,7 @@ const PatientDetails = ({
   setView
 }) => {
     
+
   const handleSetView = (e) => {
     // console.log(`PatientDetails.handleSetView('${e.target.innerHTML}')`)
     e.preventDefault()

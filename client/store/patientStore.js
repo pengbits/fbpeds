@@ -37,7 +37,7 @@ const reducer = (set,get) => {
       }
     },
 
-    // wrote this first but  it makes more sense to 
+    // wrote this first but it makes more sense to 
     // fetch the initial view w/ patient data
     // as a single call when component first mounts
     fetchPatient: async (id) => {
@@ -75,24 +75,28 @@ const reducer = (set,get) => {
           })
         } 
         else {
+
+          console.log(`fetchView:${type} loading...`)
           set(state => {
             state[k].view.loading = true
           })
 
           const data = await getPatient(id_, {include: type})
+
           if(data.length !== 1) throw new Error('expected data for one patient')
           if(!data[0][type])    throw new Error('bad response for '+type)
 
           set((state) => {
             // store the data in cache, under patient_id 
             state[k].views[type] = {
-              [id || state_[k].patient.id ] : sortData(data[0][type], type)
+              [id_ ] : sortData(data[0][type], type)
             }
 
             // store the data in active view
             state[k].view.data = data[0][type]
           
             // update patient data in case this is first api call
+            console.log(data[0].name)
             state[k].patient = {
               id: data[0].id,
               name: data[0].name,
