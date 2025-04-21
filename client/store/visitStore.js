@@ -3,7 +3,7 @@ import {
 } from "../api/visits";
 
 const initialState = {
-  visit: {},
+  visit: null,
   visits:[],
   loading:false,
   error:false,
@@ -13,17 +13,12 @@ const reducer = (set,get) => {
   return {
     ...initialState,
 
-    setVisit: (attrs) => {
-      set(state => {state[k].visit = attrs})
-    },
-    
-    fetchVisit: async (patientId, visitId) => {
-      // const {} = get()[k]
+    fetchVisit: async ({id, visitId}) => {
       try {
         set(state => {
           state[k].loading = true; 
         })
-        const patients = await getVisit(patientId, visitId)
+        const patients = await getVisit(id, visitId)
         if(patients.length !== 1) throw new Error('unexpected json response')
         const {visits} = patients[0]
         if(visits.length !== 1 ) throw new Error('unexpected json response')

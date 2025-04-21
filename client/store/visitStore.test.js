@@ -31,7 +31,7 @@ describe('visit store', () => {
         'weight',
         'weight_percent',
         'bmi_percent',
-        'has_image'
+        'image'
       ])
 
     })

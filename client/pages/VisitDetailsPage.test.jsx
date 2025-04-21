@@ -1,14 +1,20 @@
 import { screen, render, act } from '@testing-library/react'
 import VisitDetailsPage from './VisitDetailsPage'
-import getVisitMock from '../mocks/getVisit'
+import {getVisitWithImage} from '../mocks/getVisit'
 import { renderComponentWithRoute } from '../test/routerUtils'
-import { afterEach, describe } from 'vitest'
+import { afterEach, describe, expect } from 'vitest'
 
 beforeEach(async () => {
-  // // fetch.resetMocks()
-  // fetch.mockResponseOnce(JSON.stringify(getProvidersMock))
-  // await renderComponentWithRoute(ProvidersPage)
-      
+  fetch.resetMocks()
+  vi.mock('react-router', async (importOriginal) => {
+    const module = await importOriginal()
+    return {
+      ...module,
+      useParams:() => {
+        return {id:'2',visitId:'143'}
+      }
+    }
+  })
 })
 
 afterEach(() => {
@@ -19,14 +25,14 @@ afterEach(() => {
 describe('Visit Details Page', () => {
   describe('getVisit()', () => {
     it('displays the visit details', async () => {
-      fetch.mockResponseOnce(JSON.stringify(getVisitMock))
-      await renderComponentWithRoute(VisitDetailsPage)
-      // expect(await screen.findByText('Well Visit')).toBeInTheDocument()
-      // const {length} = getProvidersMock
-      // expect(await screen.findAllByTestId('provider-entry')).toHaveLength(length)
+      fetch.mockResponseOnce(JSON.stringify(getVisitWithImage))
       
-      // const providersWithImage = getProvidersMock.filter(p => !!p.image)
-      // expect(await screen.findAllByAltText('image of provider')).toHaveLength(providersWithImage.length)
+      await renderComponentWithRoute(VisitDetailsPage)
+      expect(screen.getByText('Well Visit with Dr. Miyoko Onishi')).toBeInTheDocument()
+      expect(screen.getByText('Aug 26 2021')).toBeInTheDocument()
+      expect(screen.getByAltText('image of patient')).toBeInTheDocument()
+      expect(screen.getByText('50 in')).toBeInTheDocument()
+      expect(screen.getByText('61 lbs')).toBeInTheDocument()
     })  
 
    
