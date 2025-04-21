@@ -1,6 +1,8 @@
 import { datePretty } from "../../util/date"
+import { Link } from "react-router"
 
 export default ({
+  patientId,
   visit_type,
   visit_date,
   provider_name,
@@ -25,5 +27,5 @@ export default ({
       <b>Height</b><br />
       {`${height} in`}
     </p>}
-    
+    <Link to={`/patients/${patientId}`}>Back</Link>
 </div>)}
