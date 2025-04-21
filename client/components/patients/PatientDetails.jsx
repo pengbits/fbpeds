@@ -4,6 +4,7 @@ import Table from "../tables/Table"
 import { view_types } from "../../store/patientStore"
 
 const PatientDetails = ({
+  id,
   name,
   image,
   birthdate,
@@ -22,6 +23,8 @@ const PatientDetails = ({
     if(!type || data.length == 0){
       return null
     }
+    const baseUrl = `/patients/${id}`
+
     switch(type){
       case 'growth':
         return <>
@@ -47,8 +50,9 @@ const PatientDetails = ({
 
       case 'visits':
         return <Table 
-          cols={['visit_date','visit_type','provider_id','image']}
+          cols={['visit_date','visit_type','provider_name','image']}
           rows={data} 
+          baseUrl={baseUrl}
         />
 
       default:

@@ -14,16 +14,16 @@ export default ({
   return (<div className="visit card">
     <h3>{title}</h3>
     <h4>{datePretty(visit_date)}</h4>
-    <div className="patient__image patient__image--large">
-      {image && <img src={image} alt="image of patient" />}
-    </div>
-    <p>
+    {image && <div className="patient__image patient__image--large">
+      <img src={image} alt="image of patient" />}
+    </div>}
+    {weight && <p>
       <b>Weight</b><br />
       {`${weight} lbs`}
-    </p>
-    <p>
+    </p>}
+    {height && <p>
       <b>Height</b><br />
       {`${height} in`}
-    </p>
+    </p>}
     
 </div>)}
