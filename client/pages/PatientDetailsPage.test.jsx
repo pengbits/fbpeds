@@ -1,8 +1,9 @@
-import { screen, act, fireEvent, within } from '@testing-library/react'
+import { screen, act, fireEvent, within, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import getPatientMock from '../mocks/getPatient'
 import getPatientImmunizationsMock from '../mocks/getPatientImmunizations'
 import PatientDetailsPage from './PatientDetailsPage'
+import PatientDetails from '../components/patients/PatientDetails'
 import { renderComponentWithRoute } from '../test/routerUtils'
 
 
@@ -17,13 +18,19 @@ beforeEach(async () => {
       }
     }
   })
-  fetch.mockResponseOnce(JSON.stringify(getPatientMock))
-  await renderComponentWithRoute(PatientDetailsPage)
 })
 
-describe('Patients Page', () => {
+describe('Patient Details Page', () => {
   describe('getPatient()', () => {
     it('returns a detail view for the patient', async () => {
+      const patient = getPatientMock[0]
+      const handleSetViewMock = vi.fn()
+      render(<PatientDetails 
+          {...patient}
+          setView={handleSetViewMock}
+          view={{type:'growth'}}
+        />)
+
       expect(screen.getByText('Laila Paul')).toBeInTheDocument()
       expect(screen.getByText('08-12-2014')).toBeInTheDocument()
       expect(screen.getByText('growth')).toBeInTheDocument()
@@ -36,17 +43,19 @@ describe('Patients Page', () => {
   let container,content,tab;
   describe('setView(immunizations)', async () => {
     it('fetches the immunization data when I click on the tab', async () => {
-      fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock))
-      
+      fetch.mockResponseOnce(JSON.stringify(getPatientMock  ))
+      await renderComponentWithRoute(PatientDetailsPage)
+      fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock ))
+
       await act(async() => {
         tab = await screen.findByText('immunizations')
         expect(tab).toBeInTheDocument()
         await userEvent.click(tab) 
-        content = await screen.findByTestId('tabs-content')
       })
-      // { immunization_id: 36, date: '2019-10-10T04:00:00.000Z', type: 'FLU-IIV4 6m+ pf' },
-      const entry = await within(content).findByText('Oct 10:FLU-IIV4 6m+ pf')
-      expect(entry).toBeInTheDocument()
+
+      const entryDate = await screen.findByText('Aug 29 2019')
+      expect(entryDate).toBeInTheDocument()
+
     })
   })
 

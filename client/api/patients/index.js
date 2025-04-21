@@ -12,6 +12,7 @@ export const getPatient = async (id, opts={}) => {
   if(opts.include) url = `${url}/${opts.include}`
   // console.log(`getPatient() ${url}`)
   const response = await fetch(url, {method:'GET'})
-  return await response.json()
+  const data = await response.json()
+  return data
 }
 

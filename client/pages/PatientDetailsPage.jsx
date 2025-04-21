@@ -13,17 +13,18 @@ const PatientsDetailsPage = () => {
     view,
     setView,
     fetchView,
+    fetchPatient
   } = useStore(state => state.patients)
   
   const params = useParams()
 
   useEffect(() => {
-    setView('growth');
-    fetchView(params.id)
+    // setView('growth');
+    // fetchView(params.id)
+    fetchPatient(params.id)
   }, [])
 
   const handleSetView = async (view) => {
-    console.log(`Patient.handleSetView ${view}`)
     setView(view) 
     await fetchView()
   }

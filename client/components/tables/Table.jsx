@@ -2,12 +2,16 @@ import { datePretty } from "../../util/date"
 
 const is_date_regex = /date$/
 const isDate = column => (is_date_regex.test(column))
-const is_bool_regex = /^has_/
-const isBool = column => (is_bool_regex.test(column))
-
+// const is_bool_regex = /^has_/
+// const isBool = column => (is_bool_regex.test(column))
+const is_image_regex = /^image/
+const isImage = column => is_image_regex.test(column)
 const formattedCellContent = (column, value) => {
   if(isDate(column)) return datePretty(value)
-  if(isBool(column)) return !!value ? '√' : null
+  // if(isBool(column)) return !!value ? '√' : null
+  if(isImage(column)) return (
+    !!value && <a href={value} target="_blank">📷</a>
+  )
   // console.log(column, isBool(column))
   return value
 }
