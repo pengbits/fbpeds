@@ -17,7 +17,7 @@ export default ({
     <h3>{title}</h3>
     <h4>{datePretty(visit_date)}</h4>
     {image && <div className="patient__image patient__image--large">
-      <img src={image} alt="image of patient" />}
+      <img src={image} alt="image of patient" />
     </div>}
     {weight && <p>
       <b>Weight</b><br />
