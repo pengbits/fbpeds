@@ -12,6 +12,11 @@ const withImage = (patient) => {
   }
 }
 
+const withImageFromVisit = ({id, has_image, ...attrs}) => {
+  const image = has_image ? `/images/patients/${id}/${dayjs(attrs.visit_date).format('YYYY-MM-DD')}.png` : null
+  return {image, ...attrs}
+}
+
 Patient.prototype.read = async () => {
   const result = await pool.query(`SELECT 
     p.name as name, p.id as id, p.birthdate as birthdate, p.last_image as last_image, a.appointment_id as appointment_id,
@@ -140,12 +145,8 @@ Patient.prototype.find = async (id, opts={}) => {
       })
 
       const cleanWithImages = opts.include !== 'visits' ? clean : (
-        clean.map(({has_image, ...attrs}) => {
-          const image = has_image ? `/images/patients/${id}/${dayjs(attrs.visit_date).format('YYYY-MM-DD')}.png` : null
-          return {image, ...attrs}
-        })
+        clean.map(visit => withImageFromVisit({id, ...visit}))
       )
-
 
       const patient_attrs = withImage({
         name,
@@ -181,6 +182,7 @@ Patient.prototype.findVisit = async (id, visitId) => {
     throw new Error(' couldn\'t find a visit with id:'+visitId)
   }
   const row = rows[0]
+  const {image} = withImageFromVisit({id, ...row})
   const visits = [{
     visit_type: row.visit_type,
     visit_date: row.visit_date,
@@ -191,7 +193,7 @@ Patient.prototype.findVisit = async (id, visitId) => {
     weight: row.weight,
     weight_percent: row.weight_percent,
     bmi_percent: row.bmi_percent,
-    has_image: row.has_image
+    image
   }]
 
   const patient = {
