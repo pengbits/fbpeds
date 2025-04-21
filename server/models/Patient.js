@@ -139,6 +139,14 @@ Patient.prototype.find = async (id, opts={}) => {
         return related !== emptyObject && related[pk] !== null
       })
 
+      const cleanWithImages = opts.include !== 'visits' ? clean : (
+        clean.map(({has_image, ...attrs}) => {
+          const image = has_image ? `/images/patients/${id}/${dayjs(attrs.visit_date).format('YYYY-MM-DD')}.png` : null
+          return {image, ...attrs}
+        })
+      )
+
+
       const patient_attrs = withImage({
         name,
         id,
@@ -147,7 +155,7 @@ Patient.prototype.find = async (id, opts={}) => {
       })
       return [{
         ...patient_attrs,
-        [opts.include] : clean
+        [opts.include] : cleanWithImages
       }]
     }
 
