@@ -13,7 +13,8 @@ const PatientsDetailsPage = () => {
     view,
     setView,
     fetchView,
-    fetchPatient
+    fetchPatient,
+    resetView
   } = useStore(state => state.patients)
   
   const params = useParams()
@@ -22,6 +23,9 @@ const PatientsDetailsPage = () => {
     // setView('growth');
     // fetchView(params.id)
     fetchPatient(params.id)
+    return () => {
+      resetView()
+    }
   }, [])
 
   const handleSetView = async (view) => {

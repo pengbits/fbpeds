@@ -21,7 +21,7 @@ Patient.prototype.read = async () => {
   const result = await pool.query(`SELECT 
     p.name as name, p.id as id, p.birthdate as birthdate, p.last_image as last_image, a.appointment_id as appointment_id,
     a.provider_id as provider_id, a.patient_id as patient_id,
-    a.datetime as datetime, ps.name as provider_name
+    a.datetime as datetime, a.visit_type as visit_type, ps.name as provider_name
   FROM patients p
   LEFT JOIN appointments a
   ON a.patient_id = p.id
@@ -42,6 +42,7 @@ Patient.prototype.read = async () => {
       datetime,
       patient_id,
       appointment_id,
+      visit_type,
       provider_name
     } = row
 
@@ -72,7 +73,8 @@ Patient.prototype.read = async () => {
         memo[patient_id].appointments.push({
           datetime,
           provider_id,
-          provider_name
+          provider_name,
+          visit_type
         })
       } else {
         // console.log(`is an appt, no id found for ${patient_id}`)
@@ -84,7 +86,8 @@ Patient.prototype.read = async () => {
           appointments: [{
             datetime,
             provider_id,
-            provider_name
+            provider_name,
+            visit_type
           }]
         }
       }
