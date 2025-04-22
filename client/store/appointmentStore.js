@@ -1,6 +1,7 @@
 import { 
   getProviderAvailability, 
-  createAppointment 
+  createAppointment,
+  deleteAppointment 
 } from "../api/appointments";
 
 const initialState = {
@@ -10,7 +11,8 @@ const initialState = {
   loading:false,
   error:false,
   fetchingAvailability:false,
-  creatingAppointment:false
+  creatingAppointment:false,
+  deletingAppointment:false
 }
 const k = 'appointments'
 const reducer = (set,get) => {
@@ -54,6 +56,29 @@ const reducer = (set,get) => {
           state[k].loading = false; 
           state[k].fetchingAvailability = false
           state[k].appointment = {}
+        })
+      }
+    },
+
+    deleteAppointment: async({appointmentId,patientId}) => {
+      console.log(`appointmentStore.deleteAppt `, patientId, appointmentId)
+      try {
+        set(async (state) => {
+          state[k].loading = true; 
+          state[k].deletingAppointment = true
+          // TODO maybe this should return a promise?
+          state.patients.removeAppointmentFromPatient({
+            appointmentId,
+            patientId
+          })
+        })
+      } catch(e){
+        set(state => {state[k].error = e})
+      } finally {
+        set(state => {
+          state[k].loading = false; 
+          state[k].deletingAppointment = false
+          // console.log('call a patient reducer function from inside appointments, to keep list updated')
         })
       }
     }

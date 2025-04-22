@@ -1,11 +1,16 @@
 import { datePretty,dateTimePretty } from "../../util/date"
 import { visitTypePretty } from "../../util/string"
-
+import { deleteAppointment } from "../../api/appointments"
 const PatientAppointmentsList = ({appointments}) => {
   if(!appointments || !appointments.length) return null
-  const handleClick = (role) => {
-    console.log('handleClick:'+role)
+
+  const cancel = async (id) => {
+    if(confirm('Are you sure?')){
+      const res = await deleteAppointment(id)
+      console.log(res)
+    }
   }
+
   return (<div className="appointment-list">
     <h4>Upcoming Appointments:</h4>
     {appointments.map((a,idx) => {
@@ -19,7 +24,7 @@ const PatientAppointmentsList = ({appointments}) => {
           {headline}
         </span>
         <span className="appointment__options">
-          <a className="btn sm danger" href="#" onClick={e => handleClick('cancel')}>cancel</a>{' '}
+          <a className="btn sm danger" href="#" data-id={a.appointment_id} onClick={e => cancel(a.appointment_id)}>cancel</a>{' '}
           <a className="btn sm" href="#" onClick={e => handleClick('reschedule')}>reschedule</a>{' '}
         </span>
       </div>)

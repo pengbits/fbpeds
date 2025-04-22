@@ -74,7 +74,8 @@ Patient.prototype.read = async () => {
           datetime,
           provider_id,
           provider_name,
-          visit_type
+          visit_type,
+          appointment_id
         })
       } else {
         // console.log(`is an appt, no id found for ${patient_id}`)
@@ -87,7 +88,8 @@ Patient.prototype.read = async () => {
             datetime,
             provider_id,
             provider_name,
-            visit_type
+            visit_type,
+            appointment_id
           }]
         }
       }
