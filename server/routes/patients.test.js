@@ -69,7 +69,7 @@ describe('patients', () => {
         'weight',
         'weight_percent',
         'bmi_percent',
-        'has_image'
+        'image'
       ])
     })
   })
