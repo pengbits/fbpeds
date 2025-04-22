@@ -4,8 +4,17 @@ const Appointment = function(){
 }
 
 Appointment.prototype.read = async () => {
-    const result = await pool.query('SELECT * FROM appointments')
+    const result = await pool.query('SELECT * FROM appointments ORDER BY appointment_id ASC')
     return result.rows
+}
+
+Appointment.prototype.find = async (id) => {
+  const result = await pool.query('SELECT * FROM appointments WHERE appointment_id=$1', [id])
+  if(result.rows.length !== 1){
+    throw new Error('Expected 1 row for Appointment, found '+result.rows.length)
+  }
+  console.log(`found appt for ${id}`)
+  return result.rows
 }
 
 Appointment.prototype.create = async ({datetime, provider_id, patient_id, visit_type}) => {
@@ -66,6 +75,14 @@ Appointment.prototype.getMocks = () => {
 
   // reject some of the times as unvailable
   return formatted.filter(slot => (Math.random() < slot_available_ratio))
+}
+
+Appointment.prototype.delete = async (id) => {
+  await Appointment.prototype.find(id)
+  const sql = 'DELETE FROM appointments WHERE appointment_id=$1'
+  console.log(sql, [id])
+  const result = await pool.query(sql, [id])
+  return {success:true}
 }
 
 module.exports = new Appointment()

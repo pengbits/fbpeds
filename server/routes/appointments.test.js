@@ -37,8 +37,22 @@ describe('appointments', () => {
           provider_id: expect.any(Number),
           patient_id: expect.any(Number),
           visit_type: 'WELL'
-
         }))
+        let createdId = body.appointment.appointment_id
+        console.log(createdId)
+    })
+  })
+
+  describe('DELETE /appointments', () => {
+    it('removes the appointment from the db', async () => {
+      const {body} = await request(app)
+        .get('/api/appointments')
+
+      const last = body[body.length-1]
+
+      const res = await request(app)
+        .delete(`/api/appointments/${last.appointment_id}`)
+      expect(res.status).toBe(204)
     })
   })
 })

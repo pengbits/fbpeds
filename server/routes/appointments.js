@@ -23,4 +23,15 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete(`/:id`, async (req, res, next) => {
+  try {
+    const {id} = req.params
+    const {success} = await Appointment.delete(id)
+    res.status(204).send()
+  } catch(error){
+    console.log(error)
+    next(error)
+  }
+})
 module.exports = router
