@@ -34,4 +34,20 @@ router.delete(`/:id`, async (req, res, next) => {
     next(error)
   }
 })
+
+router.put(`/:id`, async (req, res, next) => {
+  try {
+    const {id} = req.params
+    const [attrs] = await Appointment.find(id)
+    const update = Object.assign({}, attrs, req.body)
+    const [updated] = await Appointment.update(id, update)
+    res.status(200).json({
+      success: true,
+      appointment: updated
+    })
+  } catch(error){
+    console.log(error)
+    next(error)
+  }
+})
 module.exports = router

@@ -38,12 +38,32 @@ describe('appointments', () => {
           patient_id: expect.any(Number),
           visit_type: 'WELL'
         }))
-        let createdId = body.appointment.appointment_id
-        console.log(createdId)
+    })
+  })
+  
+  describe('PUT /appointments/id', () => {
+    it('updates the appointment with new attributes', async() => {
+      const {body} = await request(app)
+        .get('/api/appointments')
+      const {length} = body;
+      const r = Math.floor(Math.random() * length)
+      const appt = body[r]
+      
+      const res = await request(app)
+        .put(`/api/appointments/${appt.appointment_id}`)
+        .set('Accept', 'application/json')
+        .send({
+          datetime: '06-01-2025T12:00',
+          provider_id: 1,
+          patient_id: 1,
+        })
+      expect(res.status).toBe(200)
+      expect(res.body.appointment.datetime).toBe("2025-06-01T16:00:00.000Z")
+
     })
   })
 
-  describe('DELETE /appointments', () => {
+  describe('DELETE /appointments/id', () => {
     it('removes the appointment from the db', async () => {
       const {body} = await request(app)
         .get('/api/appointments')
