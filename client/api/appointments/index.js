@@ -29,3 +29,8 @@ export const deleteAppointment = async (id) => {
 
   return {success:true, id}
 }
+
+export const updateAppointment = async({id, ...attrs}) => {
+  const url = `/api/appointments/${id}`
+  console.log(`API.updateAppointment`, id, attrs)
+}
