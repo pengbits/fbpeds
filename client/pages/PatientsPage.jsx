@@ -9,7 +9,7 @@ const PatientsPage = () => {
     loading,
     error,
     fetchPatients
-  } = useStore((state) => state.patients)
+  } = useStore((state) => state.patients) // useShallow to avoid extra renders?
 
   useEffect(() => {
     fetchPatients()

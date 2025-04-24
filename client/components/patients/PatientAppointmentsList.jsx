@@ -1,13 +1,17 @@
 import { datePretty,dateTimePretty } from "../../util/date"
 import { visitTypePretty } from "../../util/string"
-import { deleteAppointment } from "../../api/appointments"
-const PatientAppointmentsList = ({appointments}) => {
+import useAppStore from "../../store/appStore"
+const PatientAppointmentsList = ({appointments, patientId}) => {
   if(!appointments || !appointments.length) return null
-
-  const cancel = async (id) => {
+  
+  const {deleteAppointment} = useAppStore(state => state.appointments)
+  const {removeAppointmentFromPatient} = useAppStore(state => state.patients)
+  
+  const cancel = async (appointmentId) => {
     if(confirm('Are you sure?')){
-      const res = await deleteAppointment(id)
-      console.log(res)
+      await deleteAppointment({patientId,appointmentId})
+      removeAppointmentFromPatient({patientId,appointmentId})
+      // TODO test delete + create appt back to back, immer error
     }
   }
 

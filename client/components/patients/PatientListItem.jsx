@@ -23,7 +23,10 @@ export default (({id,name,image,appointments}) => (
     </div>
   </div>
   <div className="patient__footer">
-  <PatientAppointmentsList appointments={appointments} />
+  <PatientAppointmentsList 
+    patientId={id}
+    appointments={appointments} 
+  />
   </div>
   
 </div>))

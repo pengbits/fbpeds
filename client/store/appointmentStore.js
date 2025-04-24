@@ -66,12 +66,10 @@ const reducer = (set,get) => {
         set(async (state) => {
           state[k].loading = true; 
           state[k].deletingAppointment = true
-          // TODO maybe this should return a promise?
-          state.patients.removeAppointmentFromPatient({
-            appointmentId,
-            patientId
-          })
+          state[k].appointment = {}
+          await deleteAppointment(appointmentId)
         })
+        return true
       } catch(e){
         set(state => {state[k].error = e})
       } finally {

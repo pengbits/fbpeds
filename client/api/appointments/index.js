@@ -17,13 +17,15 @@ export const createAppointment = async (attrs) => {
 
 export const deleteAppointment = async (id) => {
   const url = `/api/appointments/${id}`
-  console.log(`API.deleteAppointment`, attrs)
+  console.log(`API.deleteAppointment`, id)
+
   const response = await fetch(url, {
       method: 'DELETE'
   })
-  if(response.status !== 204){
+
+  if(![200,204].includes(response.status)){
     throw new Error('unexpected response')
   }
-  console.log('DELETE ok')
+
   return {success:true, id}
 }
