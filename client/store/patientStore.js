@@ -44,11 +44,10 @@ const reducer = (set,get) => {
         set(state => {
           let idx=0
           const patient = state[k].patients.find((p,i) => {idx=i; return p.id == patientId})
-          console.log('before', patient.appointments.length)
+          // console.log('before', patient.appointments.length)
           const appointments = patient.appointments.filter(a => a.appointment_id !== appointmentId)
           state[k].patients[idx].appointments = appointments
-          console.log('after', state[k].patients[idx].appointments.length)
-          return state
+          // console.log('after', state[k].patients[idx].appointments.length)
         })
       } catch(e){
         set((state) => {state[k].error = e})

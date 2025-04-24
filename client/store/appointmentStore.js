@@ -63,20 +63,20 @@ const reducer = (set,get) => {
     deleteAppointment: async({appointmentId,patientId}) => {
       console.log(`appointmentStore.deleteAppt `, patientId, appointmentId)
       try {
-        set(async (state) => {
+        set((state) => {
           state[k].loading = true; 
           state[k].deletingAppointment = true
           state[k].appointment = {}
-          await deleteAppointment(appointmentId)
         })
-        return true
+        return deleteAppointment(appointmentId)
+        // return true
       } catch(e){
+        console.log(e)
         set(state => {state[k].error = e})
       } finally {
         set(state => {
           state[k].loading = false; 
           state[k].deletingAppointment = false
-          // console.log('call a patient reducer function from inside appointments, to keep list updated')
         })
       }
     }

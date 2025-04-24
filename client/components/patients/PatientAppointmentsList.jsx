@@ -9,9 +9,8 @@ const PatientAppointmentsList = ({appointments, patientId}) => {
   
   const cancel = async (appointmentId) => {
     if(confirm('Are you sure?')){
-      await deleteAppointment({patientId,appointmentId})
+      const res = await deleteAppointment({patientId,appointmentId})
       removeAppointmentFromPatient({patientId,appointmentId})
-      // TODO test delete + create appt back to back, immer error
     }
   }
 
