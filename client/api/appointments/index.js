@@ -24,13 +24,27 @@ export const deleteAppointment = async (id) => {
   })
 
   if(![200,204].includes(response.status)){
+    // vitest-fetch-mock only happy with 200 for some reason
     throw new Error('unexpected response')
   }
 
   return {success:true, id}
 }
 
-export const updateAppointment = async({id, ...attrs}) => {
+export const getAppointment = async (id) => {
   const url = `/api/appointments/${id}`
-  console.log(`API.updateAppointment`, id, attrs)
+  const response = await fetch(url)
+  return await response.json()
+}
+
+export const updateAppointment = async({appointment_id, ...attrs}) => {
+  const url = `/api/appointments/${appointment_id}`
+  console.log(`API.updateAppointment`, appointment_id, attrs)
+  if(!appointment_id) throw new Error('appointment_id is required to update appointment')
+  const response = await fetch(url, {
+      method: 'PUT',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(attrs)
+  })
+  return await response.json()
 }

@@ -40,8 +40,8 @@ Appointment.prototype.update = async (id, {datetime, patient_id, provider_id, vi
     throw new Error('must provide datetime, patient_id, provider_id and visit_type to and id of appointment to update')
   }
 
-  const sql = `UPDATE appointments SET  datetime=$1, patient_id=$2, provider_id=$3, visit_type=$4 WHERE appointment_id = $5 
-    RETURNING appointment_id, datetime, visit_type, provider_id, patient_id`
+  const sql = `UPDATE appointments SET  datetime=$1, provider_id=$2, patient_id=$3, visit_type=$4 WHERE appointment_id = $5 
+    RETURNING appointment_id, datetime, provider_id, patient_id, visit_type`
   console.log(sql, [datetime, provider_id, patient_id, visit_type, id])
   const result = await pool.query(sql, [datetime, provider_id, patient_id, visit_type, id])
   return result.rows

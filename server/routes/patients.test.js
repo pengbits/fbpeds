@@ -44,7 +44,7 @@ describe('patients', () => {
         'visit_type',
         'visit_date',
         'provider_id',
-        'has_image'
+        'image'
       ])
       expect(['WELL','SICK']).toContain(visit.visit_type)
     })

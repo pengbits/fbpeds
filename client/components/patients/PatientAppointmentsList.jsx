@@ -1,5 +1,6 @@
-import { datePretty,dateTimePretty } from "../../util/date"
+import { dateTimePretty } from "../../util/date"
 import { visitTypePretty } from "../../util/string"
+import { Link } from "react-router"
 import useAppStore from "../../store/appStore"
 const PatientAppointmentsList = ({appointments, patientId}) => {
   if(!appointments || !appointments.length) return null
@@ -28,7 +29,7 @@ const PatientAppointmentsList = ({appointments, patientId}) => {
         </span>
         <span className="appointment__options">
           <a className="btn sm danger" href="#" data-id={a.appointment_id} onClick={e => cancel(a.appointment_id)}>cancel</a>{' '}
-          <a className="btn sm" href="#" onClick={e => handleClick('reschedule')}>reschedule</a>{' '}
+          <Link className="btn sm" to={`/appointments/${a.appointment_id}/edit`}>reschedule</Link>
         </span>
       </div>)
     })}
