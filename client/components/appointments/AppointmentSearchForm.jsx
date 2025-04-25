@@ -1,6 +1,7 @@
 import { useState } from "react"
+import { dateTimePretty } from "../../util/date"
 
-const AppointmentForm = ({initialAttributes, getAvailability}) => {
+const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
 
   const handleChange = (e) => {
@@ -25,10 +26,17 @@ const AppointmentForm = ({initialAttributes, getAvailability}) => {
     {value:"WELL", label:'Well Visit'},
     {value:"SICK", label:'Sick Visit'}
   ]
-  
 
+  const title = (attrs) => {
+    if(!attrs.datetime) {
+      return 'New Appointment'
+    }
+
+    return `Reschedule Appointment on ${dateTimePretty(attrs.datetime)} with Provider x`
+  }
+  
   return (<div className="appointment-search">
-    <h3>New Appointment</h3>
+    <h3>{title(attrs)}</h3>
     <form onSubmit={handleSubmit} role="form">
       <p>
       <label htmlFor="patient_id">Choose a Child</label><br />
@@ -50,7 +58,7 @@ const AppointmentForm = ({initialAttributes, getAvailability}) => {
       </p>
       <p>
         <label htmlFor="date">Date</label><br />
-        <input type="date" id="date" onChange={handleChange} />
+        <input type="date" id="date" value={attrs.datetime} onChange={handleChange} />
       </p>
       <input type="submit" value="Search" />
     </form>

@@ -36,7 +36,7 @@ const reducer = (set,get) => {
           state[k].fetchingAvailability= false
           state[k].fetchingAppointment = true
         })
-        const appt = await getAppointment(id)
+        const [appt] = await getAppointment(id)
         console.log(appt)
         set(state => {state[k].appointment = appt})
       } catch(e){
@@ -81,7 +81,6 @@ const reducer = (set,get) => {
       } finally {
         set(state => {
           state[k].loading = false; 
-          state[k].fetchingAvailability = false
           state[k].appointment = {}
         })
       }
