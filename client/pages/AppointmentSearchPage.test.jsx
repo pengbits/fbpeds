@@ -4,13 +4,12 @@ import getProviderAvailibilityMock from "../mocks/getProviderAvailibility"
 import { renderComponentWithRoute } from '../test/routerUtils'
 
 beforeEach(async () => {
-  // // fetch.resetMocks()
-  // vi.resetMocks()
+  fetch.resetMocks()
   // fetch.mockResponseOnce(JSON.stringify(getProvidersMock)) 
 })
 
 afterEach(() => {
-  fetch.resetMocks()
+  // fetch.resetMocks()
   vi.restoreAllMocks()
 })
 

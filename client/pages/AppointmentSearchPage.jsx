@@ -1,20 +1,14 @@
-import { useState,  } from "react"
-import { useParams, redirect, useNavigate, Link } from "react-router"
-import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
-import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
-import useStore from "../store/appStore"
+import { useParams } from "react-router"
 
-// .post('/api/appointments')
-//   .set('Accept', 'application/json')
-//   .send({
-//     provider_id: 1,
-//     patient_id: 1,
-//     datetime: '04-04-2025T10:00'
-//   })
+import AppointmentSearchResults from "../components/appointments/AppointmentSearchResults"
+import AppointmentSearchCreatePage from "./AppointmentSearchCreatePage"
+import AppointmentSearchEditPage from "./AppointmentSearchEditPage"
+import useStore from "../store/appStore"
+import { createAppointment, updateAppointment } from "../api/appointments"
+
 
 
 const AppointmentSearchPage = () => {
-  const navigate = useNavigate()
 
   const {
     loading, 
@@ -25,13 +19,13 @@ const AppointmentSearchPage = () => {
     fetchingAvailability,
     providersWithAvailability,
     createAppointment,
-    creatingAppointment
+    updateAppointment
     } = useStore(state => state.appointments)
 
-  const {patientId} = useParams()
-  // this is unsetting form state
-  const initialAttributes =  patientId ? {patient_id:patientId} : {}
-  const isForm = !fetchingAvailability && !creatingAppointment
+  const {patientId,appointmentId} = useParams()
+  let initialAttributes = {}
+  initialAttributes.patient_id     = patientId ? patientId : ''
+  initialAttributes.appointment_id = appointmentId ? appointmentId : null
 
   const getAvailability = async (attrs) => {
     // console.log('getAvailability', attrs)
@@ -39,55 +33,55 @@ const AppointmentSearchPage = () => {
     await fetchProviderAvailability()
   }
 
-  const handleSelectTime = async (e) => {
+  // need to know if we are creating or updating here
+  const handleSelectTime = async (e, onSelectTime) => {
     e.preventDefault()
     
     const time        = e.target.getAttribute('data-time')
     const providerId  = e.target.getAttribute('data-provider-id')
-    await createAppointment({
+    let attrs = {
       provider_id: providerId,
       patient_id: appointment.patient_id,
       visit_type: appointment.visit_type,
       datetime: `${appointment.date}T${time}`
-    })
+    }
+    if(!appointmentId){
+      await createAppointment(attrs)
+    } else {
+      await updateAppointment({appointment_id: appointmentId, ...attrs})
+    }
   }
 
-  
-  // console.log('render', {
-  //   loading,
-  //   error,
-  //   isForm,
-  //   fetchingAvailability,
-  //   creatingAppointment
-  // })
 
   if(loading) {
     return <p>loading... </p>
   }
-
-  if(error){
-    return <p style={{border:'red solid 2px', color:'red'}}>{error.message}</p>
-  }
-  if(!loading && creatingAppointment){
-    // return navigate('/patients')
-
-    return <p>success! <a href="/patients">Home</a></p>
-  }
   else {
-    return isForm ? (
-      <AppointmentSearchForm
-        initialAttributes={initialAttributes}
-        getAvailability={getAvailability}
-      />
-    )
-    :
-    (
-      <AppointmentSearchResults
-        providers={providersWithAvailability}
-        {...appointment}
-        handleSelectTime={handleSelectTime}
-      />
-    ) 
+    if(fetchingAvailability ) {
+      return (
+        <AppointmentSearchResults
+          providers={providersWithAvailability}
+          handleSelectTime={handleSelectTime}
+          {...appointment}
+        />
+      )
+    } else if(error){
+      return <p style={{border:'red solid 2px', color:'red'}}>{error.message}</p>
+    } else if(appointmentId) {
+      return (
+        <AppointmentSearchEditPage
+          initialAttributes={initialAttributes}
+          getAvailability={getAvailability}
+        />
+      )
+    } else {
+      return (
+        <AppointmentSearchCreatePage
+          initialAttributes={initialAttributes}
+          getAvailability={getAvailability}
+        />
+      )
+    }
   }
 }
 
