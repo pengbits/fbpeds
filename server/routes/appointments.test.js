@@ -21,13 +21,14 @@ describe('appointments', () => {
   describe('GET /appointments/:id', () => {
     it('returns the details for the appointment', async () => {
       const {body} = await request(app)
-        .get('/api/appointments/451')
+        .get('/api/appointments/510')
 
       expect(body.length).toBe(1)
       expectAttributes(body[0], [
         'appointment_id',
         'datetime',
         'provider_id',
+        'provider_name',
         'patient_id'
       ])
     })

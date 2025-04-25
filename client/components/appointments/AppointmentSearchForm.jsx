@@ -32,7 +32,7 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
       return 'New Appointment'
     }
 
-    return `Reschedule Appointment on ${dateTimePretty(attrs.datetime)} with Provider x`
+    return `Reschedule Appointment on ${dateTimePretty(attrs.datetime)} with  ${attrs.provider_name}`
   }
   
   return (<div className="appointment-search">

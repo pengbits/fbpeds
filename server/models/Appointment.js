@@ -9,7 +9,12 @@ Appointment.prototype.read = async () => {
 }
 
 Appointment.prototype.find = async (id) => {
-  const result = await pool.query('SELECT * FROM appointments WHERE appointment_id=$1', [id])
+  const sql = `
+  SELECT a.appointment_id as appointment_id, a.datetime as datetime, a.patient_id as patient_id, 
+         a.provider_id as provider_id, p.name as provider_name, a.visit_type as visit_type
+  FROM appointments a JOIN providers p ON a.provider_id=p.id WHERE appointment_id=$1`
+  console.log(sql, [id])
+  const result = await pool.query(sql, [id])
   if(result.rows.length !== 1){
     throw new Error('Expected 1 row for Appointment, found '+result.rows.length)
   }
