@@ -9,7 +9,6 @@ const AppointmentSearchCreatePage = ({initialAttributes,getAvailability}) => {
   } = useStore(state => state.appointments)
   
   if(!fetchingAvailability && !creatingAppointment){
-    console.log(initialAttributes)
     return (<AppointmentSearchForm
       initialAttributes={initialAttributes}
       getAvailability={getAvailability}
