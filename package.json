@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./server/bin/www -w server",
+    "prod": "NODE_ENV=production node ./server/bin/www",
+    "build": "npx vite build",
     "test:server": "jest ./server --watchAll --detectOpenHandles",
     "test:client": "vitest client",
     "test": "vitest client"

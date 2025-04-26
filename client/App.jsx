@@ -1,17 +1,41 @@
 import { Outlet } from "react-router";
-import { Link } from "react-router";
-
+import { useState,useEffect } from "react";
 import "./App.css"
-
+import Header from "./components/app/header";
 
 function App() {
+  const [user, setUser] = useState(null)
+  
+  const syncUser = async (url) => {
+    const res = await fetch(url)
+    const {user} = await res.json()
+    setUser(user)
+  }
+  
+  const fetchUser = () => {
+    syncUser('/user')
+  }
+  const clearUser = () => {
+    syncUser('/logout-user')
+  }
+
+  useEffect(() => {
+    fetchUser()
+    console.log()
+  }, [])
+  
+  const handleLogout = () => {
+    clearUser()
+  }
+
   return (<>
-    <header className="header">
-      <h1><Link to="/">Flatbush Pediatrics</Link></h1>
-    </header>
-    <main className="content">
+    <Header user={user} logout={handleLogout} />
+    {user && <main className="content">
       <Outlet />
-    </main>
+    </main>}
+    {!user && <p>
+      You must log in to access the portal. <a href="/login">Log in.</a>
+    </p>}
   </>)
 }
 

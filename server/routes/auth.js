@@ -3,19 +3,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var crypto = require('crypto');
 var User = require('../models/User')
-var {Buffer} = require('node:buffer')
 
-/* Configure password authentication strategy.
- *
- * The `LocalStrategy` authenticates users by verifying a username and password.
- * The strategy parses the username and password from the request and calls the
- * `verify` function.
- *
- * The `verify` function queries the database for the user record and verifies
- * the password by hashing the password supplied by the user and comparing it to
- * the hashed password stored in the database.  If the comparison succeeds, the
- * user is authenticated; otherwise, not.
- */
 passport.use(new LocalStrategy(function verify(username, password, cb) {
   User.findByUsername(username)
     .then(rows => {
@@ -29,9 +17,7 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
     .then(row => {
       crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
         if (err) { return cb(err); }
-        // this is failing in all cases
 
-        console.log(crypto.timingSafeEqual(row.hashed_password, hashedPassword))
         if (!crypto.timingSafeEqual(row.hashed_password, hashedPassword)) {
           console.log('bad password')
           return cb(null, false, { message: 'Incorrect username or password.' });
@@ -42,9 +28,7 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
     })
     .catch(e => {
       return cb(e);
-    })
-  
-  
+    })  
 }));
 
 
@@ -111,5 +95,6 @@ router.post('/signup', function(req, res, next) {
     })
   });
 });
+
 
 module.exports = router;
