@@ -15,9 +15,45 @@
   padding-top: 15px;
 }
 .header h1 {
+  margin-bottom: 0;
   font-size: 20px;
   font-weight: normal;
 }
+.header h1 a {
+  text-decoration: none;
+}
+.header h1 a:hover {
+  text-decoration: underline
+}
+
+.nav ul {
+  margin:0;
+  padding: 10px 15px;
+  display: flex;
+}
+.nav li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav li a {
+  display: block;
+  padding: 5px 10px 5px 0;
+  text-decoration: none;
+  color: #0000FF;
+}
+.nav li a:hover {
+  color: #0303cc;
+  text-decoration: underline;
+}
+
+.nav li.active a,
+.nav li.active a:hover {
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
 .user {
   position: absolute;
   top:5px;
@@ -65,8 +101,12 @@ h1, h2 {
   top:-25%
 }
 
-
-.appointment-list {}
+.patient-details .patient__image {
+  @media screen and (max-width:640px){
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 .appointment__headline {
   display: block;
   margin-right: 10px;

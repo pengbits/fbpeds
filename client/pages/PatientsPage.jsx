@@ -20,6 +20,7 @@ const PatientsPage = () => {
   
   return (
     <>
+      <h2>Patients</h2>
       {error && <ErrorMessage error={error} />}
       {loading ? <p>loading... </p> : <PatientList patients={patients} />}
       <a className="btn btn--large" 
