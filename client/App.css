@@ -101,8 +101,12 @@ h1, h2 {
   top:-25%
 }
 
-
-.appointment-list {}
+.patient-details .patient__image {
+  @media screen and (max-width:640px){
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 .appointment__headline {
   display: block;
   margin-right: 10px;
