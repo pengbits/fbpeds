@@ -1,17 +1,28 @@
 import { Outlet } from "react-router";
-import { Link } from "react-router";
-
+import { useState,useEffect } from "react";
 import "./App.css"
-
+import Header from "./components/app/header";
+import useUser from './hooks/useUser'
 
 function App() {
+  const {
+    user,
+    fetchUser,
+    clearUser
+  } = useUser()
+  
+  useEffect(() => {
+    fetchUser()
+  }, [])
+
   return (<>
-    <header className="header">
-      <h1><Link to="/">Flatbush Pediatrics</Link></h1>
-    </header>
-    <main className="content">
+    <Header user={user} logout={clearUser} />
+    {user && <main className="content">
       <Outlet />
-    </main>
+    </main>}
+    {!user && <p>
+      You must log in to access the portal. <a href="/login">Log in.</a>
+    </p>}
   </>)
 }
 
