@@ -20,9 +20,9 @@ const PatientsDetailsPage = () => {
   const params = useParams()
 
   useEffect(() => {
-    // setView('growth');
-    // fetchView(params.id)
-    fetchPatient(params.id)
+    setView('growth');
+    fetchView(params.id)
+    // fetchPatient(params.id)
     return () => {
       resetView()
     }
