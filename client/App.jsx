@@ -2,34 +2,21 @@ import { Outlet } from "react-router";
 import { useState,useEffect } from "react";
 import "./App.css"
 import Header from "./components/app/header";
+import useUser from './hooks/useUser'
 
 function App() {
-  const [user, setUser] = useState(null)
+  const {
+    user,
+    fetchUser,
+    clearUser
+  } = useUser()
   
-  const syncUser = async (url) => {
-    const res = await fetch(url)
-    const {user} = await res.json()
-    setUser(user)
-  }
-  
-  const fetchUser = () => {
-    syncUser('/user')
-  }
-  const clearUser = () => {
-    syncUser('/logout-user')
-  }
-
   useEffect(() => {
     fetchUser()
-    console.log()
   }, [])
-  
-  const handleLogout = () => {
-    clearUser()
-  }
 
   return (<>
-    <Header user={user} logout={handleLogout} />
+    <Header user={user} logout={clearUser} />
     {user && <main className="content">
       <Outlet />
     </main>}
