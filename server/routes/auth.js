@@ -30,7 +30,9 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
       crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
         if (err) { return cb(err); }
         // this is failing in all cases
-        if (!crypto.timingSafeEqual(Buffer.from(row.hashed_password,'hex'), Buffer.from(hashedPassword,'hex'))) {
+
+        console.log(crypto.timingSafeEqual(row.hashed_password, hashedPassword))
+        if (!crypto.timingSafeEqual(row.hashed_password, hashedPassword)) {
           console.log('bad password')
           return cb(null, false, { message: 'Incorrect username or password.' });
         }
@@ -92,8 +94,8 @@ router.post('/signup', function(req, res, next) {
     if (err) { return next(err); }
     User.create({
       username: req.body.username,
-      hashedPassword: hashedPassword.toString('hex'),
-      salt: salt.toString('hex')
+      hashedPassword,
+      salt
     }).then(([row]) => {
       console.log('inserted user', row)
       var user = {
