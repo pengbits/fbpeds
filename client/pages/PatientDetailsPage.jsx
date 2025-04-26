@@ -41,6 +41,7 @@ const PatientsDetailsPage = () => {
   }
 
   return (<>
+    <h2>Patients</h2>
     <PatientsDetails 
       {...patient}
       setView={handleSetView} 

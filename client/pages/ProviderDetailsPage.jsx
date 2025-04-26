@@ -1,33 +1,33 @@
 import { useParams } from "react-router"
 import { useEffect } from "react"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
+import ProviderDetails from "../components/providers/ProviderDetails"
 import useStore from "../store/appStore"
-import VisitDetailsCard from "../components/visits/VisitDetailsCard"
 
-const VisitDetailsPage = () => {
+const ProviderDetailsPage = () => {
   const {
-    visit,
+    provider,
     loading,
     error,
-    fetchVisit
-  } = useStore((state) => state.visits)
+    fetchProvider
+  } = useStore((state) => state.providers)
   
   const params = useParams()
 
   useEffect(() => {
-    if(params.id && params.visitId) {
-      fetchVisit(params)
+    if(params.id) {
+      fetchProvider(params.id)
     }
   }, [])
 
   
   return (
     <>
-      <h2>Patients</h2>
+      <h2>Providers</h2>
       {error && <ErrorMessage error={error} />}
       {loading ? <p>loading... </p> : 
-          visit ? <VisitDetailsCard patientId={params.id} {...visit} /> : null}
+          provider ? <ProviderDetails {...provider} /> : null}
     </>
   )
 }
-export default VisitDetailsPage
+export default ProviderDetailsPage
