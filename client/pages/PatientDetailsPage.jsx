@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import useStore from "../store/appStore"
 import PatientsDetails from "../components/patients/PatientDetails"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
-import { Heading, Button } from "@radix-ui/themes"
+import { Heading, Button , Box} from "@radix-ui/themes"
 const PatientsDetailsPage = () => {
 
   const {
@@ -47,11 +47,13 @@ const PatientsDetailsPage = () => {
       setView={handleSetView} 
       view={view}
     />
+    <Box className='footer-actions'>
     <Button size="3" asChild>
       <Link
         to={`/appointments/new/patient/${params.id}`}>Book a Visit
       </Link>
-    </Button>
+    </Button></Box>
+      
   </>)
   
 }

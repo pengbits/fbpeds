@@ -36,7 +36,8 @@
   text-decoration: none;
 }
 
-.card, .card + .rt-Button {
+.footer-actions,
+.card {
   margin: 15px
 }
 
