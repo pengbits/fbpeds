@@ -10,14 +10,14 @@ router.get('/portal', ensureLogIn(), function(req, res, next) {
   res.render('index', { user: req.user });
 });
 
-router.get('/user', function(req, res, next) {
+router.get('/user', function(req, res) {
   if (!req.user) { 
     res.json({user:null})
   }
-  next();
-}, function(req, res) {
+  else {
     res.json({user:req.user})
-});
+  }
+})
 
 router.get('/logout-user', function(req, res, next) {
   req.logout(function(err) {
