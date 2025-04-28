@@ -33,6 +33,7 @@
     "vite-express": "^0.20.0"
   },
   "devDependencies": {
+    "@radix-ui/themes": "^3.2.1",
     "@rollup/plugin-alias": "^5.1.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
