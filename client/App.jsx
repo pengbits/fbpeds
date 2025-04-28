@@ -5,7 +5,7 @@ import "@radix-ui/themes/styles.css";
 import Header from "./components/app/header";
 import Nav from "./components/app/nav"
 import useUser from './hooks/useUser'
-import { Theme } from "@radix-ui/themes";
+import { Theme, Container, Text, Link } from "@radix-ui/themes";
 
 function App() {
   const {
@@ -20,15 +20,17 @@ function App() {
 
   return (<>
   <Theme>
-    <Header user={user} logout={clearUser} />
-    <Nav />
-    {user && <main className="content">
-      <Outlet />
-    </main>}
-    {!user && <p>
-      You must log in to access the portal. <a href="/login">Log in.</a>
-    </p>}
-    </Theme>
+    <Container size="3" className="container">
+      <Header user={user} logout={clearUser} />
+      <Nav />
+      {user && <main className="content">
+        <Outlet />
+      </main>}
+      {!user && <Text as='p'>
+        You must log in to access the portal. <Link href="/login">Log in.</Link>
+      </Text>}
+    </Container>
+  </Theme>
   </>)
 }
 

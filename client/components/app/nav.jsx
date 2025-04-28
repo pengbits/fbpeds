@@ -1,16 +1,14 @@
 import { Link, useLocation } from "react-router"
-
+import { TabNav, Box } from "@radix-ui/themes"
 export default () => {
   const {pathname}  = useLocation()
   const isPatients  = (pathname.indexOf('/patients') > -1)
   const isProviders = (pathname.indexOf('/providers') > -1)
   
-  return (
-    <nav className="nav">
-      <ul>
-        <li className={isPatients ? 'active':''}><Link to="/patients">Patient Portal</Link></li>
-        <li className={isProviders ? 'active':''}><Link to="/providers">Providers</Link></li>
-      </ul>
-    </nav>
-  )
+  return (<Box mb='3'>
+    <TabNav.Root>
+      <TabNav.Link active={isPatients } asChild><Link to="/patients">Patient Portal</Link></TabNav.Link>
+      <TabNav.Link active={isProviders} asChild><Link to="/providers">Providers</Link></TabNav.Link>
+    </TabNav.Root>
+  </Box>)
 }

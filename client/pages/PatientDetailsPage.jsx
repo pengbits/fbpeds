@@ -1,9 +1,9 @@
-import { useParams } from "react-router"
+import { useParams, Link } from "react-router"
 import { useEffect } from "react"
 import useStore from "../store/appStore"
 import PatientsDetails from "../components/patients/PatientDetails"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
-
+import { Heading, Button } from "@radix-ui/themes"
 const PatientsDetailsPage = () => {
 
   const {
@@ -41,15 +41,17 @@ const PatientsDetailsPage = () => {
   }
 
   return (<>
-    <h2>Patients</h2>
+    <Heading as='h2'>Patients</Heading>
     <PatientsDetails 
       {...patient}
       setView={handleSetView} 
       view={view}
     />
-    <a className="btn btn--large" 
-      href={`/appointments/new/patient/${params.id}`}>Book a Visit
-    </a>
+    <Button size="3" asChild>
+      <Link
+        to={`/appointments/new/patient/${params.id}`}>Book a Visit
+      </Link>
+    </Button>
   </>)
   
 }

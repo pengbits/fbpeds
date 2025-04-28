@@ -2,7 +2,7 @@
 import { datePretty, birthdatePretty } from "../../util/date"
 import Table from "../tables/Table"
 import { view_types } from "../../store/patientStore"
-
+import { Heading, Text, TabNav } from "@radix-ui/themes"
 const PatientDetails = ({
   id,
   name,
@@ -59,23 +59,23 @@ const PatientDetails = ({
     }
   }
 
-  return (<div className="patient-details">
+  return (<div className="patient-details card">
     <div className="patient-details__head">
-      <h2>{name}</h2>
+      <Heading size='7' as='h2'>{name}</Heading>
       <p><b>Birthdate</b><br />{birthdatePretty(birthdate)}</p>
       <div className="patient__image patient__image--large">
         <img alt="image of patient" src={image} />
       </div>
     </div>
     <div className="patient-details__body">
-      <div className="patient-tabs">
-        <ul className="patient-tabs__head">
+      <div className="patient-tabs">         
+        <TabNav.Root mb="3">
           {view_types.map(viewType => (
-          <li key={viewType} className={`patient-tabs__tab ${view.type == viewType ? 'patient-tabs__tab--active' : ''}`}>
-            <a onClick={handleSetView} href="#">{viewType}</a>
-          </li>
+          <TabNav.Link key={viewType} active={view.type == viewType} 
+            onClick={handleSetView}>{viewType}
+          </TabNav.Link>
           ))}
-        </ul> 
+        </TabNav.Root>
         <div className="patient-tabs__body">
           <div data-testid="tabs-content">
             {view.loading ? <p>loading... </p> : renderTabBody(view.type, (view.data || []))}

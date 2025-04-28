@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import PatientList from "../components/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import useStore from "../store/appStore"
-import { Button } from "@radix-ui/themes"
+import { Button, Heading } from "@radix-ui/themes"
 
 const PatientsPage = () => {
   const {
@@ -21,7 +21,7 @@ const PatientsPage = () => {
   
   return (
     <>
-      <h2>Patients</h2>
+      <Heading as='h2'>Patients</Heading>
       {error && <ErrorMessage error={error} />}
       {loading ? <p>loading... </p> : <PatientList patients={patients} />}
       <Button asChild>

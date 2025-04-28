@@ -1,9 +1,9 @@
-import { NavLink } from "react-router"
+import { Link } from "react-router"
 
 const PatientLink = ({id,children}) => (
-  <NavLink to={`/patients/${id}`}>
+  <Link to={`/patients/${id}`}>
     {children}
-  </NavLink>
+  </Link>
 )
 
 export default PatientLink

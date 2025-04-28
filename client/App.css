@@ -4,76 +4,44 @@
   /* flex-direction: column; */
   min-height: 100%;
 }
-.content {
-  margin: 0;
-  padding: 0;
 
+.rt-Container {
+  background-color:var(--gray-4);
+  min-height: 100vh;
+}
+.rt-ContainerInner {
+  background-color: #FFF;
 }
 
 .header {
   position: relative;
   padding-top: 15px;
 }
-.header h1 {
-  margin-bottom: 0;
-  font-size: 20px;
-  font-weight: normal;
-}
-.header h1 a {
-  text-decoration: none;
-}
-.header h1 a:hover {
-  text-decoration: underline
-}
 
-.nav ul {
-  margin:0;
-  padding: 10px 15px;
-  display: flex;
-}
-.nav li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.nav li a {
-  display: block;
-  padding: 5px 10px 5px 0;
-  text-decoration: none;
-  color: #0000FF;
-}
-.nav li a:hover {
-  color: #0303cc;
-  text-decoration: underline;
-}
-
-.nav li.active a,
-.nav li.active a:hover {
-  font-weight: bold;
-  color: #000;
-  text-decoration: none;
-}
 
 .user {
   position: absolute;
   top:5px;
   right: 15px;
 }
-h1, h2 {
+
+.header h1,
+.content h2 {
   margin-top: 0;
   margin-left: 15px;
   text-decoration: none;
 }
 
-.patient,
-.patient-details,
-.provider,
-.card {
-  padding: 15px;
-  background-color: #FFF;
-  border: #999 solid 2px;
-  border-radius: 15px;
+.patient h3 a {
+  text-decoration: none;
+}
+
+.card, .card + .rt-Button {
   margin: 15px
+}
+
+.patient__action {
+  display: block;
 }
 
 .patient__head {
@@ -187,7 +155,6 @@ h1, h2 {
   margin-left: 0;
 }
 .patient-tabs {
-  max-width: 500px;
   min-height: 250px;
 }
 .patient-tabs__head {
