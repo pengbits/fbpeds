@@ -2,9 +2,8 @@ import { useState } from "react"
 import { dateTimePretty } from "../../util/date"
 import { Heading, Button } from "@radix-ui/themes"
 import { Label } from "radix-ui"
-import {DayPicker} from "react-day-picker"
 import Select from "@/components/forms/Select"
-import "react-day-picker/style.css"
+import DatePicker from "@/components/forms/DatePicker"
 import {dateForAppointment} from "../../util/date"
 
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
@@ -92,15 +91,14 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
         />
       </p>
 
-        <label htmlFor="date">Date</label><br />
-        <DayPicker
-          mode="single"
-          id="date"
-          selected={attrs.date}
-          onSelect={handleChangeDatetime}>
-        </DayPicker>
+      <label htmlFor="date">Date</label><br />
+      <DatePicker 
+        onSelect={handleChangeDatetime}
+        date={attrs.date}
+      />
+       
       <Button asChild>
-        <input type="submit" value="Search" />
+        <input type="submit" value="Search for Times" />
       </Button>
     </form>
   </div>)
