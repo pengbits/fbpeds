@@ -13,3 +13,8 @@ export const dateTimePretty = (datetime) => {
 export const birthdatePretty = date => {
   return dayjs(date).format('MM-DD-YYYY')
 }
+
+export const dateForAppointment = date => {
+  // avoid daylight savings time issue by setting hour far from midnight
+  return dayjs(date).format('YYYY-MM-DD')
+}

@@ -2,6 +2,7 @@ import { useParams } from "react-router"
 import { useEffect } from "react"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import useStore from "../store/appStore"
+import {dateForAppointment} from "../util/date"
 
 const AppointmentSearchEditPage = ({initialAttributes,getAvailability}) => {
   const {
@@ -25,7 +26,10 @@ const AppointmentSearchEditPage = ({initialAttributes,getAvailability}) => {
 
   if(!loading && !updatingAppointment && fetchingAppointment){
     return (<AppointmentSearchForm 
-      initialAttributes={appointment}
+      initialAttributes={{
+        ...appointment,
+        date: appointment.datetime
+      }}
       getAvailability={getAvailability}
     />)
   } else {

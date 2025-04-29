@@ -1,8 +1,11 @@
 import { useState } from "react"
 import { dateTimePretty } from "../../util/date"
-import { Heading } from "@radix-ui/themes"
+import { Heading, Button } from "@radix-ui/themes"
 import { Label } from "radix-ui"
 import Select from "@/components/forms/Select"
+import DatePicker from "@/components/forms/DatePicker"
+import {dateForAppointment} from "../../util/date"
+
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
 
@@ -26,10 +29,19 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
       'visit_type':type
     })
   }
-
+  const handleChangeDatetime = (datetime, triggerDate, modifiers, e) => {
+    console.log(datetime, dateForAppointment(datetime))
+    setAttrs({
+      ...attrs,
+      'date':datetime
+    })
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
-    getAvailability(attrs)
+    getAvailability({
+      ...attrs,
+      date: dateForAppointment(attrs.date)
+    })
   }
 
   const child_name_options = [
@@ -78,11 +90,16 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
           onValueChange={handleChangeVisitType}
         />
       </p>
-      <p>
-        <label htmlFor="date">Date</label><br />
-        <input type="date" id="date" value={attrs.datetime} onChange={handleChange} />
-      </p>
-      <input type="submit" value="Search" />
+
+      <label htmlFor="date">Date</label><br />
+      <DatePicker 
+        onSelect={handleChangeDatetime}
+        date={attrs.date}
+      />
+       
+      <Button asChild>
+        <input type="submit" value="Search for Times" />
+      </Button>
     </form>
   </div>)
 }
