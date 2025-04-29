@@ -5,6 +5,7 @@ import { Label } from "radix-ui"
 import {DayPicker} from "react-day-picker"
 import Select from "@/components/forms/Select"
 import "react-day-picker/style.css"
+import {dateForAppointment} from "../../util/date"
 
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
@@ -29,15 +30,19 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
       'visit_type':type
     })
   }
-  const handleChangeDatetime = (datetime) => {
+  const handleChangeDatetime = (datetime, triggerDate, modifiers, e) => {
+    console.log(datetime, dateForAppointment(datetime))
     setAttrs({
       ...attrs,
-      datetime
+      'date':datetime
     })
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    getAvailability(attrs)
+    getAvailability({
+      ...attrs,
+      date: dateForAppointment(attrs.date)
+    })
   }
 
   const child_name_options = [
@@ -88,12 +93,10 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
       </p>
 
         <label htmlFor="date">Date</label><br />
-        {/* TODO move into popover*/}
-        {/* TODO debug invalid date in next screen*/}
         <DayPicker
           mode="single"
           id="date"
-          selected={attrs.datetime}
+          selected={attrs.date}
           onSelect={handleChangeDatetime}>
         </DayPicker>
       <Button asChild>

@@ -37,7 +37,6 @@ const reducer = (set,get) => {
           state[k].fetchingAppointment = true
         })
         const [appt] = await getAppointment(id)
-        console.log(appt)
         set(state => {state[k].appointment = appt})
       } catch(e){
         set(state => {state[k].error = e})
