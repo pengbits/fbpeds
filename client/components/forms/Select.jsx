@@ -6,7 +6,6 @@ export default ({
     placeholder,
     onValueChange
   }) => {
-    console.log(initialAttrs)
   return (<Select.Root name={name} size="3" {...initialAttrs}
     onValueChange={onValueChange}>
     <Select.Trigger placeholder={placeholder} />

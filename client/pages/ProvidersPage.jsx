@@ -1,8 +1,8 @@
-import { Link } from "react-router"
+import { Link as RouterLink } from "react-router"
 import { useEffect } from 'react'
 import useAppStore from '../store/appStore'
 import { ErrorMessage } from '../components/errors/ErrorMessage'
-import { Heading, Card } from "@radix-ui/themes"
+import { Heading, Link, Card } from "@radix-ui/themes"
 const ProvidersPage = () => {
   const {
     providers,
@@ -23,11 +23,13 @@ const ProvidersPage = () => {
       <div className="provider-list">
         {(providers || []).map(p => (
         <Card data-testid="provider-entry" className="provider card" key={p.id}>
-          <Heading as='h4'><Link to={`/providers/${p.id}`}>{p.name}</Link></Heading>
+          <Link size='5' asChild>
+            <RouterLink to={`/providers/${p.id}`}>{p.name}</RouterLink>
+          </Link>
           {p.image && <div className="provider__image">
-            <Link to={`/providers/${p.id}`}>
+            <RouterLink to={`/providers/${p.id}`}>
               <img src={p.image} alt="image of provider" />
-            </Link>
+            </RouterLink>
           </div>}
         </Card>
         ))}
