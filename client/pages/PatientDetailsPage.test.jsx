@@ -32,10 +32,13 @@ describe('Patient Details Page', () => {
         />)
 
       expect(screen.getByText('Laila Paul')).toBeInTheDocument()
-      expect(screen.getByText('08-12-2014')).toBeInTheDocument()
-      expect(screen.getByText('growth')).toBeInTheDocument()
-      expect(screen.getByText('immunizations')).toBeInTheDocument()
-      expect(screen.getByText('prescriptions')).toBeInTheDocument()
+      expect(screen.getAllByText('08-12-2014')[0]).toBeInTheDocument()
+      
+      const tabs = screen.getByTestId('patient-tabs')
+      expect(tabs).toBeInTheDocument()
+      expect(within(tabs).getAllByText('growth')[0]).toBeInTheDocument()
+      expect(within(tabs).getAllByText('immunizations')[0]).toBeInTheDocument()
+      expect(within(tabs).getAllByText('prescriptions')[0]).toBeInTheDocument()
     })
   })
   

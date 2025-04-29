@@ -70,23 +70,18 @@ const PatientDetails = ({
         <img alt="image of patient" src={image} />
       </div>
     </div>
-    <div className="patient-details__body">
-      <div className="patient-tabs">         
-        <TabNav.Root mb="3">
-          {view_types.map(viewType => (
-          <TabNav.Link key={viewType} active={view.type == viewType} 
-            onClick={handleSetView}>{viewType}
-          </TabNav.Link>
-          ))}
-        </TabNav.Root>
-        <div className="patient-tabs__body">
-          <div data-testid="tabs-content">
-            {view.loading ? <p>loading... </p> : renderTabBody(view.type, (view.data || []))}
-          </div>
-        </div>
+    <div className="patient-details__body">     
+      <TabNav.Root mb="3" data-testid="patient-tabs">
+        {view_types.map(viewType => (
+        <TabNav.Link key={viewType} active={view.type == viewType} 
+          onClick={handleSetView}>{viewType}
+        </TabNav.Link>
+        ))}
+      </TabNav.Root>
+      <div data-testid="tabs-content">
+        {view.loading ? <p>loading... </p> : renderTabBody(view.type, (view.data || []))}
       </div>
     </div>
-
   </div>)
 }
 
