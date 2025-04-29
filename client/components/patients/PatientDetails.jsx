@@ -62,7 +62,10 @@ const PatientDetails = ({
   return (<div className="patient-details card">
     <div className="patient-details__head">
       <Heading size='7' as='h2'>{name}</Heading>
-      <p><b>Birthdate</b><br />{birthdatePretty(birthdate)}</p>
+      <p>
+        <b>Birthdate</b>
+        <br />{birthdatePretty(birthdate)}
+      </p>
       <div className="patient__image patient__image--large">
         <img alt="image of patient" src={image} />
       </div>

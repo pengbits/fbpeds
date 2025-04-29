@@ -29,7 +29,6 @@
 .content h2 {
   margin-top: 0;
   margin-left: 15px;
-  text-decoration: none;
 }
 
 .patient h3 a {
@@ -41,14 +40,8 @@
   margin: 15px
 }
 
-.patient__action {
-  display: block;
-}
 
-.patient__head {
-  display: flex;
-  flex-direction: row;
-}
+
 
 .patient__image {
   margin-bottom: 15px;

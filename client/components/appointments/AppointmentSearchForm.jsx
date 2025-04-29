@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { dateTimePretty } from "../../util/date"
+import { Heading, Select } from "@radix-ui/themes"
 
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
@@ -8,6 +9,20 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
     setAttrs({
       ...attrs,
       [e.target.id] : e.target.value
+    })
+  }
+
+  const handleChangePatient = (id) => {
+    setAttrs({
+      ...attrs,
+      'patient_id':id
+    })
+  }
+
+  const handleChangeVisitType = (type)=> {
+    setAttrs({
+      ...attrs,
+      'visit_type':type
     })
   }
 
@@ -34,27 +49,33 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
 
     return `Reschedule Appointment on ${dateTimePretty(attrs.datetime)} with  ${attrs.provider_name}`
   }
-  
-  return (<div className="appointment-search">
-    <h3>{title(attrs)}</h3>
+  const initialPatientId = attrs.patient_id ? {defaultValue:attrs.patient_id} : {}
+  const initialVisitType = attrs.visit_type ? {defaultValue:attrs.visit_type} : {}
+
+  return (<div className="card">
+    <Heading as='h4'>{title(attrs)}</Heading>
     <form onSubmit={handleSubmit} role="form">
       <p>
-      <label htmlFor="patient_id">Choose a Child</label><br />
-      <select id="patient_id" value={attrs.patient_id} onChange={handleChange}>
-        <option>Select a Child:</option>
-        {child_name_options.map(c => (
-          <option key={c.id} value={c.id}> {c.name}</option>
-        ))}
-      </select>
+        <Select.Root size="3" {...initialPatientId}
+          onValueChange={handleChangePatient}>
+          <Select.Trigger placeholder="Choose a Child" />
+          <Select.Content>
+            {child_name_options.map(c => (
+              <Select.Item key={c.id} value={c.id}> {c.name}</Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Root>
       </p>
        <p>
-      <label htmlFor="visit_type">Visit Type</label><br />
-      <select id="visit_type" value={attrs.visit_type} onChange={handleChange}>
-        <option>Select visit Type:</option>
-        {visit_type_options.map(t => (
-          <option key={t.value} value={t.value}>{t.label}</option>
-        ))}
-      </select>
+        <Select.Root size="3" {...initialVisitType}
+          onValueChange={handleChangeVisitType}>
+          <Select.Trigger placeholder="Visit Type" />
+          <Select.Content>
+            {visit_type_options.map(t => (
+              <Select.Item key={t.value} value={t.value}> {t.label}</Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Root>
       </p>
       <p>
         <label htmlFor="date">Date</label><br />

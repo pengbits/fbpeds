@@ -1,11 +1,11 @@
 import PatientLink from "./PatientLink"
 import { Link as RouterLink } from "react-router"
 import PatientAppointmentsList from "./PatientAppointmentsList"
-import { Card, Button, Link } from "@radix-ui/themes"
+import { Card, Flex, Button, Link } from "@radix-ui/themes"
 
 export default (({id,name,image,appointments}) => (
 <Card key={id} className="patient card">
-  <div className="patient__head">
+  <Flex>
     {image && <div className="patient__image">
       <PatientLink id={id}>
         <img src={image} alt="image of patient" />
@@ -24,7 +24,7 @@ export default (({id,name,image,appointments}) => (
         </Link>
       </p>
     </div>
-  </div>
+  </Flex>
   <div className="patient__footer">
   <PatientAppointmentsList 
     patientId={id}
