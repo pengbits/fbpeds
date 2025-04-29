@@ -33,9 +33,9 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   }
 
   const child_name_options = [
-    {id:"1", name:"Laila Paul"},
-    {id:"2", name:"Oskar Paul"},
-    {id:"3", name:"Desmond Paul"}
+    {value:"1", label:"Laila Paul"},
+    {value:"2", label:"Oskar Paul"},
+    {value:"3", label:"Desmond Paul"}
   ]
 
   const visit_type_options = [

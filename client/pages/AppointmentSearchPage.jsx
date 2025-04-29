@@ -4,7 +4,6 @@ import AppointmentSearchResults from "../components/appointments/AppointmentSear
 import AppointmentSearchCreatePage from "./AppointmentSearchCreatePage"
 import AppointmentSearchEditPage from "./AppointmentSearchEditPage"
 import useStore from "../store/appStore"
-import { createAppointment, updateAppointment } from "../api/appointments"
 
 
 

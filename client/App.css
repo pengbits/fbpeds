@@ -41,8 +41,6 @@
 }
 
 
-
-
 .patient__image {
   margin-bottom: 15px;
   margin-right: 15px;
@@ -112,10 +110,6 @@
 
 
 
-.appointment-search {
-  padding:15px;
-  background-color: #FFF;
-}
 
 .availability__date {
   font-size: 18px;
@@ -185,6 +179,15 @@
 }
 .patient-tabs__head a.active {
   background-color: #CCC;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form label.hidden {
+  display: none;
 }
 
 table {
