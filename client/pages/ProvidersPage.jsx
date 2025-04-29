@@ -1,8 +1,8 @@
-import { Link } from "react-router"
+import { Link as RouterLink } from "react-router"
 import { useEffect } from 'react'
 import useAppStore from '../store/appStore'
 import { ErrorMessage } from '../components/errors/ErrorMessage'
-
+import { Heading, Link, Card } from "@radix-ui/themes"
 const ProvidersPage = () => {
   const {
     providers,
@@ -16,20 +16,22 @@ const ProvidersPage = () => {
   },[])
   
   return (<div className="providers">
-    <h2>Providers</h2>
+    <Heading as='h2'>Providers</Heading>
     
     {error && <ErrorMessage error={error} />}
     {loading ? (<p>loading...</p>) : (
       <div className="provider-list">
         {(providers || []).map(p => (
-        <div data-testid="provider-entry" className="provider" key={p.id}>
-          <h3><Link to={`/providers/${p.id}`}>{p.name}</Link></h3>
+        <Card data-testid="provider-entry" className="provider card" key={p.id}>
+          <Link size='5' asChild>
+            <RouterLink to={`/providers/${p.id}`}>{p.name}</RouterLink>
+          </Link>
           {p.image && <div className="provider__image">
-            <Link to={`/providers/${p.id}`}>
+            <RouterLink to={`/providers/${p.id}`}>
               <img src={p.image} alt="image of provider" />
-            </Link>
+            </RouterLink>
           </div>}
-        </div>
+        </Card>
         ))}
       </div>
     )}

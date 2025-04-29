@@ -1,6 +1,7 @@
 import { render, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createMemoryRouter, createRoutesFromElements, RouterProvider, Route, useLoaderData } from "react-router"
+import { Theme } from "@radix-ui/themes";
 
 
 export const renderComponentWithRoute = async(Component, opts={}) => {
@@ -12,7 +13,9 @@ export const renderComponentWithRoute = async(Component, opts={}) => {
 
   const rendered = await act (async() => {
     return render(<RouterProvider router={router}>
-      <Component />
+      <Theme>
+        <Component />
+      </Theme>
     </RouterProvider>
     )
   })

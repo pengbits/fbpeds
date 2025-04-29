@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { dateTimePretty } from "../../util/date"
-
+import { Heading } from "@radix-ui/themes"
+import { Label } from "radix-ui"
+import Select from "@/components/forms/Select"
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
 
@@ -11,15 +13,29 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
     })
   }
 
+  const handleChangePatient = (id) => {
+    setAttrs({
+      ...attrs,
+      'patient_id':id
+    })
+  }
+
+  const handleChangeVisitType = (type)=> {
+    setAttrs({
+      ...attrs,
+      'visit_type':type
+    })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     getAvailability(attrs)
   }
 
   const child_name_options = [
-    {id:"1", name:"Laila Paul"},
-    {id:"2", name:"Oskar Paul"},
-    {id:"3", name:"Desmond Paul"}
+    {value:1, label:"Laila Paul"},
+    {value:2, label:"Oskar Paul"},
+    {value:3, label:"Desmond Paul"}
   ]
 
   const visit_type_options = [
@@ -34,27 +50,33 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
 
     return `Reschedule Appointment on ${dateTimePretty(attrs.datetime)} with  ${attrs.provider_name}`
   }
-  
-  return (<div className="appointment-search">
-    <h3>{title(attrs)}</h3>
+  const initialPatientId = attrs.patient_id ? {defaultValue:attrs.patient_id} : {}
+  const initialVisitType = attrs.visit_type ? {defaultValue:attrs.visit_type} : {}
+
+  return (<div className="card">
+    <Heading as='h4'>{title(attrs)}</Heading>
     <form onSubmit={handleSubmit} role="form">
       <p>
-      <label htmlFor="patient_id">Choose a Child</label><br />
-      <select id="patient_id" value={attrs.patient_id} onChange={handleChange}>
-        <option>Select a Child:</option>
-        {child_name_options.map(c => (
-          <option key={c.id} value={c.id}> {c.name}</option>
-        ))}
-      </select>
+        <Label.Root className={attrs.patient_id ? 'hidden':''}
+          htmlFor="patient_id">Choose a Child:</Label.Root>
+        <Select
+          options={child_name_options}
+          name='patient_id'
+          initialAttrs={initialPatientId}
+          placeholder='Choose a Child'
+          onValueChange={handleChangePatient}
+        />
       </p>
        <p>
-      <label htmlFor="visit_type">Visit Type</label><br />
-      <select id="visit_type" value={attrs.visit_type} onChange={handleChange}>
-        <option>Select visit Type:</option>
-        {visit_type_options.map(t => (
-          <option key={t.value} value={t.value}>{t.label}</option>
-        ))}
-      </select>
+        <Label.Root className={attrs.visit_type ? 'hidden':''}
+          htmlFor="visit_type">Visit Type</Label.Root>
+        <Select
+          options={visit_type_options}
+          name='visit_type'
+          initialAttrs={initialVisitType}
+          placeholder='Visit Type'
+          onValueChange={handleChangeVisitType}
+        />
       </p>
       <p>
         <label htmlFor="date">Date</label><br />

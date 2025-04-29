@@ -1,8 +1,8 @@
 import ProviderAvailabilityList from '@/components/appointments/ProviderAvailabilityList'
-
+import { Card } from '@radix-ui/themes'
 export default ({id,name,image,availability,handleSelectTime}) => {
-  return (<div 
-    className="provider"
+  return (<Card 
+    className="provider card"
     data-testid="provider-entry"
   >
     <h3>{name}</h3>
@@ -14,5 +14,5 @@ export default ({id,name,image,availability,handleSelectTime}) => {
       availability={availability}
       handleSelectTime={handleSelectTime} 
     />
-  </div>)
+  </Card>)
 }

@@ -1,5 +1,6 @@
 import { datePretty } from "../../util/date"
-import { Link } from "react-router"
+import { Link as RouterLink} from "react-router"
+import { Table, Link } from "@radix-ui/themes"
 
 const isDate      = column => (column == 'date')
 const isImage     = column => (column == 'image')
@@ -13,38 +14,37 @@ const formattedCellContent = (column, value, row, baseUrl) => {
   )
   if(isVisitDate(column)) {
     const {visit_id} = row
-    return (<Link to={`${baseUrl}/visits/${visit_id}`}>{datePretty(value)}</Link>)
+    return (<Link asChild>
+      <RouterLink to={`${baseUrl}/visits/${visit_id}`}>{datePretty(value)}</RouterLink>
+    </Link>)
   }
   return value
 }
 
 const TableHead = ({cols}) => (
-  <thead>
-    <tr>
-      {cols.map(c => <th key={c}>{c.replace('_',' ')}</th>)}
-    </tr>
-  </thead>
+  <Table.Header>
+    <Table.Row>
+      {cols.map(c => <Table.ColumnHeaderCell key={c}>{c.replace('_',' ')}</Table.ColumnHeaderCell>)}
+    </Table.Row>
+  </Table.Header>
 )
 
 const TableBody = ({cols,rows,baseUrl}) => (
-  <tbody>
+  <Table.Body>
   {rows.map((row,idx) => (
-    <tr key={idx}>
-      {cols.map(c => <td key={c}>
+    <Table.Row key={idx}>
+      {cols.map(c => <Table.Cell key={c}>
         {formattedCellContent(c, row[c], row, baseUrl)}
-        </td>)}
-    </tr>)
+        </Table.Cell>)}
+    </Table.Row>)
   )}
-  </tbody>
+  </Table.Body>
 )
-export const Table = ({cols,rows,baseUrl}) => {
+export default  ({cols,rows,baseUrl}) => {
   return (
-    <table border="1" width="100%">
+    <Table.Root layout='responsive'>
       <TableHead cols={cols} />
       <TableBody cols={cols} rows={rows} baseUrl={baseUrl} />
-    </table>
+    </Table.Root>
   )
-
 }
-
-export default Table

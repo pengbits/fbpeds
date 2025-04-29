@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import ProviderDetails from "../components/providers/ProviderDetails"
 import useStore from "../store/appStore"
-
+import { Heading, Text } from "@radix-ui/themes"
 const ProviderDetailsPage = () => {
   const {
     provider,
@@ -23,9 +23,9 @@ const ProviderDetailsPage = () => {
   
   return (
     <>
-      <h2>Providers</h2>
+      <Heading as='h2'>Providers</Heading>
       {error && <ErrorMessage error={error} />}
-      {loading ? <p>loading... </p> : 
+      {loading ? <Text as='p'>loading... </Text> : 
           provider ? <ProviderDetails {...provider} /> : null}
     </>
   )

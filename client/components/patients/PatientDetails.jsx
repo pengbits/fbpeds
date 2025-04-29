@@ -2,7 +2,7 @@
 import { datePretty, birthdatePretty } from "../../util/date"
 import Table from "../tables/Table"
 import { view_types } from "../../store/patientStore"
-
+import { Heading, Text, TabNav } from "@radix-ui/themes"
 const PatientDetails = ({
   id,
   name,
@@ -14,7 +14,7 @@ const PatientDetails = ({
     
 
   const handleSetView = (e) => {
-    // console.log(`PatientDetails.handleSetView('${e.target.innerHTML}')`)
+    console.log(`PatientDetails.handleSetView('${e.target.innerHTML}')`)
     e.preventDefault()
     setView(e.target.innerHTML)
   }
@@ -59,31 +59,29 @@ const PatientDetails = ({
     }
   }
 
-  return (<div className="patient-details">
+  return (<div className="patient-details card">
     <div className="patient-details__head">
-      <h2>{name}</h2>
-      <p><b>Birthdate</b><br />{birthdatePretty(birthdate)}</p>
+      <Heading size='7' as='h2'>{name}</Heading>
+      <p>
+        <b>Birthdate</b>
+        <br />{birthdatePretty(birthdate)}
+      </p>
       <div className="patient__image patient__image--large">
         <img alt="image of patient" src={image} />
       </div>
     </div>
-    <div className="patient-details__body">
-      <div className="patient-tabs">
-        <ul className="patient-tabs__head">
-          {view_types.map(viewType => (
-          <li key={viewType} className={`patient-tabs__tab ${view.type == viewType ? 'patient-tabs__tab--active' : ''}`}>
-            <a onClick={handleSetView} href="#">{viewType}</a>
-          </li>
-          ))}
-        </ul> 
-        <div className="patient-tabs__body">
-          <div data-testid="tabs-content">
-            {view.loading ? <p>loading... </p> : renderTabBody(view.type, (view.data || []))}
-          </div>
-        </div>
+    <div className="patient-details__body">     
+      <TabNav.Root mb="3" data-testid="patient-tabs">
+        {view_types.map(viewType => (
+        <TabNav.Link key={viewType} active={view.type == viewType} 
+          onClick={handleSetView}>{viewType}
+        </TabNav.Link>
+        ))}
+      </TabNav.Root>
+      <div data-testid="tabs-content">
+        {view.loading ? <p>loading... </p> : renderTabBody(view.type, (view.data || []))}
       </div>
     </div>
-
   </div>)
 }
 

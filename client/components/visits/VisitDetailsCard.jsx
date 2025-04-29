@@ -1,6 +1,6 @@
 import { datePretty } from "../../util/date"
 import { Link } from "react-router"
-
+import { Card } from "@radix-ui/themes"
 export default ({
   patientId,
   visit_type,
@@ -13,7 +13,7 @@ export default ({
   const visitTypePretty = visit_type[0].toUpperCase() + visit_type.slice(1).toLowerCase()
   const title =`${visitTypePretty} Visit with ${[provider_name]}`
   
-  return (<div className="visit card">
+  return (<Card className="visit card">
     <h3>{title}</h3>
     <h4>{datePretty(visit_date)}</h4>
     {image && <div className="patient__image patient__image--large">
@@ -28,4 +28,4 @@ export default ({
       {`${height} in`}
     </p>}
     <Link to={`/patients/${patientId}`}>Back</Link>
-</div>)}
+</Card>)}

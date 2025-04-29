@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import PatientList from "../components/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import useStore from "../store/appStore"
+import { Link } from "react-router"
+import { Button, Heading, Box} from "@radix-ui/themes"
 
 const PatientsPage = () => {
   const {
@@ -20,12 +22,14 @@ const PatientsPage = () => {
   
   return (
     <>
-      <h2>Patients</h2>
+      <Heading as='h2'>Patients</Heading>
       {error && <ErrorMessage error={error} />}
       {loading ? <p>loading... </p> : <PatientList patients={patients} />}
-      <a className="btn btn--large" 
-          href="/appointments/new">Book Your Next Appointment
-      </a>
+      <Box className="footer-actions">
+        <Button size="3" asChild>
+          <Link to="/appointments/new">Book Your Next Appointment</Link>
+        </Button>
+      </Box>
     </>
   )
 }

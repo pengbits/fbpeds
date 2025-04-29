@@ -1,5 +1,6 @@
 import ProviderAvailabilityListItem from '@/components/appointments/ProviderAvailabilityListItem'
 import { datePretty } from '../../util/date'
+import {Card } from "@radix-ui/themes"
 
 const formattedStart = start => {
   let str = start.hours
