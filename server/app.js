@@ -7,6 +7,7 @@ var bodyParser = require('body-parser')
 var cors = require('cors')
 var logger = require('morgan');
 var session = require('express-session')
+var connectPgSimple = require('connect-pg-simple')
 // var csrf = require('csurf');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 var passport = require('passport');
@@ -24,12 +25,21 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..','public')));
-app.use(session({
+
+var store = connectPgSimple(session)
+var sess = {
+  store: new store({
+  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {}
-}))
+}
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+app.use(session(sess))
 
 app.use(passport.authenticate('session'));
 app.use(function(req, res, next) {
