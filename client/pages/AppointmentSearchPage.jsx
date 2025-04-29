@@ -23,7 +23,7 @@ const AppointmentSearchPage = () => {
 
   const {patientId,appointmentId} = useParams()
   let initialAttributes = {}
-  initialAttributes.patient_id     = patientId ? patientId : ''
+  initialAttributes.patient_id     = patientId ? Number(patientId) : ''
   initialAttributes.appointment_id = appointmentId ? appointmentId : null
 
   const getAvailability = async (attrs) => {

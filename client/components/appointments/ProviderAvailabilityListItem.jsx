@@ -1,3 +1,4 @@
+import { Button } from "@radix-ui/themes"
 const formattedStart = start => {
   let str = start.hours
   str += ':'
@@ -6,12 +7,14 @@ const formattedStart = start => {
 }
 
 export default ({handleSelectTime,start,providerId}) => {
-  return (<a 
+  return (<Button asChild variant="soft" size="2">
+  <a 
     href='#' 
     role="link" 
     onClick={handleSelectTime}
     data-time={formattedStart(start)}
     data-provider-id={providerId}
     className="slot">{formattedStart(start)}
-  </a>)
+  </a>
+  </Button>)
 }

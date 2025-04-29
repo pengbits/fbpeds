@@ -118,16 +118,8 @@
 }
 
 .availability__slots .slot {
-  display: inline-block;
-  background-color: #ccc;
-  padding: 8px 20px;
   margin-right: 10px;
   margin-bottom: 10px;
-  border-radius: 15px;
-  cursor: pointer;
-}
-.availability__slots .slot:hover {
-  background-color: #999;
 }
 
 .error {
