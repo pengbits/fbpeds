@@ -46,37 +46,22 @@ describe('Patient Details Page', () => {
   let container,content,tab;
   describe('setView(immunizations)', async () => {
     it('fetches the immunization data when I click on the tab', async () => {
-      fetch.mockResponseOnce(JSON.stringify(getPatientMock  ))
+      fetch
+        .once(JSON.stringify(getPatientMock ))
+        .once(JSON.stringify(getPatientImmunizationsMock ))
       await renderComponentWithRoute(PatientDetailsPage)
-      fetch.mockResponseOnce(JSON.stringify(getPatientImmunizationsMock ))
+
+      const [tab,_] = await act(async() => {
+        const tabs = await screen.findByTestId('patient-tabs')// 
+        return within(tabs).findAllByText('immunizations')
+      })
 
       await act(async() => {
-        tab = await screen.findByText('immunizations')
-        expect(tab).toBeInTheDocument()
-        await userEvent.click(tab) 
+        userEvent.click(tab)
       })
 
       const entryDate = await screen.findByText('Aug 29 2019')
       expect(entryDate).toBeInTheDocument()
-
-    })
-  })
-
-  describe('setView(growth)', async () => {
-    it('fetches the growth data when I click on the tab', async () => {
-      // fetch.mockResponseOnce(JSON.stringify(getPatientGrowthMock))
-      
-      // TODO
-
-      // await act(async() => {
-      //   tab = await screen.findByText('immunizations')
-      //   expect(tab).toBeInTheDocument()
-      //   await userEvent.click(tab) 
-      //   content = await screen.findByTestId('tabs-content')
-      // })
-      // { immunization_id: 36, date: '2019-10-10T04:00:00.000Z', type: 'FLU-IIV4 6m+ pf' },
-      // const entry = await within(content).findByText('Oct 10:FLU-IIV4 6m+ pf')
-      // expect(entry).toBeInTheDocument()
     })
   })
 })
