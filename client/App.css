@@ -182,13 +182,3 @@ form label {
 form label.hidden {
   display: none;
 }
-
-table {
-  border-collapse: collapse;
-  margin-bottom: 15px;
-}
-
-td, th {
-  padding: 10px;
-  border-color: #ccc;
-}

@@ -1,8 +1,11 @@
 import { useState } from "react"
 import { dateTimePretty } from "../../util/date"
-import { Heading } from "@radix-ui/themes"
+import { Heading, Button } from "@radix-ui/themes"
 import { Label } from "radix-ui"
+import {DayPicker} from "react-day-picker"
 import Select from "@/components/forms/Select"
+import "react-day-picker/style.css"
+
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
 
@@ -26,7 +29,12 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
       'visit_type':type
     })
   }
-
+  const handleChangeDatetime = (datetime) => {
+    setAttrs({
+      ...attrs,
+      datetime
+    })
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     getAvailability(attrs)
@@ -78,11 +86,19 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
           onValueChange={handleChangeVisitType}
         />
       </p>
-      <p>
+
         <label htmlFor="date">Date</label><br />
-        <input type="date" id="date" value={attrs.datetime} onChange={handleChange} />
-      </p>
-      <input type="submit" value="Search" />
+        {/* TODO move into popover*/}
+        {/* TODO debug invalid date in next screen*/}
+        <DayPicker
+          mode="single"
+          id="date"
+          selected={attrs.datetime}
+          onSelect={handleChangeDatetime}>
+        </DayPicker>
+      <Button asChild>
+        <input type="submit" value="Search" />
+      </Button>
     </form>
   </div>)
 }
