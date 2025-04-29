@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { dateTimePretty } from "../../util/date"
-import { Heading, Select } from "@radix-ui/themes"
-
+import { Heading } from "@radix-ui/themes"
+import { Label } from "radix-ui"
+import Select from "@/components/forms/Select"
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
 
@@ -56,26 +57,26 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
     <Heading as='h4'>{title(attrs)}</Heading>
     <form onSubmit={handleSubmit} role="form">
       <p>
-        <Select.Root size="3" {...initialPatientId}
-          onValueChange={handleChangePatient}>
-          <Select.Trigger placeholder="Choose a Child" />
-          <Select.Content>
-            {child_name_options.map(c => (
-              <Select.Item key={c.id} value={c.id}> {c.name}</Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Root>
+        <Label.Root className={attrs.patient_id ? 'hidden':''}
+          htmlFor="patient_id">Choose a Child:</Label.Root>
+        <Select
+          options={child_name_options}
+          name='patient_id'
+          initialAttrs={initialPatientId}
+          placeholder='Choose a Child'
+          onValueChange={handleChangePatient}
+        />
       </p>
        <p>
-        <Select.Root size="3" {...initialVisitType}
-          onValueChange={handleChangeVisitType}>
-          <Select.Trigger placeholder="Visit Type" />
-          <Select.Content>
-            {visit_type_options.map(t => (
-              <Select.Item key={t.value} value={t.value}> {t.label}</Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Root>
+        <Label.Root className={attrs.visit_type ? 'hidden':''}
+          htmlFor="visit_type">Visit Type</Label.Root>
+        <Select
+          options={visit_type_options}
+          name='visit_type'
+          initialAttrs={initialVisitType}
+          placeholder='Visit Type'
+          onValueChange={handleChangeVisitType}
+        />
       </p>
       <p>
         <label htmlFor="date">Date</label><br />
