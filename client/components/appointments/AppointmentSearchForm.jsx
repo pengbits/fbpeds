@@ -30,7 +30,6 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
     })
   }
   const handleChangeDatetime = (datetime, triggerDate, modifiers, e) => {
-    console.log(datetime, dateForAppointment(datetime))
     setAttrs({
       ...attrs,
       'date':datetime
@@ -74,6 +73,7 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
         <Select
           options={child_name_options}
           name='patient_id'
+          aria-label="Choose a Child:"
           initialAttrs={initialPatientId}
           placeholder='Choose a Child'
           onValueChange={handleChangePatient}

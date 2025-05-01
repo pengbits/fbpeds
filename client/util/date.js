@@ -6,7 +6,7 @@ export const datePretty = (date) => {
 
 export const dateTimePretty = (datetime) => {
   const datePretty = dayjs(datetime).format('MMM DD')
-  const timePretty = dayjs(datetime).format('H:MM')
+  const timePretty = dayjs(datetime).format('h:MM a')
   return `${datePretty} at ${timePretty}`
 }
 
