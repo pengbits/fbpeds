@@ -110,7 +110,7 @@ const reducer = (set,get) => {
           set((state) => {
             // store the data in cache, under patient_id 
             state[k].views[type] = {
-              [id_ ] : sortData(data[0][type], type)
+              [id_ ] : sortData(data[0][type], {type, order:'desc'})
             }
 
             // store the data in active view
@@ -134,17 +134,17 @@ const reducer = (set,get) => {
   }
 }
 
-export const sortData = (data, type) => {
-  let sortBy = 'date'
-  let desc = true
-
+export const sortData = (data, opts={}) => {
+  let sortBy = 'date' // not configurable yet
+  let order = opts.order || 'asc' 
+  const {type} = opts
   // console.log('sortData '+type)
   if(type == 'visits') { sortBy = 'visit_date'}
 
   const sorted = !sortBy ? data : (
     data.sort((a,b) => a[sortBy] < b[sortBy] ? -1 : 1)
   )
-  const ordered = desc? sorted.reverse() : sorted
+  const ordered = order == 'desc' ? sorted.reverse() : sorted
   // console.log(ordered.map(o => `'${o.date}'`).join(","))
   return ordered
 }

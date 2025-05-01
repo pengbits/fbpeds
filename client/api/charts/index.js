@@ -1,8 +1,10 @@
-// coerce data from db into correct shape for charts
 
+import { datePretty } from "../../util/date"
+import {sortData } from "../../store/patientStore"
+
+// coerce data from db into the correct shape for charts
 export const transform = (rows, opts={}) => {
   if(!opts.chart) return []
-  
   let k
   switch (opts.chart){
     case 'height':
@@ -19,7 +21,22 @@ export const transform = (rows, opts={}) => {
     labels: rows.map(r => r.age_years),
     datasets: [{
       label: k,
-      data: rows.map(r => r[k])
+      data: sortData(rows, {type:'growth',order:'asc'})
+        .map(r => r[k])
+      // data: rows.map(r => r[k])
     }]
   }
+}
+
+// return the static dataset for building percentile views 
+export const getGenericPercentileChart = async (opts={}) => {
+  if(!opts.chart || !['height','weight'].includes(opts.chart)){
+    throw new Error('must provide either height or weight chart type:'+ opts.chart)
+  }
+  if(!opts.gender || !['male','female'].includes(opts.gender)){
+    throw new Error('must provide either male or female gender')
+  }
+
+  return Promise.resolve([])
+  
 }

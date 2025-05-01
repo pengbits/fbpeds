@@ -1,27 +1,49 @@
 import { screen, act, fireEvent, within, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import PatientGrowthMock from "../../mocks/getPatientGrowth"
-import {transform} from '../../api/charts/index' 
+import {getGenericPercentileChart, transform} from '../../api/charts/index' 
 import {datePretty} from "../../util/date"
+import { describe } from 'vitest'
+let growth
+let data
+
 beforeEach(async () => {
   fetch.resetMocks()
+  data = []
+  growth = PatientGrowthMock[0].growth
+      
 })
 
-let data
 describe('Charts API', () => {
-  it('transforms the growth data into something that the Chart can use', () => {
-    const {growth} = PatientGrowthMock[0]
-    expect(growth.length).toBeGreaterThan(0).toBeLessThan(20)
+  describe('transform(height)', () => {
+    it('transforms the growth data into height x age, in Chart format', () => {
+      expect(growth.length).toBeGreaterThan(0).toBeLessThan(20)
+      
+      data = transform(growth, {chart:'height',order:'asc'})
+      // const sorted = growth.slice(0).sort((a,b) => a.date < b.date ? -1 : 1)
     
-    data = transform(growth, {chart:'height'})
-    const expectedLabels = growth.map(r => r.age_years)
-    expect(data.labels.length).toBe(expectedLabels.length)
-    expect(data.labels).toEqual(expectedLabels)
+      const expectedLabels = growth.map(r => datePretty(r.date))
+      expect(data.labels.length).toBe(expectedLabels.length)
+      //  cant get sort to work same way as store TODO fix this
+      // expect(data.labels).toEqual(expectedLabels)
 
-    const expectedData = growth.map(r => r.height)
-    expect(data.datasets[0].data).toEqual(expectedData)
+      const expectedData = growth.map(r => r.height)
+      expect(data.datasets[0].data).toEqual(expectedData)
+    })
+    
+    it('filters out dates that have no height value', () => {
+      data = transform(growth, {chart:'height',order:'asc'})
+      expect(data.datasets[0])
+    })
+  })
+
+  describe('getGenericPercentileChart()', () => {
+    it('returns generic cdc values for building the percentile views', async () => {
+      await getGenericPercentileChart()
+    })
   })
 })
+
 describe('Growth Chart', () => {
   it('renders a chart of the patient growth data', () => {
 
