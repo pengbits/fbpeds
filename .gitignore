@@ -1,4 +1,4 @@
-PROD.env
+.env.*
 # Logs
 logs
 *.log

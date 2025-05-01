@@ -11,8 +11,10 @@ var connectPgSimple = require('connect-pg-simple')
 // var csrf = require('csurf');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 var passport = require('passport');
-require('dotenv').config()
-
+const isProd = process.env.NODE_ENV == "prod"
+const configPath = path.join(__dirname, '..', isProd ? '.env.prod':'.env.local');
+console.log(`isProd?${isProd} config:${configPath}`)
+require('dotenv').config({ path: configPath})
 var routes = require('./routes');
 var app = express();
 app.set('views', path.join(__dirname, 'views'));
