@@ -1,4 +1,5 @@
 const pg = require('pg')
+console.log(`DB.pool ${process.env.PGUSER}@${process.env.PGHOST}`)
 const pool = new pg.Pool({
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
