@@ -38,7 +38,7 @@ const reducer = (set,get) => {
     },
 
     removeAppointmentFromPatient:  ({patientId, appointmentId}) => {
-      console.log(`patients.removeAppointmentFromPatient`, patientId, appointmentId)
+      // console.log(`patients.removeAppointmentFromPatient`, patientId, appointmentId)
       try {
         if(!patientId || !appointmentId) throw new Error('removeAppointmentFromPatient expects patientId and appointmentId:', patientId, appointmentId)
         set(state => {
@@ -91,14 +91,13 @@ const reducer = (set,get) => {
       try {
         // check cache
         if(!!state_[k].views[type] && !!state_[k].views[type][id_]){
-          console.log(`fetchView(${type}:${id_}) is in cache`)
+          // console.log(`fetchView(${type}:${id_}) is in cache`)
           set((state) => {
             state[k].view.data = state[k].views[type][id_]
           })
         } 
         else {
-
-          console.log(`fetchView:${type} loading...`)
+          // console.log(`fetchView:${type} loading...`)
           set(state => {
             state[k].view.loading = true
           })
