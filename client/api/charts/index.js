@@ -8,6 +8,8 @@ export const transform = (rows, opts={}) => {
   let k
   switch (opts.chart){
     case 'height':
+      k = 'height_cm';
+      break
     case 'height_percent':
     case 'weight':
     case 'weight_percent':
@@ -16,14 +18,17 @@ export const transform = (rows, opts={}) => {
     default:
       throw new Error('unknown chart type:'+ opts.chart)
     }
-  
+
+  const sortedData = sortData(rows.filter(r => r.age_years > 1), {type:'growth',order:'asc'}).map(r => ({
+    label: r.age_years,
+    [k] : r[k],
+  }))
+
   return {
-    labels: rows.map(r => r.age_years),
+    labels: sortedData.map(r => r.label),
     datasets: [{
       label: k,
-      data: sortData(rows, {type:'growth',order:'asc'})
-        .map(r => r[k])
-      // data: rows.map(r => r[k])
+      data: sortedData.map(r => r[k])
     }]
   }
 }

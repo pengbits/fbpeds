@@ -148,9 +148,12 @@ Patient.prototype.find = async (id, opts={}) => {
       const clean = related.filter(related => {
         return related !== emptyObject && related[pk] !== null
       })
+      const cleanWithCentimeters = clean.map(row => {
+        return {...row, height_cm: row.height * 2.54}
+      })
 
-      const cleanWithImages = opts.include !== 'visits' ? clean : (
-        clean.map(visit => withImageFromVisit({id, ...visit}))
+      const cleanWithImages = opts.include !== 'visits' ? cleanWithCentimeters : (
+        cleanWithCentimeters.map(visit => withImageFromVisit({id, ...visit}))
       )
 
       const patient_attrs = withImage({

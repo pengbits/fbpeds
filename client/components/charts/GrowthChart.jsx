@@ -24,7 +24,7 @@ ChartJS.register(
 
 // 218 entries in each percentile slice, divided by 18 year range
 // gives us 12 points of data for the line graph
-const step_size = Math.floor(218 / 18)
+const step_size = Math.floor(218 / 16)
 const getPercentileLineData = (key,data) => {
 //   const {length} = data[key]
   let out = []; data[key].map((value,i) => {
@@ -45,7 +45,11 @@ const percent_colors = {
 }
 const GrowthChart = (props) => {
   const generic = props.data.generic.data
-  const labels = Array(18).fill(1).map((_,i) => i+1)
+  const labels = []; for(let i=2; i<18; i++){
+    labels.push(i)
+  }
+
+
   const percentKeys = Object.keys(generic)
   const sortedKeys = percentKeys.sort((a,b) => {
     const a_ = Number(a.slice(0,-1))
@@ -64,7 +68,7 @@ const GrowthChart = (props) => {
       }
     }
   }
-
+  console.log(props.data.height)
   return <Line
     datasetIdKey='growth_id'
     options={options}
@@ -75,7 +79,11 @@ const GrowthChart = (props) => {
       pointStyle:false,
       data:getPercentileLineData(k, generic),
       borderColor: percent_colors[k] || '#FF0000'
-    }))
+    })).concat([{
+      label: 'patient',
+      data: props.data.height.datasets[0].data,
+      borderColor: '#d67323'
+    }])
   }}
   />
 

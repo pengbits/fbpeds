@@ -1,6 +1,6 @@
 import { screen, act, fireEvent, within, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import PatientGrowthMock from "../../mocks/getPatientGrowth"
+import PatientGrowthMock from "../../mocks/getPatientGrowth.1"
 import HeightAgeGirlsMock from '../../mocks/getGenericPercentileChart/HeightAgeGirls'
 import {getGenericPercentileChart, transform} from '../../api/charts/index' 
 import {datePretty} from "../../util/date"
@@ -20,23 +20,18 @@ describe('Charts API', () => {
   describe('transform(height)', () => {
     it('transforms the growth data into height x age, in Chart format', () => {
       expect(growth.length).toBeGreaterThan(0).toBeLessThan(20)
-      
       data = transform(growth, {chart:'height',order:'asc'})
-      // const sorted = growth.slice(0).sort((a,b) => a.date < b.date ? -1 : 1)
-    
-      const expectedLabels = growth.map(r => datePretty(r.date))
-      expect(data.labels.length).toBe(expectedLabels.length)
-      //  cant get sort to work same way as store TODO fix this
-      // expect(data.labels).toEqual(expectedLabels)
+      
+      const expectedLabels = growth.sort((a,b) => (a.date < b.date ? -1 : 1))
+        .map(r => r.age_years)
+        .filter(age => age > 1) // limit chart data to age 2 - 18  
+      expect(data.labels).toEqual(expectedLabels)
 
-      const expectedData = growth.map(r => r.height)
+      const expectedData = growth
+        .filter(r => r.age_years > 1).map(r => r.height_cm)
       expect(data.datasets[0].data).toEqual(expectedData)
     })
     
-    it('filters out dates that have no height value', () => {
-      data = transform(growth, {chart:'height',order:'asc'})
-      expect(data.datasets[0])
-    })
   })
 
   describe('getGenericPercentileChart()', () => {
