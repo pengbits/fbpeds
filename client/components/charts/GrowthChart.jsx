@@ -65,10 +65,16 @@ const GrowthChart = (props) => {
           boxWidth:4,
           boxHeight:4
         }
+      },
+      tooltip: {
+        callbacks: {
+          title: ([{label}]) => (`${label} Years`),
+          labelPointStyle: (context) => ({pointStyle: 'triangle', rotation: 0})
+        }
       }
     }
   }
-  console.log(props.data.height)
+
   return <Line
     datasetIdKey='growth_id'
     options={options}
@@ -81,6 +87,9 @@ const GrowthChart = (props) => {
       borderColor: percent_colors[k] || '#FF0000'
     })).concat([{
       label: 'patient',
+      borderWidth: 4,
+      pointStyle:'rect',
+      rotation:45,
       data: props.data.height.datasets[0].data,
       borderColor: '#d67323'
     }])

@@ -20,7 +20,7 @@ export const transform = (rows, opts={}) => {
     }
 
   const sortedData = sortData(rows.filter(r => r.age_years > 1), {type:'growth',order:'asc'}).map(r => ({
-    label: r.age_years,
+    label: `${r.age_years} years`,
     [k] : r[k],
   }))
 

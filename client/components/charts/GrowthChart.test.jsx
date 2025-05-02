@@ -23,9 +23,9 @@ describe('Charts API', () => {
       data = transform(growth, {chart:'height',order:'asc'})
       
       const expectedLabels = growth.sort((a,b) => (a.date < b.date ? -1 : 1))
-        .map(r => r.age_years)
-        .filter(age => age > 1) // limit chart data to age 2 - 18  
-      expect(data.labels).toEqual(expectedLabels)
+        .filter(r => r.age_years > 1)
+        .map(r => `${r.age_years} years`)
+       expect(data.labels).toEqual(expectedLabels)
 
       const expectedData = growth
         .filter(r => r.age_years > 1).map(r => r.height_cm)
