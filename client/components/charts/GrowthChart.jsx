@@ -22,11 +22,10 @@ ChartJS.register(
 );
 
 
-// 218 entries in each percentile slice, divided by 18 year range
-// gives us 12 points of data for the line graph
+// 218 entries in each percentile slice, divided by 2-18 year range gives us our step size,
+// so we know when to draw one of the points of data for the line graph
 const step_size = Math.floor(218 / 16)
 const getPercentileLineData = (key,data) => {
-//   const {length} = data[key]
   let out = []; data[key].map((value,i) => {
     if(i % step_size == 0) out.push(value)
   })
@@ -44,7 +43,8 @@ const percent_colors = {
   '97%':'#c1bb34'
 }
 const GrowthChart = (props) => {
-  const generic = props.data.generic.data
+  const generic = props.data.generic
+  const height  = props.data.height
   const labels = []; for(let i=2; i<18; i++){
     labels.push(i)
   }
@@ -52,10 +52,11 @@ const GrowthChart = (props) => {
 
   const percentKeys = Object.keys(generic)
   const sortedKeys = percentKeys.sort((a,b) => {
-    const a_ = Number(a.slice(0,-1))
-    const b_ = Number(b.slice(0,-1))
+    const a_ = Number(a.slice(0,-1)) // '3%' => 3
+    const b_ = Number(b.slice(0,-1)) // '3%' => 3 
     return b_ - a_
   })
+
   const options = {
     plugins: {
       legend: {
@@ -81,16 +82,17 @@ const GrowthChart = (props) => {
     data={{
     labels,
     datasets: sortedKeys.map(k => ({
-      label:k,
+      label:k, // 3%
       pointStyle:false,
       data:getPercentileLineData(k, generic),
       borderColor: percent_colors[k] || '#FF0000'
-    })).concat([{
+    }))
+    .concat([{
       label: 'patient',
       borderWidth: 4,
       pointStyle:'rect',
       rotation:45,
-      data: props.data.height.datasets[0].data,
+      data: height.datasets[0].data,
       borderColor: '#d67323'
     }])
   }}

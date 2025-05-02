@@ -83,11 +83,11 @@ const reducer = (set,get) => {
       set(state => {state[k].view = {...initialState.view}})
     },
 
-    fetchView: async (id = null) => {
+    fetchView: async (id = null, typ = null) => {
       const state_ = get()
-      const type = state_[k].view.type
+      const type = typ || state_[k].view.type
       const id_ = id || state_[k].patient.id
-      // console.log(`fetchView ${id_} ${type}`)
+      console.log(`fetchView id=${id_}, type=${type}`)
       try {
         // check cache
         if(!!state_[k].views[type] && !!state_[k].views[type][id_]){

@@ -23,7 +23,6 @@ export const transform = (rows, opts={}) => {
     label: `${r.age_years} years`,
     [k] : r[k],
   }))
-
   return {
     labels: sortedData.map(r => r.label),
     datasets: [{
@@ -40,6 +39,7 @@ const resource_map = {
   weight_age_boys  :'WeightAgeBoys' ,
   weight_age_girls :'WeightAgeGirls' 
 }
+
 export const getGenericPercentileChart = async (opts={}) => {
   if(!opts.chart || !['height','weight'].includes(opts.chart)){
     throw new Error('must provide either height or weight chart type:'+ opts.chart)
@@ -52,7 +52,11 @@ export const getGenericPercentileChart = async (opts={}) => {
   const url      = `/resources/${resource}.json`
   console.log(`getGenericPercentileChart: ${url}`)
   const res = await fetch(url)
-  const json= await res.json()
-  return json
-  
+  const {data}= await res.json()
+  return data
+  //  {
+  //   datasets:[{
+  //     data:json
+  //   }]
+  // }
 }

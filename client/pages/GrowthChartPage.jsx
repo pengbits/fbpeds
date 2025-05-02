@@ -14,7 +14,7 @@ const GrowthChartPage = () => {
   } = useStore((state) => state.patients)
   
   const heightData = transform(getPatientGrowthMock[0].growth, {chart:'height'})
-
+  console.log(Object.keys(getGenericHeightAgeGirlsMock))
   return (
     <>
       <Heading size="6" as='h2'>Growth Chart</Heading>
@@ -22,7 +22,7 @@ const GrowthChartPage = () => {
       <GrowthChart 
         data={{
           height: heightData,
-          generic: getGenericHeightAgeGirlsMock
+          generic: getGenericHeightAgeGirlsMock.data
         }}
       />
     </>
