@@ -1,9 +1,11 @@
 import { screen, act, fireEvent, within, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import PatientGrowthMock from "../../mocks/getPatientGrowth"
+import HeightAgeGirlsMock from '../../mocks/getGenericPercentileChart/HeightAgeGirls'
 import {getGenericPercentileChart, transform} from '../../api/charts/index' 
 import {datePretty} from "../../util/date"
-import { describe } from 'vitest'
+import { expect } from 'vitest'
+
 let growth
 let data
 
@@ -39,7 +41,19 @@ describe('Charts API', () => {
 
   describe('getGenericPercentileChart()', () => {
     it('returns generic cdc values for building the percentile views', async () => {
-      await getGenericPercentileChart()
+      fetch.once(JSON.stringify(HeightAgeGirlsMock))
+      const json = await getGenericPercentileChart({chart:'height', gender:'female'})
+      
+      expect(json.labels.length).toBeGreaterThan(100)
+      expect(json.labels[0]).toBe(24)
+      expect(json.labels[1]).toBe(24.5)
+      expect(json.labels[json.labels.length-1]).toBe(240)
+      
+      const {data} = json
+      expect(Object.keys(data)).toEqual(["3%","5%","10%","25%","50%","75%","90%","95%","97%"])
+      
+      const row = data["5%"]
+      expect(row).toEqual(expect.arrayContaining([expect.any(Number)]))
     })
   })
 })
