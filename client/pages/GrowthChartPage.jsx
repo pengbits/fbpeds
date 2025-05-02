@@ -19,10 +19,10 @@ const GrowthChartPage = () => {
       <Heading size="6" as='h2'>Growth Chart</Heading>
       <Heading size="3" as='h3'>Height vs Age</Heading>
       <GrowthChart 
-        data={[
-          transform(getPatientGrowthMock[0].growth, {chart:'height'}),
-          getGenericHeightAgeGirlsMock
-        ]}
+        data={{
+          height: transform(getPatientGrowthMock[0].growth, {chart:'height'}),
+          generic: getGenericHeightAgeGirlsMock
+        }}
       />
     </>
   )
