@@ -32,6 +32,7 @@ const getPercentileLineData = (key,data) => {
   })
   return out
 }
+
 const percent_colors = {
   '3%':'#d7d7d7', 
   '5%':'#4688f1', 
@@ -45,9 +46,16 @@ const percent_colors = {
 }
 
 const GrowthChart = (props) => {
-  const title = props.title
-  const generic = props.data.generic
-  const patient  = props.data.patient
+  const {
+    title,  
+    ylabel,
+    xlabel
+  } = props
+  const {
+    generic, 
+    patient
+  } = props.data
+
   const labels = []; for(let i=2; i<18; i++){
     labels.push(i)
   }
@@ -61,6 +69,20 @@ const GrowthChart = (props) => {
   })
 
   const options = {
+    scales: {
+      x: {
+        title: {
+          text: xlabel,
+          display: true
+        }
+      },
+      y: {
+        title: {
+          text: ylabel,
+          display:true
+        }
+      },
+    },
     plugins: {
       legend: {
         position:'right',
