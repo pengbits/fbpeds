@@ -4,6 +4,7 @@ import AppointmentSearchResults from "../components/appointments/AppointmentSear
 import AppointmentSearchCreatePage from "./AppointmentSearchCreatePage"
 import AppointmentSearchEditPage from "./AppointmentSearchEditPage"
 import useStore from "../store/appStore"
+import AppointmentSearchResultSkeleton from "../components/skeletons/AppointmentSearchResultSkeleton"
 
 
 
@@ -52,36 +53,36 @@ const AppointmentSearchPage = () => {
   }
 
 
-  if(loading) {
-    return <p>loading... </p>
+  if(fetchingAvailability && loading ) {
+    const items = new Array(4).fill(1).map((_,i) => i)
+    return items.map(i => <AppointmentSearchResultSkeleton key={i} />)
   }
-  else {
-    if(fetchingAvailability ) {
-      return (
-        <AppointmentSearchResults
-          providers={providersWithAvailability}
-          handleSelectTime={handleSelectTime}
-          {...appointment}
-        />
-      )
-    } else if(error){
-      return <p style={{border:'red solid 2px', color:'red'}}>{error.message}</p>
-    } else if(appointmentId) {
-      return (
-        <AppointmentSearchEditPage
-          initialAttributes={initialAttributes}
-          getAvailability={getAvailability}
-        />
-      )
-    } else {
-      return (
-        <AppointmentSearchCreatePage
-          initialAttributes={initialAttributes}
-          getAvailability={getAvailability}
-        />
-      )
-    }
+  else if(fetchingAvailability){
+    return (
+      <AppointmentSearchResults
+        providers={providersWithAvailability}
+        handleSelectTime={handleSelectTime}
+        {...appointment}
+      />
+    )
+  } else if(error){
+    return <p style={{border:'red solid 2px', color:'red'}}>{error.message}</p>
+  } else if(appointmentId) {
+    return (
+      <AppointmentSearchEditPage
+        initialAttributes={initialAttributes}
+        getAvailability={getAvailability}
+      />
+    )
+  } else {
+    return (
+      <AppointmentSearchCreatePage
+        initialAttributes={initialAttributes}
+        getAvailability={getAvailability}
+      />
+    )
   }
+
 }
 
 export default AppointmentSearchPage

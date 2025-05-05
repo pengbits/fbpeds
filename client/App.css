@@ -42,10 +42,10 @@
 }
 
 
-.patient__image {
+.patient__image,
+.provider__image {
   margin-bottom: 15px;
   margin-right: 15px;
-
   width: 100px;
   height: 100px;
   position: relative;
@@ -97,22 +97,17 @@
   }
 }
 
-.patient__image--large {
+.patient__image--large,
+.provider__image--large {
   width: 200px;
   height: 200px;
 }
 
-.provider__image {
-  margin-top: 10px;
-  margin-bottom: 15px;
-  width: 100px;
-  height: 100px;
-}
+
 .provider__image img {
   width: 100%;
   height: auto;
 }
-
 
 
 

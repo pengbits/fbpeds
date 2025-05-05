@@ -6,6 +6,9 @@ import Header from "./components/app/header";
 import Nav from "./components/app/nav"
 import useUser from './hooks/useUser'
 import { Theme, Container, Text, Link } from "@radix-ui/themes";
+import 'react-loading-skeleton/dist/skeleton.css';
+
+import { Box } from "@radix-ui/themes";
 
 function App() {
   const {

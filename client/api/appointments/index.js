@@ -2,7 +2,8 @@ export const getProviderAvailability = async (attrs) => {
   const url = `/api/providers/availability/${attrs.date}`
   // console.log(`getProviderAvailability() ${url}`)
   const response = await fetch(url, {method:'GET'})
-  return await response.json()
+  const json = await response.json()
+  return new Promise(res => setTimeout(res, 2000, json))
 }
 
 export const createAppointment = async (attrs) => {

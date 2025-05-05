@@ -3,6 +3,8 @@ export const getProviders = async () => {
   console.log(`getProviders() ${url}`)
   const response = await fetch(url)
   const json = await response.json()
+  // simulate latency
+  return new Promise(res => setTimeout(res, 2000, json))
   return json
 }
 export const getProvider = async (id) => {
@@ -10,6 +12,8 @@ export const getProvider = async (id) => {
   console.log(`getProvider() ${url}`)
   const response = await fetch(url)
   const json = await response.json()
+  // simulate latency
+  return new Promise(res => setTimeout(res, 2000, json))
   return json
 }
 
@@ -18,5 +22,7 @@ export const getAvailability = async (date) => {
   console.log(`getAvailability() ${url}`)
   const response = await fetch(url)
   const json = await response.json()
+  // simulate latency
+  return new Promise(res => setTimeout(res, 2000, json))
   return json
 }
