@@ -102,7 +102,6 @@ const GrowthChart = (props) => {
   }
 
   return (<Box className="card">
-    <Heading size="3" as='h3'>{title}</Heading>
     <Line
       datasetIdKey='growth_id'
       options={options}

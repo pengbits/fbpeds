@@ -1,8 +1,9 @@
 
-import { datePretty, birthdatePretty } from "../../util/date"
+import { birthdatePretty } from "../../util/date"
 import Table from "../tables/Table"
 import { view_types } from "../../store/patientStore"
-import { Heading, Text, TabNav } from "@radix-ui/themes"
+import { Heading, TabNav } from "@radix-ui/themes"
+
 const PatientDetails = ({
   id,
   name,
