@@ -3,8 +3,9 @@ export const getPatients = async () => {
   // console.log(`getPatients() ${url}`)
   const response = await fetch(url, {method:'GET'})
   const json = await response.json()
+  return json
   // simulate latency
-  return new Promise(res => setTimeout(res, 2000, json))
+  // return new Promise(res => setTimeout(res, 2000, json))
 }
 
 export const getPatient = async (id, opts={}) => {
@@ -13,7 +14,8 @@ export const getPatient = async (id, opts={}) => {
   // console.log(`getPatient() ${url}`)
   const response = await fetch(url, {method:'GET'})
   const json = await response.json()
+  return json
   // simulate latency
-  return new Promise(res => setTimeout(res, 2000, json))
+  // return new Promise(res => setTimeout(res, 2000, json))
 }
 
