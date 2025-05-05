@@ -9,7 +9,8 @@ const PatientDetails = ({
   image,
   birthdate,
   view,
-  setView
+  setView,
+  children
 }) => {
     
 
@@ -70,6 +71,7 @@ const PatientDetails = ({
         <img alt="image of patient" src={image} />
       </div>
     </div>
+    {children}
     <div className="patient-details__body">     
       <TabNav.Root mb="3" data-testid="patient-tabs">
         {view_types.map(viewType => (

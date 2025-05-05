@@ -45,7 +45,7 @@ const reducer = (set,get) => {
     },
 
     fetchGenericPercentileChart : async (opts) => {
-      console.log(`fetchGeneric`, opts)
+      // console.log(`fetchGeneric`, opts)
       try {
         set(state => {state[k].loading = true})
         const json = await getGenericPercentileChart(opts)

@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router"
 import { useEffect } from "react"
 import useStore from "../store/appStore"
 import PatientsDetails from "../components/patients/PatientDetails"
-import GrowthChart from "../components/charts/GrowthChart"
+import PatientCharts from "../components/charts/PatientCharts"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import { Heading, Button , Box} from "@radix-ui/themes"
 
@@ -33,6 +33,10 @@ const PatientsDetailsPage = () => {
       chart:'height', 
       gender:'female' // TODO make dynamic
     })
+    fetchGenericPercentileChart({
+      chart:'weight', 
+      gender:'female' // TODO make dynamic
+    })
     
     return () => {
       resetView()
@@ -54,21 +58,19 @@ const PatientsDetailsPage = () => {
 
   return (<>
     <Heading as='h2'>Patients</Heading>
-    {generic && generic.height && patient.id && <Box className="card">
-      <Heading size="3" as='h3'>Height vs Age</Heading>
-      <GrowthChart 
-        data={{
-          height: chart('height'),
-          generic: generic.height
-        }}
-      />
-    </Box>}
-
     <PatientsDetails 
       {...patient}
       setView={handleSetView} 
       view={view}
-    />
+    >
+      {patient.id && <PatientCharts 
+        generic={generic}
+        patient={{
+          height:chart('height'),
+          weight:chart('weight')
+        }}
+      />}
+    </PatientsDetails>
       
     <Box className='footer-actions'>
     <Button size="3" asChild>

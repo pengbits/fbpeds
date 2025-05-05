@@ -12,6 +12,8 @@ export const transform = (rows, opts={}) => {
       break
     case 'height_percent':
     case 'weight':
+      k = 'weight_kg';
+      break
     case 'weight_percent':
       k = opts.chart
       break;

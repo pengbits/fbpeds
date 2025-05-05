@@ -1,3 +1,4 @@
+import { Heading, Box } from "@radix-ui/themes";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -42,9 +43,11 @@ const percent_colors = {
   '95%':'#aa39c1', 
   '97%':'#c1bb34'
 }
+
 const GrowthChart = (props) => {
+  const title = props.title
   const generic = props.data.generic
-  const height  = props.data.height
+  const patient  = props.data.patient
   const labels = []; for(let i=2; i<18; i++){
     labels.push(i)
   }
@@ -70,34 +73,36 @@ const GrowthChart = (props) => {
       tooltip: {
         callbacks: {
           title: ([{label}]) => (`${label} Years`),
-          labelPointStyle: (context) => ({pointStyle: 'triangle', rotation: 0})
+          labelPointStyle: (context) => ({pointStyle: 'triangle', rotation: 0}),
         }
       }
     }
   }
 
-  return <Line
-    datasetIdKey='growth_id'
-    options={options}
-    data={{
-    labels,
-    datasets: sortedKeys.map(k => ({
-      label:k, // 3%
-      pointStyle:false,
-      data:getPercentileLineData(k, generic),
-      borderColor: percent_colors[k] || '#FF0000'
-    }))
-    .concat([{
-      label: 'patient',
-      borderWidth: 4,
-      pointStyle:'rect',
-      rotation:45,
-      data: height.datasets[0].data,
-      borderColor: '#d67323'
-    }])
-  }}
-  />
-
+  return (<Box className="card">
+    <Heading size="3" as='h3'>{title}</Heading>
+    <Line
+      datasetIdKey='growth_id'
+      options={options}
+      data={{
+      labels,
+      datasets: sortedKeys.map(k => ({
+        label:k, // 3%
+        pointStyle:false,
+        data:getPercentileLineData(k, generic),
+        borderColor: percent_colors[k] || '#FF0000'
+      }))
+      .concat([{
+        label: 'patient',
+        borderWidth: 4,
+        pointStyle:'rect',
+        rotation:45,
+        data: patient.datasets[0].data,
+        borderColor: '#d67323'
+      }])
+    }}
+    />
+  </Box>)
 }
 
 export default  GrowthChart

@@ -36,7 +36,7 @@ describe('chart store', () => {
       await(act(async() => {
          await getChart({chart:'height'}) 
       }))
-      console.log(getState(result).height.datasets[0])
+
       const {data} = getState(result).height.datasets[0]
       expect(data).toEqual([93.98,100.076,107.696,114.3,120.90400000000001,127,133.604,139.954,147.066])
     })
