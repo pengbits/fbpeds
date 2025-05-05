@@ -1,7 +1,8 @@
 
-import { birthdatePretty } from "../../util/date"
-import Table from "../tables/Table"
-import { view_types } from "../../store/patientStore"
+import { birthdatePretty } from "../../../util/date"
+import Table from "../../tables/Table"
+import TableSkeleton from "../../skeletons/TableSkeleton"
+import { view_types } from "../../../store/patientStore"
 import { Heading, TabNav } from "@radix-ui/themes"
 
 const PatientDetails = ({
@@ -82,7 +83,7 @@ const PatientDetails = ({
         ))}
       </TabNav.Root>
       <div data-testid="tabs-content">
-        {view.loading ? <p>loading... </p> : renderTabBody(view.type, (view.data || []))}
+        {view.loading ? <TableSkeleton /> : renderTabBody(view.type, (view.data || []))}
       </div>
     </div>
   </div>)

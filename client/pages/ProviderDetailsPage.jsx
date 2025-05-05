@@ -4,6 +4,8 @@ import {ErrorMessage} from "../components/errors/ErrorMessage"
 import ProviderDetails from "../components/providers/ProviderDetails"
 import useStore from "../store/appStore"
 import { Heading, Text } from "@radix-ui/themes"
+import ProviderDetailsSkeleton from "../components/skeletons/ProviderDetailsSkeleton"
+
 const ProviderDetailsPage = () => {
   const {
     provider,
@@ -25,8 +27,8 @@ const ProviderDetailsPage = () => {
     <>
       <Heading as='h2'>Providers</Heading>
       {error && <ErrorMessage error={error} />}
-      {loading ? <Text as='p'>loading... </Text> : 
-          provider ? <ProviderDetails {...provider} /> : null}
+      {loading ? <ProviderDetailsSkeleton /> : null}
+      {!loading && provider ? <ProviderDetails {...provider} /> : null}
     </>
   )
 }

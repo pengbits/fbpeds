@@ -17,7 +17,7 @@ export default ({
   return (
   <div className="card">
     <h3>{name}, {medical_degree}</h3>
-    {image && <div className="image">
+    {image && <div className="provider__image provider__image--large">
       <img src={image} />
     </div>}
     <div className="about" dangerouslySetInnerHTML={{

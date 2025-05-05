@@ -2,7 +2,10 @@ import { Link as RouterLink } from "react-router"
 import { useEffect } from 'react'
 import useAppStore from '../store/appStore'
 import { ErrorMessage } from '../components/errors/ErrorMessage'
-import { Heading, Link, Card } from "@radix-ui/themes"
+import ProviderListItem from "../components/providers/ProviderListItem"
+import ProviderListItemSkeleton from "../components/skeletons/PatientListItemSkeleton"
+import { Heading } from "@radix-ui/themes"
+import Skeleton from "react-loading-skeleton"
 const ProvidersPage = () => {
   const {
     providers,
@@ -14,27 +17,21 @@ const ProvidersPage = () => {
   useEffect(() => {
     fetchProviders()
   },[])
+
+  const Skeletons = () => {
+    const items = [1,2,3,4]
+    return items.map(i  => <ProviderListItemSkeleton key={i} />)
+  }
   
   return (<div className="providers">
     <Heading as='h2'>Providers</Heading>
     
     {error && <ErrorMessage error={error} />}
-    {loading ? (<p>loading...</p>) : (
+    {loading ? <Skeletons /> : (
       <div className="provider-list">
-        {(providers || []).map(p => (
-        <Card data-testid="provider-entry" className="provider card" key={p.id}>
-          <Link size='5' asChild>
-            <RouterLink to={`/providers/${p.id}`}>{p.name}</RouterLink>
-          </Link>
-          {p.image && <div className="provider__image">
-            <RouterLink to={`/providers/${p.id}`}>
-              <img src={p.image} alt="image of provider" />
-            </RouterLink>
-          </div>}
-        </Card>
-        ))}
-      </div>
-    )}
+        {providers.map(attrs => <ProviderListItem key={attrs.id} {...attrs} />)}
+      </div>)
+    }
   </div>)
 }
 export default ProvidersPage

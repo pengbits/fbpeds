@@ -1,18 +1,20 @@
 import { useParams, Link } from "react-router"
 import { useEffect } from "react"
 import useStore from "../store/appStore"
-import PatientsDetails from "../components/patients/PatientDetails"
+import PatientsDetails from "../components/appointments/patients/PatientDetails"
 import PatientCharts from "../components/charts/PatientCharts"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import { Heading, Button , Box} from "@radix-ui/themes"
-
+import PatientDetailsSkeleton from "../components/skeletons/PatientDetailsSkeleton"
 const PatientsDetailsPage = () => {
 
   const {
     patient,
+    fetchPatient,
     loading,
     error,
     view,
+    views,
     setView,
     fetchView,
     resetView
@@ -27,6 +29,7 @@ const PatientsDetailsPage = () => {
   const params = useParams()
 
   useEffect(() => {
+    fetchPatient(params.id)
     setView('growth');
     fetchView(params.id)
     fetchGenericPercentileChart({
@@ -52,7 +55,7 @@ const PatientsDetailsPage = () => {
   }
 
   if(loading){
-    return <p>loading...</p>
+    return <PatientDetailsSkeleton />
   }
 
 
@@ -63,7 +66,7 @@ const PatientsDetailsPage = () => {
       setView={handleSetView} 
       view={view}
     >
-      {patient.id && <PatientCharts 
+      {patient.id && views.growth && <PatientCharts 
         generic={generic}
         patient={{
           height:chart('height'),
