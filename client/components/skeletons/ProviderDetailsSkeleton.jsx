@@ -10,8 +10,8 @@ export default () => {
     <div className="provider__image provider__image--large"  style={{marginBottom:'20px'}}> 
       <Skeleton circle width={200} height={200} />
     </div>
-    {items.map(p => (
-      <Skeleton height={15} width={`${50 + Math.random() * 50}%`} />
+    {items.map(i => (
+      <Skeleton key={i} height={15} width={`${50 + Math.random() * 50}%`} />
     ))}
   </div>
 </div>)

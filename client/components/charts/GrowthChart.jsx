@@ -97,7 +97,8 @@ const GrowthChart = (props) => {
           title: ([{label}]) => (`${label} Years`),
           labelPointStyle: (context) => ({pointStyle: 'triangle', rotation: 0}),
         }
-      }
+      },
+      animation: false
     }
   }
 

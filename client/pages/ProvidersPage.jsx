@@ -29,7 +29,7 @@ const ProvidersPage = () => {
     {error && <ErrorMessage error={error} />}
     {loading ? <Skeletons /> : (
       <div className="provider-list">
-        {(providers || []).map(attrs => <ProviderListItem {...attrs} />)}
+        {providers.map(attrs => <ProviderListItem key={attrs.id} {...attrs} />)}
       </div>)
     }
   </div>)

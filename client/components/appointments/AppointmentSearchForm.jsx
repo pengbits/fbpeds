@@ -44,9 +44,9 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   }
 
   const child_name_options = [
-    {value:1, label:"Laila Paul"},
-    {value:2, label:"Oskar Paul"},
-    {value:3, label:"Desmond Paul"}
+    {value:'1', label:"Laila Paul"},
+    {value:'2', label:"Oskar Paul"},
+    {value:'3', label:"Desmond Paul"}
   ]
 
   const visit_type_options = [
@@ -61,21 +61,20 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
 
     return `Reschedule Appointment on ${dateTimePretty(attrs.datetime)} with  ${attrs.provider_name}`
   }
-  const initialPatientId = attrs.patient_id ? {defaultValue:attrs.patient_id} : {}
-  const initialVisitType = attrs.visit_type ? {defaultValue:attrs.visit_type} : {}
+  const initialPatientId = {defaultValue:(attrs.patient_id || '1')}
+  const initialVisitType = {defaultValue:(attrs.visit_type || 'WELL')}
 
   return (<div className="card">
     <Heading as='h4'>{title(attrs)}</Heading>
     <form onSubmit={handleSubmit} role="form">
       <p>
-        <Label.Root className={attrs.patient_id ? 'hidden':''}
+        <Label.Root  
           htmlFor="patient_id">Choose a Child:</Label.Root>
         <Select
           options={child_name_options}
           name='patient_id'
           aria-label="Choose a Child:"
           initialAttrs={initialPatientId}
-          placeholder='Choose a Child'
           onValueChange={handleChangePatient}
         />
       </p>
