@@ -4,6 +4,8 @@ import {ErrorMessage} from "../components/errors/ErrorMessage"
 import ProviderDetails from "../components/providers/ProviderDetails"
 import useStore from "../store/appStore"
 import { Heading, Text } from "@radix-ui/themes"
+import PatientDetailsSkeleton from "../components/skeletons/PatientDetailsSkeleton"
+
 const ProviderDetailsPage = () => {
   const {
     provider,

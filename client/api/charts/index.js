@@ -52,7 +52,7 @@ export const getGenericPercentileChart = async (opts={}) => {
   const key      = [opts.chart, 'age', (opts.gender == 'female' ? 'girls':'boys')].join('_')
   const resource = resource_map[key]
   const url      = `/resources/${resource}.json`
-  console.log(`getGenericPercentileChart: ${url}`)
+  // console.log(`getGenericPercentileChart: ${url}`)
   const res = await fetch(url)
   const {data}= await res.json()
   return data

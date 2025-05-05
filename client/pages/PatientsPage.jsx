@@ -1,10 +1,10 @@
 import { useEffect } from "react"
-import PatientList from "../components/patients/PatientList"
+import PatientList from "../components/appointments/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import useStore from "../store/appStore"
 import { Link } from "react-router"
 import { Button, Heading, Box} from "@radix-ui/themes"
-import PatientListItemSkeleton from "../components/patients/PatientListItemSkeleton"
+import PatientListItemSkeleton from "../components/skeletons/PatientListItemSkeleton"
 const PatientsPage = () => {
   const {
     patients,
