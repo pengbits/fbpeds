@@ -1,3 +1,3 @@
-DEPLOYMENT√√√√!!!!! WOOHOO
-appointment time not updating in reschedule, only date 
+- timezone quirks or whatever is causing appt time inconsistency
+- bad growth data for laila on prod, des local & prod?
 - form validation on appointments, currently still forwarding to appt times when patient isn't provided
