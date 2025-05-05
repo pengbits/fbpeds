@@ -4,9 +4,10 @@ export default ({
     initialAttrs, 
     name, 
     placeholder,
-    onValueChange
+    onValueChange,
+    size
   }) => {
-  return (<Select.Root name={name} size="3" {...initialAttrs}
+  return (<Select.Root name={name} size={size || '3'} {...initialAttrs}
     onValueChange={onValueChange}>
     <Select.Trigger placeholder={placeholder} />
     <Select.Content>

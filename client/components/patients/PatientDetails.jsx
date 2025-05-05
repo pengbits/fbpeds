@@ -1,20 +1,22 @@
 
-import { datePretty, birthdatePretty } from "../../util/date"
+import { birthdatePretty } from "../../util/date"
 import Table from "../tables/Table"
 import { view_types } from "../../store/patientStore"
-import { Heading, Text, TabNav } from "@radix-ui/themes"
+import { Heading, TabNav } from "@radix-ui/themes"
+
 const PatientDetails = ({
   id,
   name,
   image,
   birthdate,
   view,
-  setView
+  setView,
+  children
 }) => {
     
 
   const handleSetView = (e) => {
-    console.log(`PatientDetails.handleSetView('${e.target.innerHTML}')`)
+    // console.log(`PatientDetails.handleSetView('${e.target.innerHTML}')`)
     e.preventDefault()
     setView(e.target.innerHTML)
   }
@@ -70,6 +72,7 @@ const PatientDetails = ({
         <img alt="image of patient" src={image} />
       </div>
     </div>
+    {children}
     <div className="patient-details__body">     
       <TabNav.Root mb="3" data-testid="patient-tabs">
         {view_types.map(viewType => (

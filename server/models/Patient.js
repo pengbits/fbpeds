@@ -148,9 +148,15 @@ Patient.prototype.find = async (id, opts={}) => {
       const clean = related.filter(related => {
         return related !== emptyObject && related[pk] !== null
       })
+      const cleanWIthMetric = clean.map(row => {
+        return {...row, 
+          weight_kg: row.weight * 0.453592,
+          height_cm: row.height * 2.54
+        }
+      })
 
-      const cleanWithImages = opts.include !== 'visits' ? clean : (
-        clean.map(visit => withImageFromVisit({id, ...visit}))
+      const cleanWithImages = opts.include !== 'visits' ? cleanWIthMetric : (
+        cleanWIthMetric.map(visit => withImageFromVisit({id, ...visit}))
       )
 
       const patient_attrs = withImage({
