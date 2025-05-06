@@ -29,7 +29,7 @@ function App() {
       {user && <main className="content">
         <Outlet />
       </main>}
-      {!user && <Text as='p'>
+      {!user && <Text as='p' className="login-prompt">
         You must log in to access the portal. <Link href="/login">Log in.</Link>
       </Text>}
     </Container>
