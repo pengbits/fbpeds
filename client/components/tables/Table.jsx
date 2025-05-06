@@ -22,10 +22,7 @@ const formattedCellContent = (column, value, row, baseUrl) => {
   }
 
   if(isProvider(column)){
-    const {name,id} = value
-    return (<Link asChild>
-      <RouterLink to={`/providers/${id}`}>{name}</RouterLink>
-    </Link>)
+    return value.name
   }
   return value
 }
