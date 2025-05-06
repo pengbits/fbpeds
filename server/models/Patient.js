@@ -152,7 +152,7 @@ Patient.prototype.find = async (id, opts={}) => {
       const clean = related.filter(related => {
         return related !== emptyObject && related[pk] !== null
       })
-      const cleanWIthMetric = clean.map(row => {
+      const cleanWIthMetric = opts.include !== 'growth' ? clean : clean.map(row => {
         return {...row, 
           weight_kg: row.weight * 0.453592,
           height_cm: row.height * 2.54
@@ -205,7 +205,7 @@ Patient.prototype.findVisit = async (id, visitId) => {
     'immunization_id' :row.immunization_id
   }]).map(({immunization_id,immunization_type}) => ({id:immunization_id, type: immunization_type}))
      .filter(v => !!v.id)
-     
+
   const visits = [{
     id: row.visit_id,
     visit_type: row.visit_type,
