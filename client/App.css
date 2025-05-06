@@ -136,8 +136,10 @@
 .input-error label {
   color :#FF0000;
 }
-.success {
-  padding: 0 15px;
+.login-prompt {
+  padding: 15px;
+}
+.success {  padding: 0 15px;
   color: green;
 }
 .success a {

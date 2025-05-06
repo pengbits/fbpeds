@@ -5,18 +5,24 @@ import { Table, Link } from "@radix-ui/themes"
 const isDate      = column => (column == 'date')
 const isImage     = column => (column == 'image')
 const isVisitDate = column => (column == 'visit_date')
+const isProvider  = column => (column == 'provider')
 
 const formattedCellContent = (column, value, row, baseUrl) => {
   if(isDate(column)) return datePretty(value)
-  // if(isBool(column)) return !!value ? '√' : null
+  
   if(isImage(column)) return (
     !!value && <a href={value} target="_blank">📷</a>
   )
+  
   if(isVisitDate(column)) {
     const {visit_id} = row
     return (<Link asChild>
       <RouterLink to={`${baseUrl}/visits/${visit_id}`}>{datePretty(value)}</RouterLink>
     </Link>)
+  }
+
+  if(isProvider(column)){
+    return value.name
   }
   return value
 }

@@ -53,7 +53,7 @@ const PatientDetails = ({
 
       case 'visits':
         return <Table 
-          cols={['visit_date','visit_type','provider_name','image']}
+          cols={['visit_date','visit_type','provider','image']}
           rows={data} 
           baseUrl={baseUrl}
         />

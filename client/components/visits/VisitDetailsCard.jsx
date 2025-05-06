@@ -8,7 +8,8 @@ export default ({
   provider_name,
   image,
   weight,
-  height
+  height,
+  vaccines
 }) => {
   const visitTypePretty = visit_type[0].toUpperCase() + visit_type.slice(1).toLowerCase()
   const title =`${visitTypePretty} Visit with ${[provider_name]}`
@@ -26,6 +27,10 @@ export default ({
     {height && <p>
       <b>Height</b><br />
       {`${height} in`}
+    </p>}
+    {vaccines.length > 0 && <p>
+      <b>Vaccines</b><br />
+      {vaccines.map(v => v.type).join(', ')}
     </p>}
     <Link to={`/patients/${patientId}`}>Back</Link>
 </Card>)}

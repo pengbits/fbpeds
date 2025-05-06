@@ -120,10 +120,19 @@ Patient.prototype.find = async (id, opts={}) => {
     if(opts.include && !related_types.includes(opts.include)){
       throw new Error(`'${opts.include}' is not a valid type to include in Patient#find()`)
     }
-    const query = opts.include ? 
-      `SELECT * FROM patients LEFT JOIN ${opts.include} ON ${opts.include}.patient_id=patients.id WHERE patients.id = $1` :
-      `SELECT * FROM patients WHERE patients.id = $1`
-    ; 
+
+    let query 
+    if(!opts.include){
+      query =  `SELECT * FROM patients WHERE patients.id = $1`
+    } else if(opts.include == 'visits'){
+      query = `SELECT p.id, p.name,p.birthdate,p.last_image,p.gender, v.visit_id, v.visit_date, v.has_image, v.visit_type, pro.id as provider_id, pro.name as provider_name
+        FROM patients as p
+        LEFT JOIN visits as v ON v.patient_id=p.id 
+        LEFT JOIN providers as pro ON v.provider_id=pro.id WHERE p.id = $1`
+    }
+    else {
+      query =`SELECT * FROM patients LEFT JOIN ${opts.include} ON ${opts.include}.patient_id=patients.id WHERE patients.id = $1` 
+    }
 
     console.log(query)
     const {rows} = await pool.query(query, [id]);
@@ -152,7 +161,7 @@ Patient.prototype.find = async (id, opts={}) => {
       const clean = related.filter(related => {
         return related !== emptyObject && related[pk] !== null
       })
-      const cleanWIthMetric = clean.map(row => {
+      const cleanWIthMetric = opts.include !== 'growth' ? clean : clean.map(row => {
         return {...row, 
           weight_kg: row.weight * 0.453592,
           height_cm: row.height * 2.54
@@ -161,6 +170,15 @@ Patient.prototype.find = async (id, opts={}) => {
 
       const cleanWithImages = opts.include !== 'visits' ? cleanWIthMetric : (
         cleanWIthMetric.map(visit => withImageFromVisit({id, ...visit}))
+      )
+
+      const cleanWithProvider = opts.include !== 'visits' ? cleanWithImages : (
+        cleanWithImages.map(({provider_id, provider_name, ...visit}) => {
+          return {
+            ...visit, 
+            provider:{id:provider_id,name:provider_name}
+          }
+        })
       )
 
       const patient_attrs = withImage({
@@ -172,7 +190,7 @@ Patient.prototype.find = async (id, opts={}) => {
       })
       return [{
         ...patient_attrs,
-        [opts.include] : cleanWithImages
+        [opts.include] : cleanWithProvider
       }]
     }
 
@@ -184,8 +202,9 @@ Patient.prototype.find = async (id, opts={}) => {
 
 Patient.prototype.findVisit = async (id, visitId) => {
   const query = `
-    SELECT v.*, pro.name AS provider_name, pat.*, g.* FROM visits as v
+    SELECT v.*, pro.name AS provider_name, pat.*, g.*, i.type as immunization_type, i.immunization_id FROM visits as v
     LEFT JOIN growth AS g ON (v.visit_date = g.date)
+    LEFT JOIN immunizations AS i ON (v.visit_date = i.date)
     JOIN providers AS pro ON (v.provider_id = pro.id)
     JOIN patients AS pat  ON (v.patient_id = pat.id)
     WHERE visit_id = $1`
@@ -194,12 +213,19 @@ Patient.prototype.findVisit = async (id, visitId) => {
   const res = await pool.query(query, [visitId])
   const {rows} = res;
 
-  if(rows.length !== 1){
+  if(!rows.length){
     throw new Error(' couldn\'t find a visit with id:'+visitId)
   }
   const row = rows[0]
   const {image} = withImageFromVisit({id, ...row})
+  const vaccines = rows.slice(1).concat([{
+    'immunization_type':row.immunization_type, 
+    'immunization_id' :row.immunization_id
+  }]).map(({immunization_id,immunization_type}) => ({id:immunization_id, type: immunization_type}))
+     .filter(v => !!v.id)
+
   const visits = [{
+    id: row.visit_id,
     visit_type: row.visit_type,
     visit_date: row.visit_date,
     provider_id: row.provider_id,
@@ -209,9 +235,10 @@ Patient.prototype.findVisit = async (id, visitId) => {
     weight: row.weight,
     weight_percent: row.weight_percent,
     bmi_percent: row.bmi_percent,
-    image
+    image,
+    vaccines
   }]
-
+  
   const patient = {
     id: row.id,
     name: row.name,
