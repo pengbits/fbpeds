@@ -76,7 +76,7 @@ describe('Appointments', () => {
       fetch.mockResponseOnce(JSON.stringify(getProviderAvailibilityMock)) 
 
       const {user} = await renderComponentWithRoute(AppointmentSearchPage, {withUser:true})
-      const d = new Date(); d.setDate(d.getDate()+1)
+      const d = new Date(); d.setDate(d.getDate()+2)
       const date = dateForAppointment(d)
       await populateForm(user, {patient_id:1, visit_type:'SICK', date})
       await act(() => fireEvent.click(screen.getByText('Search for Times')))

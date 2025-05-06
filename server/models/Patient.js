@@ -239,6 +239,7 @@ Patient.prototype.findPrescriptions = async (id) => {
     id: row.id,
     name: row.name,
     birthdate: row.birthdate,
+    gender: row.gender,
     last_image: row.last_image,
     prescriptions: rows.map(p => ({
       date: p.date,

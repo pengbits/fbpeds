@@ -3,8 +3,7 @@ import { transform, getGenericPercentileChart } from "../api/charts"
 const initialState = {
   height: null, // {labels:[], data:{'3%':[], '5%':[] }} 
   weight: null, // {labels:[], data:{'3%':[], '5%':[] }}
-  generic: {
-  },
+  generic: {},
   loading:false,
   error:false,
 }
@@ -39,13 +38,13 @@ const reducer = (set,get) => {
     chart : (chartType) => {
       const {views,patient} = get().patients
       // console.log(`chart(${chartType})`, views.growth[patient.id])
-      const rows = views.growth[patient.id]
+      const rows = views.growth[patient.id] || []
       // console.log(`chart() transform ${rows.length} rows for ${chartType}`)
       return transform(rows, {chart:chartType})
     },
 
     fetchGenericPercentileChart : async (opts) => {
-      // console.log(`fetchGeneric`, opts)
+      console.log(`fetchGeneric`, opts)
       try {
         set(state => {state[k].loading = true})
         const json = await getGenericPercentileChart(opts)
