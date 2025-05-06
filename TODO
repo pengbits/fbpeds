@@ -1,5 +1,6 @@
+RESTORE patient data to chart - regression from messing w/ age column
 - timezone quirks or whatever is causing appt time inconsistency
-- support data at ages less than 1 year old, ie age_months or fractional age_years
+- changes to db for age < 2 years on PROD
+- randomize provider associated with visits on PROD
 - password strength/validity widget?
-- could add vacciness to well visit history when there is one
-- randomize provider associated with visits
+- design skin!

@@ -32,11 +32,11 @@ const PatientDetails = ({
       case 'growth':
         return <>
           <Table 
-            cols={['date','age_years','weight','weight_percent']}
+            cols={['date','age','weight','weight_percent']}
             rows={data}
           />
           <Table 
-            cols={['date','age_years','height','height_percent']}
+            cols={['date','age','height','height_percent']}
             rows={data}
           />
           </>

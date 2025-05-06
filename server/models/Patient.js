@@ -16,7 +16,7 @@ const withImageFromVisit = ({id, has_image, ...attrs}) => {
   const image = has_image ? `/images/patients/${id}/${dayjs(attrs.visit_date).format('YYYY-MM-DD')}.png` : null
   return {image, ...attrs}
 }
-
+const toTwoPlaces = n => Math.floor(n * 100)/100
 Patient.prototype.read = async () => {
   const result = await pool.query(`SELECT 
     p.name as name, p.id as id, p.birthdate as birthdate, p.gender as gender, p.last_image as last_image, 
@@ -161,15 +161,21 @@ Patient.prototype.find = async (id, opts={}) => {
       const clean = related.filter(related => {
         return related !== emptyObject && related[pk] !== null
       })
-      const cleanWIthMetric = opts.include !== 'growth' ? clean : clean.map(row => {
+
+      const cleanWithMetric = opts.include !== 'growth' ? clean : clean.map(row => {
         return {...row, 
-          weight_kg: row.weight * 0.453592,
-          height_cm: row.height * 2.54
+          weight_kg: toTwoPlaces(row.weight * 0.453592),
+          height_cm: toTwoPlaces(row.height * 2.54)
         }
       })
-
-      const cleanWithImages = opts.include !== 'visits' ? cleanWIthMetric : (
-        cleanWIthMetric.map(visit => withImageFromVisit({id, ...visit}))
+      const cleanWithAgeMonths = opts.include !== 'growth' ? cleanWithMetric : cleanWithMetric.map(row => {
+        return {
+          ...row,
+          age_months: row.age < 2 ? toTwoPlaces(row.age * 12) : null
+        }
+      })
+      const cleanWithImages = opts.include !== 'visits' ? cleanWithAgeMonths : (
+        cleanWithAgeMonths.map(visit => withImageFromVisit({id, ...visit}))
       )
 
       const cleanWithProvider = opts.include !== 'visits' ? cleanWithImages : (

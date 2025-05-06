@@ -4,12 +4,17 @@ import { Table, Link } from "@radix-ui/themes"
 
 const isDate      = column => (column == 'date')
 const isImage     = column => (column == 'image')
+const isAge       = column => (column == 'age')
 const isVisitDate = column => (column == 'visit_date')
 const isProvider  = column => (column == 'provider')
 
 const formattedCellContent = (column, value, row, baseUrl) => {
   if(isDate(column)) return datePretty(value)
   
+  if(isAge(column)) return (
+    row.age_months ? `${row.age_months} months` : value
+  )
+
   if(isImage(column)) return (
     !!value && <a href={value} target="_blank">📷</a>
   )
