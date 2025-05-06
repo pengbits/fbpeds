@@ -6,41 +6,59 @@ import Select from "@/components/forms/Select"
 import DatePicker from "@/components/forms/DatePicker"
 import {dateForAppointment} from "../../util/date"
 
+const validation_rules = {
+  'patient_id': 'required',
+  'visit_type': 'required',
+  'date':       (date) => {
+    console.log('validate:date', date)
+    return 'date must be in the future'
+  }
+}
+
+const validate = (attrs) => {
+  let errors = {}
+  for(const k in validation_rules){
+    const validator = validation_rules[k]
+    if(validator == 'required'){
+        errors[k] = !attrs[k] ? `${k} is required` : null
+    }
+    else if(typeof validator == 'function'){
+      const error = validator(attrs[k])
+      errors[k] = !!error ? error : null
+    }
+  }
+  return errors
+}
+
+const errorList = (errors) => (
+  Object.values(errors).filter(v => !!v)
+)
+const hasErrors = (errors) => (errorList(errors).length > 0) 
+
 const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
   const [attrs, setAttrs] = useState(initialAttributes)
+  const [errors, setErrors] = useState({})
 
-  const handleChange = (e) => {
+  const handleChange = (key, val) => {
     setAttrs({
       ...attrs,
-      [e.target.id] : e.target.value
+      [key] : val
     })
   }
-
-  const handleChangePatient = (id) => {
-    setAttrs({
-      ...attrs,
-      'patient_id':id
-    })
-  }
-
-  const handleChangeVisitType = (type)=> {
-    setAttrs({
-      ...attrs,
-      'visit_type':type
-    })
-  }
-  const handleChangeDatetime = (datetime, triggerDate, modifiers, e) => {
-    setAttrs({
-      ...attrs,
-      'date':datetime
-    })
-  }
+  
   const handleSubmit = (e) => {
     e.preventDefault()
-    getAvailability({
-      ...attrs,
-      date: dateForAppointment(attrs.date)
-    })
+    const result = validate(attrs)
+    if(hasErrors(result)){
+      setErrors(result)
+    }
+    else {
+      getAvailability({
+        ...attrs,
+        date: dateForAppointment(attrs.date)
+      })
+    }
+    
   }
 
   const child_name_options = [
@@ -61,41 +79,45 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
 
     return `Reschedule Appointment on ${dateTimePretty(attrs.datetime)} with  ${attrs.provider_name}`
   }
-  const initialPatientId = {defaultValue:(attrs.patient_id || '1')}
-  const initialVisitType = {defaultValue:(attrs.visit_type || 'WELL')}
 
   return (<div className="card">
     <Heading as='h4'>{title(attrs)}</Heading>
+    {hasErrors(errors) && <div className="error-list">
+      <p>There are errors with the following fields: </p>
+      <ul>
+        {errorList(errors).map(e => <li key={e}>{e}</li>)}
+      </ul>
+    </div>}
     <form onSubmit={handleSubmit} role="form">
-      <p>
+      <p className={errors['patient_id'] ? 'input-error':''}>
         <Label.Root  
           htmlFor="patient_id">Choose a Child:</Label.Root>
         <Select
           options={child_name_options}
           name='patient_id'
           aria-label="Choose a Child:"
-          initialAttrs={initialPatientId}
-          onValueChange={handleChangePatient}
+          defaultValue={attrs.patient_id || '1'}
+          onValueChange={val => handleChange('patient_id', val)}
         />
       </p>
-       <p>
+      <p className={errors['visit_type'] ? 'input-error':''}>
         <Label.Root className={attrs.visit_type ? 'hidden':''}
           htmlFor="visit_type">Visit Type</Label.Root>
         <Select
           options={visit_type_options}
           name='visit_type'
-          initialAttrs={initialVisitType}
+          defaultValue={attrs.visit_type || 'WELL'}
           placeholder='Visit Type'
-          onValueChange={handleChangeVisitType}
+          onValueChange={val => handleChange('visit_type', val)}
         />
       </p>
-
-      <label htmlFor="date">Date</label><br />
-      <DatePicker 
-        onSelect={handleChangeDatetime}
-        date={attrs.date}
-      />
-       
+      <span className={errors['date'] ? 'input-error':''}>
+        <label htmlFor="date">Date</label><br />
+        <DatePicker 
+          onSelect={val => handleChange('date', val)}
+          date={attrs.date}
+        />
+      </span>
       <Button asChild>
         <input type="submit" value="Search for Times" />
       </Button>

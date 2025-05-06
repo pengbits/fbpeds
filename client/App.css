@@ -122,13 +122,18 @@
   margin-bottom: 10px;
 }
 
-.error {
+.error,
+.error-list {
   padding: 15px;
   margin-left: 15px;
   border: #FF0000 solid 2px;
   background-color: #FFFFFF;
   color: #FF0000;
   max-width: 400px;
+}
+
+.input-error label {
+  color :#FF0000;
 }
 
 .patient-details h2 {
