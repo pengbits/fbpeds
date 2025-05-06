@@ -1,8 +1,7 @@
-import { useParams } from "react-router"
 import { useEffect } from "react"
 import AppointmentSearchForm from "../components/appointments/AppointmentSearchForm"
 import useStore from "../store/appStore"
-import {dateForAppointment} from "../util/date"
+import { Box } from "@radix-ui/themes"
 
 const AppointmentSearchEditPage = ({initialAttributes,getAvailability}) => {
   const {
@@ -28,13 +27,16 @@ const AppointmentSearchEditPage = ({initialAttributes,getAvailability}) => {
     return (<AppointmentSearchForm 
       initialAttributes={{
         ...appointment,
+        patient_id: `${appointment.patient_id}`,
         date: appointment.datetime
       }}
       getAvailability={getAvailability}
     />)
   } else {
     return (
-      <p>Your appointment has been updated. <a href="/patients">Home</a></p>
+      <Box className="success">
+        <p>Your appointment has been updated. <a href="/patients">Home</a></p>
+      </Box>
     )
   }
 }

@@ -110,7 +110,6 @@
 }
 
 
-
 .availability__date {
   font-size: 18px;
   line-height: 24px;
@@ -122,15 +121,33 @@
   margin-bottom: 10px;
 }
 
-.error {
-  padding: 15px;
-  margin-left: 15px;
-  border: #FF0000 solid 2px;
-  background-color: #FFFFFF;
+.error,
+.error-list {
   color: #FF0000;
   max-width: 400px;
 }
 
+.error {
+  padding: 15px;
+  margin-left: 15px;
+  border: #FF0000 solid 2px;
+}
+
+.input-error label {
+  color :#FF0000;
+}
+.success {
+  padding: 0 15px;
+  color: green;
+}
+.success a {
+  color: green;
+  font-weight: bold;
+  text-decoration: none;
+}
+.success a:hover {
+  text-decoration: underline;
+}
 .patient-details h2 {
   margin-left: 0;
 }
