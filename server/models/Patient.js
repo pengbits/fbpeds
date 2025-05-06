@@ -19,8 +19,8 @@ const withImageFromVisit = ({id, has_image, ...attrs}) => {
 
 Patient.prototype.read = async () => {
   const result = await pool.query(`SELECT 
-    p.name as name, p.id as id, p.birthdate as birthdate, p.last_image as last_image, a.appointment_id as appointment_id,
-    a.provider_id as provider_id, a.patient_id as patient_id,
+    p.name as name, p.id as id, p.birthdate as birthdate, p.gender as gender, p.last_image as last_image, 
+    a.appointment_id as appointment_id, a.provider_id as provider_id, a.patient_id as patient_id,
     a.datetime as datetime, a.visit_type as visit_type, ps.name as provider_name
   FROM patients p
   LEFT JOIN appointments a
@@ -37,6 +37,7 @@ Patient.prototype.read = async () => {
       id,
       name,
       birthdate,
+      gender,
       last_image,
       provider_id,
       datetime,
@@ -62,6 +63,7 @@ Patient.prototype.read = async () => {
           name,
           id,
           birthdate,
+          gender,
           last_image,
           appointments: []
         }
@@ -83,6 +85,7 @@ Patient.prototype.read = async () => {
           id: patient_id,
           name,
           birthdate,
+          gender,
           last_image,
           appointments: [{
             datetime,
@@ -134,12 +137,13 @@ Patient.prototype.find = async (id, opts={}) => {
         name,
         id,
         birthdate,
+        gender,
         last_image
       } = (rows[0])
 
       // discard redundant attributes in each related record
       const related = rows.map(row => {
-        const {name, id, birthdate, patient_id, last_image, ...attrs} = row
+        const {name, id, birthdate, patient_id, gender, last_image, ...attrs} = row
         return attrs
       })
       // filter out null entries in left join case where there were no relateds
@@ -163,6 +167,7 @@ Patient.prototype.find = async (id, opts={}) => {
         name,
         id,
         birthdate,
+        gender,
         last_image
       })
       return [{
@@ -234,6 +239,7 @@ Patient.prototype.findPrescriptions = async (id) => {
     id: row.id,
     name: row.name,
     birthdate: row.birthdate,
+    gender: row.gender,
     last_image: row.last_image,
     prescriptions: rows.map(p => ({
       date: p.date,

@@ -2,7 +2,7 @@ import { screen, render, act, fireEvent } from '@testing-library/react'
 import AppointmentSearchPage from "./AppointmentSearchPage"
 import getProviderAvailibilityMock from "../mocks/getProviderAvailibility"
 import { renderComponentWithRoute } from '../test/routerUtils'
-
+import { dateForAppointment } from '../util/date'
 beforeEach(async () => {
   fetch.resetMocks()
   // mock problematic radix select component, by downgrading to vanilla html equivalent
@@ -76,7 +76,9 @@ describe('Appointments', () => {
       fetch.mockResponseOnce(JSON.stringify(getProviderAvailibilityMock)) 
 
       const {user} = await renderComponentWithRoute(AppointmentSearchPage, {withUser:true})
-      await populateForm(user, {patient_id:1, visit_type:'SICK', date:'2025-05-01'})
+      const d = new Date(); d.setDate(d.getDate()+2)
+      const date = dateForAppointment(d)
+      await populateForm(user, {patient_id:1, visit_type:'SICK', date})
       await act(() => fireEvent.click(screen.getByText('Search for Times')))
       
       // check header

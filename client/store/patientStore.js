@@ -62,12 +62,17 @@ const reducer = (set,get) => {
         if(!id) throw new Error('id is required')
         set((state) => {state[k].loading = true})
         const patients = await getPatient(id)
+        console.log('Store', patients[0])
         set((state) => {state[k].patient = patients[0]})
       } catch(e){
         set((state) => {state[k].error = e})
       } finally {
         set((state) => {state[k].loading = false})
       }
+    },
+
+    resetPatient: () => {
+      set(state => {state[k].patient = {...initialState.patient}})
     },
 
     setView: (view) => {

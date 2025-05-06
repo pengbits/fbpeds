@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router"
 import { useEffect } from "react"
 import useStore from "../store/appStore"
-import PatientsDetails from "../components/appointments/patients/PatientDetails"
+import PatientsDetails from "../components/patients/PatientDetails"
 import PatientCharts from "../components/charts/PatientCharts"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import { Heading, Button , Box} from "@radix-ui/themes"
@@ -17,7 +17,8 @@ const PatientsDetailsPage = () => {
     views,
     setView,
     fetchView,
-    resetView
+    resetView,
+    resetPatient
   } = useStore(state => state.patients)
   
   const {
@@ -27,24 +28,31 @@ const PatientsDetailsPage = () => {
   } = useStore(state => state.charts)
 
   const params = useParams()
+  const {gender} = patient
 
   useEffect(() => {
     fetchPatient(params.id)
     setView('growth');
     fetchView(params.id)
-    fetchGenericPercentileChart({
-      chart:'height', 
-      gender:'female' // TODO make dynamic
-    })
-    fetchGenericPercentileChart({
-      chart:'weight', 
-      gender:'female' // TODO make dynamic
-    })
     
     return () => {
-      resetView()
+      resetView(),
+      resetPatient()
     }
+
   }, [])
+
+  useEffect(() => {
+    gender && fetchGenericPercentileChart({
+      chart:'height', 
+      gender
+    })
+    gender && fetchGenericPercentileChart({
+      chart:'weight', 
+      gender
+    })
+
+  },[gender])
 
   const handleSetView = async (view) => {
     setView(view) 
