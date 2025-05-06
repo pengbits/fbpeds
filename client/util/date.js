@@ -18,3 +18,8 @@ export const dateForAppointment = date => {
   // avoid daylight savings time issue by setting hour far from midnight
   return dayjs(date).format('YYYY-MM-DD')
 }
+
+export const isInFuture = date => {
+  const today = new  Date()
+  return dayjs(date).isAfter(today)
+}

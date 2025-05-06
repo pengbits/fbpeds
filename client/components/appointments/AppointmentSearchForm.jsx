@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { dateTimePretty } from "../../util/date"
+import { dateTimePretty, isInFuture } from "../../util/date"
 import { Heading, Button } from "@radix-ui/themes"
 import { Label } from "radix-ui"
 import Select from "@/components/forms/Select"
@@ -11,7 +11,9 @@ const validation_rules = {
   'visit_type': 'required',
   'date':       (date) => {
     console.log('validate:date', date)
-    return 'date must be in the future'
+    if(!isInFuture(date)){
+      return 'date must be in the future'
+    }
   }
 }
 
@@ -90,13 +92,15 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
     </div>}
     <form onSubmit={handleSubmit} role="form">
       <p className={errors['patient_id'] ? 'input-error':''}>
-        <Label.Root  
+        <Label.Root
+          className={attrs.patient_id ? 'hidden':''}  
           htmlFor="patient_id">Choose a Child:</Label.Root>
         <Select
           options={child_name_options}
           name='patient_id'
           aria-label="Choose a Child:"
-          defaultValue={attrs.patient_id || '1'}
+          placeholder="Choose a Child"
+          defaultValue={attrs.patient_id}
           onValueChange={val => handleChange('patient_id', val)}
         />
       </p>
@@ -106,7 +110,7 @@ const AppointmentForm = ({mode, initialAttributes, getAvailability}) => {
         <Select
           options={visit_type_options}
           name='visit_type'
-          defaultValue={attrs.visit_type || 'WELL'}
+          defaultValue={attrs.visit_type}
           placeholder='Visit Type'
           onValueChange={val => handleChange('visit_type', val)}
         />
