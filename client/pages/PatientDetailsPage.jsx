@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router"
 import { useEffect } from "react"
 import useStore from "../store/appStore"
-import PatientsDetails from "../components/appointments/patients/PatientDetails"
+import PatientsDetails from "../components/patients/PatientDetails"
 import PatientCharts from "../components/charts/PatientCharts"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import { Heading, Button , Box} from "@radix-ui/themes"
