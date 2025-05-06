@@ -184,8 +184,9 @@ Patient.prototype.find = async (id, opts={}) => {
 
 Patient.prototype.findVisit = async (id, visitId) => {
   const query = `
-    SELECT v.*, pro.name AS provider_name, pat.*, g.* FROM visits as v
+    SELECT v.*, pro.name AS provider_name, pat.*, g.*, i.type as immunization_type, i.immunization_id FROM visits as v
     LEFT JOIN growth AS g ON (v.visit_date = g.date)
+    LEFT JOIN immunizations AS i ON (v.visit_date = i.date)
     JOIN providers AS pro ON (v.provider_id = pro.id)
     JOIN patients AS pat  ON (v.patient_id = pat.id)
     WHERE visit_id = $1`
@@ -194,12 +195,19 @@ Patient.prototype.findVisit = async (id, visitId) => {
   const res = await pool.query(query, [visitId])
   const {rows} = res;
 
-  if(rows.length !== 1){
+  if(!rows.length){
     throw new Error(' couldn\'t find a visit with id:'+visitId)
   }
   const row = rows[0]
   const {image} = withImageFromVisit({id, ...row})
+  const vaccines = rows.slice(1).concat([{
+    'immunization_type':row.immunization_type, 
+    'immunization_id' :row.immunization_id
+  }]).map(({immunization_id,immunization_type}) => ({id:immunization_id, type: immunization_type}))
+     .filter(v => !!v.id)
+     
   const visits = [{
+    id: row.visit_id,
     visit_type: row.visit_type,
     visit_date: row.visit_date,
     provider_id: row.provider_id,
@@ -209,9 +217,10 @@ Patient.prototype.findVisit = async (id, visitId) => {
     weight: row.weight,
     weight_percent: row.weight_percent,
     bmi_percent: row.bmi_percent,
-    image
+    image,
+    vaccines
   }]
-
+  
   const patient = {
     id: row.id,
     name: row.name,
