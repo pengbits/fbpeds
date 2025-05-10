@@ -1,0 +1,4 @@
+move image path logic into a manager so we can support diff types like
+Image.getPath('patient', 1) 		=> '/images/patients/1/2025-01-01.png'
+Image.getPath('visit', 1, '2024-03-20') => '/images/patients/1/2024-03-20.png'
+Image.getPath('provider, 2) 		=> '/images/providers/2.png'
