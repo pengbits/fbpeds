@@ -39,8 +39,10 @@ const reducer = (set,get) => {
       const {views,patient} = get().patients
       // console.log(`chart(${chartType})`, views.growth[patient.id])
       const rows = views.growth[patient.id] || []
-      console.log(`chart() transform ${rows.length} rows for ${chartType}`)
-      return transform(rows, {chart:chartType})
+      // console.log(`chart() transform ${rows.length} rows for ${chartType}`)
+      const data =  transform(rows, {chart:chartType})
+      console.log(`chart(${chartType})`, data)
+      return data
     },
 
     fetchGenericPercentileChart : async (opts) => {
@@ -48,6 +50,7 @@ const reducer = (set,get) => {
       try {
         set(state => {state[k].loading = true})
         const json = await getGenericPercentileChart(opts)
+        console.log('generic.'+opts.chart, json)
         set(state => {state[k].generic[opts.chart] = json})
       } catch (e) {
         set(state => {state[k].error = e})
