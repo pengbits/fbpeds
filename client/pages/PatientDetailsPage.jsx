@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import useStore from "../store/appStore"
 import PatientsDetails from "../components/patients/PatientDetails"
 import PatientCharts from "../components/charts/PatientCharts"
@@ -54,10 +54,14 @@ const PatientsDetailsPage = () => {
 
   },[gender])
 
+  // const heightData = useMemo(() => chart('height'), [patient])
+  // const weightData = useMemo(() => chart('weight'), [patient])
+  
   const handleSetView = async (view) => {
     setView(view) 
     await fetchView()
   }
+
   if(error) { 
     return <ErrorMessage error={error} />
   }
@@ -66,7 +70,7 @@ const PatientsDetailsPage = () => {
     return <PatientDetailsSkeleton />
   }
 
-
+  // patient.id && console.log(chart('height'))
   return (<>
     <Heading as='h2'>Patients</Heading>
     <PatientsDetails 
