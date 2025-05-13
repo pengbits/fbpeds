@@ -21,8 +21,8 @@ export const transform = (rows, opts={}) => {
       throw new Error('unknown chart type:'+ opts.chart)
     }
 
-  const sortedData = sortData(rows.filter(r => r.age_years > 1), {type:'growth',order:'asc'}).map(r => ({
-    label: `${r.age_years} years`,
+  const sortedData = sortData(rows.filter(r => r.age > 1), {type:'growth',order:'asc'}).map(r => ({
+    label: `${r.age} years`,
     [k] : r[k],
   }))
   return {
@@ -52,7 +52,7 @@ export const getGenericPercentileChart = async (opts={}) => {
   const key      = [opts.chart, 'age', (opts.gender == 'female' ? 'girls':'boys')].join('_')
   const resource = resource_map[key]
   const url      = `/resources/${resource}.json`
-  console.log(`getGenericPercentileChart: ${url}`)
+  // console.log(`getGenericPercentileChart: ${url}`)
   const res = await fetch(url)
   const {data}= await res.json()
   return data
