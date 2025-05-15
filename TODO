@@ -1,6 +1,4 @@
-RESTORE patient data to chart - regression from messing w/ age column
 - timezone quirks or whatever is causing appt time inconsistency
-- changes to db for age < 2 years on PROD
 - randomize provider associated with visits on PROD
 - password strength/validity widget?
 - design skin!
