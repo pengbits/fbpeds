@@ -5,7 +5,9 @@
 --sriracha: rgba(255, 116, 145, 1);
 --cloud: rgba(246, 246, 246, 1);
 }
-
+.radix-themes {
+  --sriracha: var(var(--sriracha))
+}
 #root {
   box-sizing: border-box;
   /* display: flex; */
@@ -14,7 +16,7 @@
 }
 
 .rt-Container {
-  background-color:var(--mint);
+  background-color:var(--cloud);
   min-height: 100vh;
 }
 .rt-ContainerInner {
@@ -30,14 +32,19 @@
   background-color: var(--mustard);
 }
 
+.header .home-link {
+  color: var(--gray-12);
+}
 .content {
-  background: var(--cloud) no-repeat url(/svg/header-mustard.svg) top center;
-  background-size:contain;
-  background-position-y: -2px;
+  background: var(--cloud) no-repeat url(/svg/header-mustard.svg) top -100px center;
+  background-size:100%;
+  padding-top: 100px;
 }
 
-.patients .card {
-  border-color: transparent;
+.card {
+  border-radius: 20px;
+  padding: 15px;
+  background-color: #FFF;
 }
 
 .user {
@@ -56,15 +63,21 @@
   text-decoration: none;
 }
 
-.footer-actions,
 .card {
-  margin: 15px
+  margin: 0 15px 15px 15px
+}
+.footer-actions {
+  padding: 15px;
+}
+
+.patients .patient {
+  background:#FFF no-repeat url(/svg/arrow-right.svg) center right 15px;
 }
 
 
 .patient__image,
 .provider__image {
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   margin-right: 15px;
   width: 66px;
   height: 66px;
@@ -85,12 +98,7 @@
   top:-25%
 }
 
-.patient-details .patient__image {
-  @media screen and (max-width:640px){
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+
 
 .appointment__headline {
   display: block;

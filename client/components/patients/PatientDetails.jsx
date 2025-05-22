@@ -3,7 +3,7 @@ import { birthdatePretty } from "../../util/date"
 import Table from "../tables/Table"
 import TableSkeleton from "../skeletons/TableSkeleton"
 import { view_types } from "../../store/patientStore"
-import { Heading, TabNav } from "@radix-ui/themes"
+import { Heading, Text, TabNav } from "@radix-ui/themes"
 
 const PatientDetails = ({
   id,
@@ -64,14 +64,13 @@ const PatientDetails = ({
 
   return (<div className="patient-details card">
     <div className="patient-details__head">
-      <Heading size='7' as='h2'>{name}</Heading>
-      <p>
-        <b>Birthdate</b>
-        <br />{birthdatePretty(birthdate)}
-      </p>
-      <div className="patient__image patient__image--large">
+      <div className="patient__image">
         <img alt="image of patient" src={image} />
       </div>
+      <Heading size='7' as='h2'>{name}</Heading>
+      <Text as='p'>
+        {birthdatePretty(birthdate)}
+      </Text>
     </div>
     {children}
     <div className="patient-details__body">     

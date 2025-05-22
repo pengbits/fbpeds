@@ -27,7 +27,6 @@ const PatientsPage = () => {
   
   return (
     <>
-      <Heading as='h2'>Patients</Heading>
       {error && <ErrorMessage error={error} />}
       {loading ? <Skeletons /> : <PatientList patients={patients} />}
       <Box className="footer-actions">

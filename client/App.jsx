@@ -22,7 +22,10 @@ function App() {
   }, [])
 
   return (<>
-  <Theme panelBackground="solid" radius="large">
+  <Theme 
+    panelBackground="solid" 
+    radius="large"
+    accentColor="crimson">
     <Container size="3" className="container">
       <Header user={user} logout={clearUser} />
       <Nav />

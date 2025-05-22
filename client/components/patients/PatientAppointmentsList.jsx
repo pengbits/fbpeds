@@ -28,8 +28,8 @@ const PatientAppointmentsList = ({appointments, patientId}) => {
           {headline}
         </span>
         <span className="appointment__options">
-          <Button size="1" data-id={a.appointment_id} onClick={e => cancel(a.appointment_id)}>cancel</Button>{' '}
-          <Button size="1" asChild><Link to={`/appointments/${a.appointment_id}/edit`}>reschedule</Link></Button>
+          <Button color='crimson' size="1" data-id={a.appointment_id} onClick={e => cancel(a.appointment_id)}>cancel</Button>{' '}
+          <Button color='crimson' size="1" asChild><Link to={`/appointments/${a.appointment_id}/edit`}>reschedule</Link></Button>
         </span>
       </div>)
     })}

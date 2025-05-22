@@ -6,7 +6,7 @@ export default ({user,logout}) => {
   <header className="header">
     <Heading as='h1'>
       <Link asChild>
-       <RouterLink to="/">Flatbush Pediatrics</RouterLink>
+       <RouterLink to="/" className="home-link">Flatbush Pediatrics</RouterLink>
       </Link>
     </Heading>
     {user && 
