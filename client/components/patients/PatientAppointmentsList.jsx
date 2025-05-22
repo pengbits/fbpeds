@@ -1,8 +1,8 @@
-import { dateTimePretty } from "../../../util/date"
-import { visitTypePretty } from "../../../util/string"
+import { dateTimePretty } from "../../util/date"
+import { visitTypePretty } from "../../util/string"
 import { Link } from "react-router"
 import { Button } from "@radix-ui/themes"
-import useAppStore from "../../../store/appStore"
+import useAppStore from "../../store/appStore"
 const PatientAppointmentsList = ({appointments, patientId}) => {
   if(!appointments || !appointments.length) return null
   

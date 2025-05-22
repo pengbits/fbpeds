@@ -1,4 +1,12 @@
 #root {
+--mint: rgba(183, 227, 221, 1);
+--mustard: rgba(255, 208, 108, 1);
+--forest: rgba(71, 122, 114, 1);
+--sriracha: rgba(255, 116, 145, 1);
+--cloud: rgba(246, 246, 246, 1);
+}
+
+#root {
   box-sizing: border-box;
   /* display: flex; */
   /* flex-direction: column; */
@@ -6,7 +14,7 @@
 }
 
 .rt-Container {
-  background-color:var(--gray-4);
+  background-color:var(--mint);
   min-height: 100vh;
 }
 .rt-ContainerInner {
@@ -18,7 +26,19 @@
   position: relative;
   padding-top: 15px;
 }
+.header, .header-nav{
+  background-color: var(--mustard);
+}
 
+.content {
+  background: var(--cloud) no-repeat url(/svg/header-mustard.svg) top center;
+  background-size:contain;
+  background-position-y: -2px;
+}
+
+.patients .card {
+  border-color: transparent;
+}
 
 .user {
   position: absolute;
@@ -46,11 +66,11 @@
 .provider__image {
   margin-bottom: 15px;
   margin-right: 15px;
-  width: 100px;
-  height: 100px;
+  width: 66px;
+  height: 66px;
   position: relative;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 16%;
 }
 .patient__image--loading {
   background-color: 0;
@@ -71,6 +91,7 @@
     margin-right: auto;
   }
 }
+
 .appointment__headline {
   display: block;
   margin-right: 10px;

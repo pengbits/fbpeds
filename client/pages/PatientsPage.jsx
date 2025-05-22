@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import PatientList from "../components/appointments/patients/PatientList"
+import PatientList from "../components/patients/PatientList"
 import {ErrorMessage} from "../components/errors/ErrorMessage"
 import useStore from "../store/appStore"
 import { Link } from "react-router"

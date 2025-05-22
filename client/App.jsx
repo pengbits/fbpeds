@@ -22,7 +22,7 @@ function App() {
   }, [])
 
   return (<>
-  <Theme>
+  <Theme panelBackground="solid" radius="large">
     <Container size="3" className="container">
       <Header user={user} logout={clearUser} />
       <Nav />
