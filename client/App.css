@@ -35,6 +35,9 @@
 .header .home-link {
   color: var(--gray-12);
 }
+
+/* need a way to make this conditionally applied only to homepage,
+sub-pages need the mint bg and secondary forest header */
 .content {
   background: var(--cloud) no-repeat url(/svg/header-mustard.svg) top -100px center;
   background-size:100%;

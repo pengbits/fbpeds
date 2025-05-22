@@ -72,7 +72,6 @@ const PatientsDetailsPage = () => {
 
   // patient.id && console.log(chart('height'))
   return (<>
-    <Heading as='h2'>Patients</Heading>
     <PatientsDetails 
       {...patient}
       setView={handleSetView} 

@@ -8,8 +8,6 @@ import useUser from './hooks/useUser'
 import { Theme, Container, Text, Link } from "@radix-ui/themes";
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import { Box } from "@radix-ui/themes";
-
 function App() {
   const {
     user,

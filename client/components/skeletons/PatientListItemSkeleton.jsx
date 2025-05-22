@@ -5,7 +5,7 @@ export default ({appointments}) => (
 <Card className="patient card">
   <Flex>
     <div className="patient__image patient__image--loading">
-      <Skeleton circle width={100} height={100} />
+      <Skeleton circle width={66} height={66} />
     </div>
     <div className="patient__actions">
         <Skeleton width={250} height={15} count={3}/>
