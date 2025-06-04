@@ -21,6 +21,7 @@ function App() {
   }, [])
   
   const headerClass = getHeaderClassFromLocation(useLocation())
+  
   return (<>
   <Theme 
     panelBackground="solid" 
