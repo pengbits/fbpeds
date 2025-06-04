@@ -2,11 +2,11 @@ import ProviderAvailabilityList from '@/components/appointments/ProviderAvailabi
 import { Card } from '@radix-ui/themes'
 export default ({id,name,image,availability,handleSelectTime}) => {
   return (<Card 
-    className="provider card"
+    className="user card"
     data-testid="provider-entry"
   >
     <h3>{name}</h3>
-    <div className='provider__image'>
+    <div className='user__image'>
       {image && <img src={image} alt="image of provider" />}
     </div>
     <ProviderAvailabilityList

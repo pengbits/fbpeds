@@ -23,7 +23,7 @@ const ProvidersPage = () => {
     return items.map(i  => <ProviderListItemSkeleton key={i} />)
   }
   
-  return (<div className="providers">
+  return (<div className="users">
     {error && <ErrorMessage error={error} />}
     {loading ? <Skeletons /> : (
       <div className="provider-list">

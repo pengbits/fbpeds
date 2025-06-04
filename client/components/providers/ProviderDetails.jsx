@@ -1,5 +1,5 @@
-import { Link } from "react-router"
-import { Heading, Text } from "@radix-ui/themes"
+import { Link as RouterLink } from "react-router"
+import { Link, Heading, Text } from "@radix-ui/themes"
 const htmlFromMarkDown = (md) => {
   return ['<p>',
     md
@@ -24,9 +24,14 @@ export default ({
       <Heading size='7' as='h2'>{name}</Heading> 
       <Text as='p'>{medical_degree}</Text>
     </div>
-    <div className="about" dangerouslySetInnerHTML={{
+    <div className="user-details__body" dangerouslySetInnerHTML={{
       __html: htmlFromMarkDown(about)}
     }></div>
-    <p><Link to='/providers'>Back</Link></p>
+    <p>
+      
+    <Link asChild weight='medium' size="3">
+      <RouterLink to='/providers'>Back</RouterLink>
+    </Link>
+    </p>
   </div>)
 }

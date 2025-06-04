@@ -7,6 +7,7 @@ import Nav from "./components/app/nav"
 import useUser from './hooks/useUser'
 import { Theme, Container, Text, Link } from "@radix-ui/themes";
 import 'react-loading-skeleton/dist/skeleton.css';
+import { getHeaderClassFromLocation } from "./util/classnames";
 
 function App() {
   const {
@@ -19,15 +20,13 @@ function App() {
     fetchUser()
   }, [])
   
-  const {pathname} = useLocation()
-  const containerClass = !['/patients','/providers'].includes(pathname) ? 'header-collapsed' : ''
-
+  const headerClass = getHeaderClassFromLocation(useLocation())
   return (<>
   <Theme 
     panelBackground="solid" 
     radius="large"
     accentColor="crimson">
-    <Container size="3" className={`container ${containerClass}`}>
+    <Container size="3" className={`container ${headerClass}`}>
       <Header user={user} logout={clearUser} />
       <Nav />
       {user && <main className="content">

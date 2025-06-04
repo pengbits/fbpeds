@@ -82,7 +82,8 @@ sub-pages need the mint bg and secondary forest header */
 }
 
 .patients .patient,
-.providers .provider {
+.providers .provider,
+.users .user {
   background:#FFF no-repeat url(/svg/arrow-right.svg) center right 15px;
 }
 
