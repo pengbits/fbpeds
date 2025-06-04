@@ -1,5 +1,5 @@
-import { Outlet } from "react-router";
-import { useState,useEffect } from "react";
+import { Outlet, useLocation} from "react-router";
+import { useEffect } from "react";
 import "./App.css"
 import "@radix-ui/themes/styles.css";
 import Header from "./components/app/header";
@@ -18,13 +18,16 @@ function App() {
   useEffect(() => {
     fetchUser()
   }, [])
+  
+  const {pathname} = useLocation()
+  const containerClass = !['/patients','/providers'].includes(pathname) ? 'header-collapsed' : ''
 
   return (<>
   <Theme 
     panelBackground="solid" 
     radius="large"
     accentColor="crimson">
-    <Container size="3" className="container">
+    <Container size="3" className={`container ${containerClass}`}>
       <Header user={user} logout={clearUser} />
       <Nav />
       {user && <main className="content">

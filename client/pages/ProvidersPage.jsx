@@ -24,8 +24,6 @@ const ProvidersPage = () => {
   }
   
   return (<div className="providers">
-    <Heading as='h2'>Providers</Heading>
-    
     {error && <ErrorMessage error={error} />}
     {loading ? <Skeletons /> : (
       <div className="provider-list">

@@ -23,7 +23,6 @@ const VisitDetailsPage = () => {
   
   return (
     <>
-      <h2>Patients</h2>
       {error && <ErrorMessage error={error} />}
       {loading ? <p>loading... </p> : 
           visit ? <VisitDetailsCard patientId={params.id} {...visit} /> : null}

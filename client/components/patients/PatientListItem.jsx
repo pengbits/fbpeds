@@ -1,7 +1,7 @@
 import PatientLink from "./PatientLink"
 import { Link as RouterLink } from "react-router"
 import PatientAppointmentsList from "./PatientAppointmentsList"
-import { Card, Box, Flex, Button, Link } from "@radix-ui/themes"
+import { Box, Flex, Button, Link } from "@radix-ui/themes"
 
 export default (({id,name,image,appointments}) => (
 <Box key={id} className="patient card">

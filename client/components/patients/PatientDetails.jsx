@@ -62,7 +62,7 @@ const PatientDetails = ({
     }
   }
 
-  return (<div className="patient-details card">
+  return (<div className="patient-details">
     <div className="patient-details__head">
       <div className="patient__image">
         <img alt="image of patient" src={image} />

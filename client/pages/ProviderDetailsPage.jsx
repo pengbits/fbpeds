@@ -25,7 +25,6 @@ const ProviderDetailsPage = () => {
   
   return (
     <>
-      <Heading as='h2'>Providers</Heading>
       {error && <ErrorMessage error={error} />}
       {loading ? <ProviderDetailsSkeleton /> : null}
       {!loading && provider ? <ProviderDetails {...provider} /> : null}
