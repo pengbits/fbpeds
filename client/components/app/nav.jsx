@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router"
 import { TabNav, Box } from "@radix-ui/themes"
 export default () => {
   const {pathname}  = useLocation()
-  const isPatients  = (pathname.indexOf('/patients') > -1)
+  const isPatients  = (pathname.indexOf('/patients') > -1 || pathname === '/')
   const isProviders = (pathname.indexOf('/providers') > -1)
   
   return (<Box className='header-nav' pb='3'>

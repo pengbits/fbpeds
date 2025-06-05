@@ -43,6 +43,11 @@ sub-pages need the mint bg and secondary forest header */
   background-size:100%;
   padding-top: 100px;
 }
+@media screen and (min-width:500px) {
+  .content{
+    padding-top: 160px;
+  }
+}
 .header-collapsed .content {
   background-color:#FFF;
   padding-top: 1px;
@@ -55,10 +60,10 @@ sub-pages need the mint bg and secondary forest header */
   background-color: #FFF;
 }
 
-.user {
+.user-nav {
   position: absolute;
   top:5px;
-  right: 15px;
+  right: 15px; 
 }
 
 .header h1,
@@ -67,6 +72,9 @@ sub-pages need the mint bg and secondary forest header */
   margin-left: 15px;
 }
 
+.header-nav .rt-BaseTabList {
+  box-shadow: none; 
+}
 .patient h3 a {
   text-decoration: none;
 }
@@ -142,8 +150,8 @@ sub-pages need the mint bg and secondary forest header */
 
 .patient__image--large,
 .provider__image--large {
-  width: 200px;
-  height: 200px;
+  width: 130px;
+  height: 130px;
 }
 
 
@@ -182,8 +190,13 @@ sub-pages need the mint bg and secondary forest header */
 .login-prompt {
   padding: 15px;
 }
-.success {  padding: 0 15px;
+.success {  
   color: green;
+  background-color: #FFF;
+}
+.success p {
+  padding: 15px;
+  margin-bottom: 0;
 }
 .success a {
   color: green;
@@ -203,6 +216,7 @@ sub-pages need the mint bg and secondary forest header */
 .user-details h2 {
   margin-left: 0;
 }
+
 .patient-details__head,
 .user-details__head {
   padding: 30px;
@@ -211,6 +225,7 @@ sub-pages need the mint bg and secondary forest header */
   min-height: 250px;
   color: #FFF
 }
+
 .patient-details__body,
 .user-details__body {
   margin-right: 15px;

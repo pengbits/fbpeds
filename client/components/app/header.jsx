@@ -10,8 +10,8 @@ export default ({user,logout}) => {
       </Link>
     </Heading>
     {user && 
-      (<Box mt="4" className="user">
-        <Text size="2" as='p' className="user__greeting">Hello {user.username}. <a href="#" onClick={e => logout()}>Log Out.</a></Text>
+      (<Box mt="4" className="user-nav">
+        <Text size="2" as='p' className="user__greeting">Hello {user.username}. <Link to="#" onClick={e => logout()}>Log Out.</Link></Text>
       </Box>)}
   </header>
   )

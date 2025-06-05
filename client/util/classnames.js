@@ -1,8 +1,11 @@
 export const getHeaderClassFromLocation = ({pathname}) => {
-  const isCollasped = (
+  const isCollapsed = (
+    pathname !== '/' &&
     pathname !== '/patients'  && 
     pathname !== '/providers' && 
-    pathname.indexOf('appointments') == -1
+    pathname.indexOf('appointments') == -1 &&
+    pathname.indexOf('visits') === -1
    ) 
-   return isCollasped ? 'header-collapsed' : ''
+   console.log(pathname, isCollapsed)
+   return isCollapsed ? 'header-collapsed' : ''
 }
