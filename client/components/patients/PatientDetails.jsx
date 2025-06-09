@@ -72,6 +72,9 @@ const PatientDetails = ({
         {birthdatePretty(birthdate)}
       </Text>
     </div>
+    <div className="patient-details__head-seperator">
+      <span></span>
+    </div>
     {children}
     <div className="patient-details__body">     
       <TabNav.Root mb="3" data-testid="patient-tabs">
