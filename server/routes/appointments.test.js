@@ -67,7 +67,7 @@ describe('appointments', () => {
       const appt = body[r]
       console.log('BEFORE', appt.datetime)  
 
-      const expectedDatetime = `2025-06-01T0${Math.floor(Math.random() * 10)}:00:00.000Z`
+      const expectedDatetime = `2025-06-01 0${Math.floor(Math.random() * 10)}:00:00.000Z`
       const res = await request(app)
         .put(`/api/appointments/${appt.appointment_id}`)
         .set('Accept', 'application/json')

@@ -21,7 +21,7 @@ Patient.prototype.read = async () => {
   const result = await pool.query(`SELECT 
     p.name as name, p.id as id, p.birthdate as birthdate, p.gender as gender, p.last_image as last_image, 
     a.appointment_id as appointment_id, a.provider_id as provider_id, a.patient_id as patient_id,
-    a.datetime as datetime, a.visit_type as visit_type, ps.name as provider_name
+    a.datetime::text as datetime, a.visit_type as visit_type, ps.name as provider_name
   FROM patients p
   LEFT JOIN appointments a
   ON a.patient_id = p.id
