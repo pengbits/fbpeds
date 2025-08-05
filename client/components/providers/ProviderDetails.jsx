@@ -24,6 +24,9 @@ export default ({
       <Heading size='7' as='h2'>{name}</Heading> 
       <Text as='p'>{medical_degree}</Text>
     </div>
+    <div className="user-details__head-seperator">
+      <span></span>
+    </div>
     <div className="user-details__body" dangerouslySetInnerHTML={{
       __html: htmlFromMarkDown(about)}
     }></div>
