@@ -2,7 +2,7 @@ import { screen, render, act, fireEvent } from '@testing-library/react'
 import AppointmentSearchPage from "./AppointmentSearchPage"
 import getProviderAvailibilityMock from "../mocks/getProviderAvailibility"
 import { renderComponentWithRoute } from '../test/routerUtils'
-
+import { dateForAppointment } from '../util/date'
 beforeEach(async () => {
   fetch.resetMocks()
   // mock problematic radix select component, by downgrading to vanilla html equivalent
@@ -25,8 +25,19 @@ beforeEach(async () => {
           ))}
         </select>
       </>)
+    })
+  }))
+
+  // mock react-day-picker to downgrade to simple html5 input
+  vi.mock('@/components/forms/DatePicker', () => ({  
+    default: ({
+      date,onSelect
+    }) => {
+      return (<input type="date" id="date" 
+        onChange={e => onSelect(e.target.value)}  
+        value={date || ''} />
+      )
     }
-    )
   }))
 })
 
@@ -65,8 +76,10 @@ describe('Appointments', () => {
       fetch.mockResponseOnce(JSON.stringify(getProviderAvailibilityMock)) 
 
       const {user} = await renderComponentWithRoute(AppointmentSearchPage, {withUser:true})
-      await populateForm(user, {patient_id:1, visit_type:'SICK', date:'2025-05-01'})
-      await act(() => fireEvent.click(screen.getByText('Search')))
+      const d = new Date(); d.setDate(d.getDate()+2)
+      const date = dateForAppointment(d)
+      await populateForm(user, {patient_id:1, visit_type:'SICK', date})
+      await act(() => fireEvent.click(screen.getByText('Search for Times')))
       
       // check header
       // NOT WORKING expect(await screen.findByText('Sick Visits in Brooklyn after May 1 2025 with any Provider')).toBeInTheDocument()

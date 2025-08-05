@@ -4,6 +4,9 @@ export const getProviders = async () => {
   const response = await fetch(url)
   const json = await response.json()
   return json
+  // simulate latency
+  // return new Promise(res => setTimeout(res, 2000, json))
+
 }
 export const getProvider = async (id) => {
   const url = `/api/providers/${id}`
@@ -11,6 +14,9 @@ export const getProvider = async (id) => {
   const response = await fetch(url)
   const json = await response.json()
   return json
+  // simulate latency
+  // return new Promise(res => setTimeout(res, 2000, json))
+
 }
 
 export const getAvailability = async (date) => {
@@ -19,4 +25,6 @@ export const getAvailability = async (date) => {
   const response = await fetch(url)
   const json = await response.json()
   return json
+  // simulate latency
+  // return new Promise(res => setTimeout(res, 2000, json))
 }

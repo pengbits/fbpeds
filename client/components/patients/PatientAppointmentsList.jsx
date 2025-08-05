@@ -20,7 +20,6 @@ const PatientAppointmentsList = ({appointments, patientId}) => {
     <h4>Upcoming Appointments:</h4>
     {appointments.map((a,idx) => {
       const headline = `${visitTypePretty(a.visit_type)} visit on ${dateTimePretty(a.datetime)} with ${a.provider_name}`
-      
       return (<div
         data-testid="appointment-list-item" 
         className="appointment" 
@@ -29,8 +28,8 @@ const PatientAppointmentsList = ({appointments, patientId}) => {
           {headline}
         </span>
         <span className="appointment__options">
-          <Button size="1" data-id={a.appointment_id} onClick={e => cancel(a.appointment_id)}>cancel</Button>{' '}
-          <Button size="1" asChild><Link to={`/appointments/${a.appointment_id}/edit`}>reschedule</Link></Button>
+          <Button color='crimson' size="1" data-id={a.appointment_id} onClick={e => cancel(a.appointment_id)}>cancel</Button>{' '}
+          <Button color='crimson' size="1" asChild><Link to={`/appointments/${a.appointment_id}/edit`}>reschedule</Link></Button>
         </span>
       </div>)
     })}

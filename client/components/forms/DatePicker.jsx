@@ -13,7 +13,7 @@ export const DatePickerWithPopOver = ({date,onSelect}) => (
     <Popover.Content width="340px">
       <DayPicker
         mode="single"
-        id="date"
+        input-props={{'aria-label':'date'}}
         selected={date}
         onSelect={onSelect}>
       </DayPicker>
@@ -26,7 +26,7 @@ export const DatePicker = ({date,onSelect}) => (
 <Box mb='4'>
   <DayPicker
     mode="single"
-    id="date"
+    input-props={{'aria-label':'date','data-test-id':'datepicker'}}
     selected={date}
     onSelect={onSelect}>
   </DayPicker>

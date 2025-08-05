@@ -38,7 +38,7 @@ const reducer = (set,get) => {
     },
 
     removeAppointmentFromPatient:  ({patientId, appointmentId}) => {
-      console.log(`patients.removeAppointmentFromPatient`, patientId, appointmentId)
+      // console.log(`patients.removeAppointmentFromPatient`, patientId, appointmentId)
       try {
         if(!patientId || !appointmentId) throw new Error('removeAppointmentFromPatient expects patientId and appointmentId:', patientId, appointmentId)
         set(state => {
@@ -62,12 +62,17 @@ const reducer = (set,get) => {
         if(!id) throw new Error('id is required')
         set((state) => {state[k].loading = true})
         const patients = await getPatient(id)
+        // console.log('Store', patients[0])
         set((state) => {state[k].patient = patients[0]})
       } catch(e){
         set((state) => {state[k].error = e})
       } finally {
         set((state) => {state[k].loading = false})
       }
+    },
+
+    resetPatient: () => {
+      set(state => {state[k].patient = {...initialState.patient}})
     },
 
     setView: (view) => {
@@ -83,22 +88,21 @@ const reducer = (set,get) => {
       set(state => {state[k].view = {...initialState.view}})
     },
 
-    fetchView: async (id = null) => {
+    fetchView: async (id = null, typ = null) => {
       const state_ = get()
-      const type = state_[k].view.type
+      const type = typ || state_[k].view.type
       const id_ = id || state_[k].patient.id
-      // console.log(`fetchView ${id_} ${type}`)
+      console.log(`fetchView id=${id_}, ${type}`)
       try {
         // check cache
         if(!!state_[k].views[type] && !!state_[k].views[type][id_]){
-          console.log(`fetchView(${type}:${id_}) is in cache`)
+          // console.log(`fetchView(${type}:${id_}) is in cache`)
           set((state) => {
             state[k].view.data = state[k].views[type][id_]
           })
         } 
         else {
-
-          console.log(`fetchView:${type} loading...`)
+          // console.log(`fetchView:${type} loading...`)
           set(state => {
             state[k].view.loading = true
           })
@@ -111,7 +115,7 @@ const reducer = (set,get) => {
           set((state) => {
             // store the data in cache, under patient_id 
             state[k].views[type] = {
-              [id_ ] : sortData(data[0][type], type)
+              [id_ ] : sortData(data[0][type], {type, order:'desc'})
             }
 
             // store the data in active view
@@ -135,17 +139,17 @@ const reducer = (set,get) => {
   }
 }
 
-export const sortData = (data, type) => {
-  let sortBy = 'date'
-  let desc = true
-
+export const sortData = (data, opts={}) => {
+  let sortBy = 'date' // not configurable yet
+  let order = opts.order || 'asc' 
+  const {type} = opts
   // console.log('sortData '+type)
   if(type == 'visits') { sortBy = 'visit_date'}
 
   const sorted = !sortBy ? data : (
     data.sort((a,b) => a[sortBy] < b[sortBy] ? -1 : 1)
   )
-  const ordered = desc? sorted.reverse() : sorted
+  const ordered = order == 'desc' ? sorted.reverse() : sorted
   // console.log(ordered.map(o => `'${o.date}'`).join(","))
   return ordered
 }

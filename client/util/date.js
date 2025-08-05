@@ -5,8 +5,9 @@ export const datePretty = (date) => {
 }
 
 export const dateTimePretty = (datetime) => {
+  console.log(datetime)
   const datePretty = dayjs(datetime).format('MMM DD')
-  const timePretty = dayjs(datetime).format('H:MM')
+  const timePretty = dayjs(datetime).format('h:mm a')
   return `${datePretty} at ${timePretty}`
 }
 
@@ -17,4 +18,9 @@ export const birthdatePretty = date => {
 export const dateForAppointment = date => {
   // avoid daylight savings time issue by setting hour far from midnight
   return dayjs(date).format('YYYY-MM-DD')
+}
+
+export const isInFuture = date => {
+  const today = new  Date()
+  return dayjs(date).isAfter(today)
 }

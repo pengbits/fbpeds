@@ -10,7 +10,7 @@ Appointment.prototype.read = async () => {
 
 Appointment.prototype.find = async (id) => {
   const sql = `
-  SELECT a.appointment_id as appointment_id, a.datetime as datetime, a.patient_id as patient_id, 
+  SELECT a.appointment_id as appointment_id, a.datetime::text as datetime, a.patient_id as patient_id, 
          a.provider_id as provider_id, p.name as provider_name, a.visit_type as visit_type
   FROM appointments a JOIN providers p ON a.provider_id=p.id WHERE appointment_id=$1`
   console.log(sql, [id])
@@ -33,7 +33,7 @@ Appointment.prototype.create = async ({datetime, provider_id, patient_id, visit_
 
   const result = await pool.query (
     `INSERT INTO appointments (datetime, visit_type, provider_id, patient_id)
-     VALUES ($1, $2, $3, $4) RETURNING appointment_id, datetime, visit_type, provider_id, patient_id`, 
+     VALUES ($1, $2, $3, $4) RETURNING appointment_id, datetime::text, visit_type, provider_id, patient_id`, 
     [datetime, visit_type, provider_id, patient_id]
   )
   // console.log(result.rows)
@@ -46,7 +46,7 @@ Appointment.prototype.update = async (id, {datetime, patient_id, provider_id, vi
   }
 
   const sql = `UPDATE appointments SET  datetime=$1, provider_id=$2, patient_id=$3, visit_type=$4 WHERE appointment_id = $5 
-    RETURNING appointment_id, datetime, provider_id, patient_id, visit_type`
+    RETURNING appointment_id, datetime::text, provider_id, patient_id, visit_type`
   console.log(sql, [datetime, provider_id, patient_id, visit_type, id])
   const result = await pool.query(sql, [datetime, provider_id, patient_id, visit_type, id])
   return result.rows

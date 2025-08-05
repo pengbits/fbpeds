@@ -1,1 +1,3 @@
-- form validation on appointments, currently still forwarding to appt times when patient isn't provided
+- timezone quirks or whatever is causing appt time inconsistency
+- password strength/validity widget?
+- design skin!

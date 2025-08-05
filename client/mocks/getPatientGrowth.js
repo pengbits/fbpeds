@@ -3,6 +3,7 @@ export default [
     "name": "Oskar Paul",
     "id": 2,
     "birthdate": "2017-05-22T04:00:00.000Z",
+    "image": "/images/patients/2/2023-11-29.png",
     "growth": [
       {
         "growth_id": 1,
@@ -12,7 +13,8 @@ export default [
         "height_percent": null,
         "weight_percent": 92,
         "bmi_percent": 0,
-        "date": "2017-05-24T04:00:00.000Z"
+        "date": "2017-05-24T04:00:00.000Z",
+        "height_cm": 0
       },
       {
         "growth_id": 5,
@@ -22,7 +24,8 @@ export default [
         "height_percent": 87,
         "weight_percent": 51,
         "bmi_percent": 15.17,
-        "date": "2019-06-03T04:00:00.000Z"
+        "date": "2019-06-03T04:00:00.000Z",
+        "height_cm": 91.694
       },
       {
         "growth_id": 6,
@@ -32,7 +35,8 @@ export default [
         "height_percent": 94,
         "weight_percent": 75,
         "bmi_percent": 15.72,
-        "date": "2018-12-06T05:00:00.000Z"
+        "date": "2018-12-06T05:00:00.000Z",
+        "height_cm": 87.122
       },
       {
         "growth_id": 9,
@@ -42,7 +46,8 @@ export default [
         "height_percent": 93,
         "weight_percent": 73,
         "bmi_percent": 16.06,
-        "date": "2018-08-09T04:00:00.000Z"
+        "date": "2018-08-09T04:00:00.000Z",
+        "height_cm": 82.55
       },
       {
         "growth_id": 12,
@@ -52,7 +57,8 @@ export default [
         "height_percent": 49,
         "weight_percent": 40,
         "bmi_percent": 15.08,
-        "date": "2021-10-25T04:00:00.000Z"
+        "date": "2021-10-25T04:00:00.000Z",
+        "height_cm": 104.902
       },
       {
         "growth_id": 17,
@@ -62,7 +68,8 @@ export default [
         "height_percent": 39,
         "weight_percent": 27,
         "bmi_percent": 14.67,
-        "date": "2024-12-06T05:00:00.000Z"
+        "date": "2024-12-06T05:00:00.000Z",
+        "height_cm": 123.444
       },
       {
         "growth_id": 20,
@@ -72,7 +79,8 @@ export default [
         "height_percent": 98,
         "weight_percent": 91,
         "bmi_percent": 16.93,
-        "date": "2017-07-24T04:00:00.000Z"
+        "date": "2017-07-24T04:00:00.000Z",
+        "height_cm": 62.738
       },
       {
         "growth_id": 21,
@@ -82,7 +90,8 @@ export default [
         "height_percent": null,
         "weight_percent": 95,
         "bmi_percent": 0,
-        "date": "2017-06-05T04:00:00.000Z"
+        "date": "2017-06-05T04:00:00.000Z",
+        "height_cm": 0
       },
       {
         "growth_id": 22,
@@ -92,7 +101,8 @@ export default [
         "height_percent": 49,
         "weight_percent": 24,
         "bmi_percent": 14.16,
-        "date": "2022-11-09T05:00:00.000Z"
+        "date": "2022-11-09T05:00:00.000Z",
+        "height_cm": 111.76
       },
       {
         "growth_id": 23,
@@ -102,7 +112,8 @@ export default [
         "height_percent": 45,
         "weight_percent": 26,
         "bmi_percent": 14.43,
-        "date": "2023-11-29T05:00:00.000Z"
+        "date": "2023-11-29T05:00:00.000Z",
+        "height_cm": 117.856
       },
       {
         "growth_id": 24,
@@ -112,7 +123,8 @@ export default [
         "height_percent": null,
         "weight_percent": 89,
         "bmi_percent": 0,
-        "date": "2017-05-25T04:00:00.000Z"
+        "date": "2017-05-25T04:00:00.000Z",
+        "height_cm": 0
       },
       {
         "growth_id": 27,
@@ -122,7 +134,8 @@ export default [
         "height_percent": 101,
         "weight_percent": 89,
         "bmi_percent": 17.16,
-        "date": "2017-09-28T04:00:00.000Z"
+        "date": "2017-09-28T04:00:00.000Z",
+        "height_cm": 69.342
       },
       {
         "growth_id": 28,
@@ -132,7 +145,8 @@ export default [
         "height_percent": 96,
         "weight_percent": 97,
         "bmi_percent": 15.3,
-        "date": "2017-05-22T04:00:00.000Z"
+        "date": "2017-05-22T04:00:00.000Z",
+        "height_cm": 53.34
       },
       {
         "growth_id": 31,
@@ -142,7 +156,8 @@ export default [
         "height_percent": null,
         "weight_percent": 57,
         "bmi_percent": 0,
-        "date": "2018-07-20T04:00:00.000Z"
+        "date": "2018-07-20T04:00:00.000Z",
+        "height_cm": 0
       },
       {
         "growth_id": 32,
@@ -152,7 +167,8 @@ export default [
         "height_percent": 90,
         "weight_percent": 92,
         "bmi_percent": 16.77,
-        "date": "2017-06-26T04:00:00.000Z"
+        "date": "2017-06-26T04:00:00.000Z",
+        "height_cm": 57.912000000000006
       },
       {
         "growth_id": 33,
@@ -162,7 +178,8 @@ export default [
         "height_percent": 101,
         "weight_percent": 91,
         "bmi_percent": 16.21,
-        "date": "2017-08-24T04:00:00.000Z"
+        "date": "2017-08-24T04:00:00.000Z",
+        "height_cm": 68.326
       },
       {
         "growth_id": 36,
@@ -172,7 +189,8 @@ export default [
         "height_percent": 94,
         "weight_percent": 70,
         "bmi_percent": 16.63,
-        "date": "2018-01-29T05:00:00.000Z"
+        "date": "2018-01-29T05:00:00.000Z",
+        "height_cm": 74.422
       }
     ]
   }

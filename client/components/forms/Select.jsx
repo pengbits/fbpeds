@@ -2,11 +2,14 @@ import { Select } from "@radix-ui/themes"
 export default ({
     options, 
     initialAttrs, 
+    defaultValue,
     name, 
     placeholder,
-    onValueChange
+    onValueChange,
+    size
   }) => {
-  return (<Select.Root name={name} size="3" {...initialAttrs}
+    // console.log('select', initialAttrs)
+  return (<Select.Root name={name} size={size || '3'} defaultValue={defaultValue}
     onValueChange={onValueChange}>
     <Select.Trigger placeholder={placeholder} />
     <Select.Content>

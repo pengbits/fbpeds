@@ -1,4 +1,14 @@
 #root {
+--mint: rgba(183, 227, 221, 1);
+--mustard: rgba(255, 208, 108, 1);
+--forest: rgba(71, 122, 114, 1);
+--sriracha: rgba(255, 116, 145, 1);
+--cloud: rgba(246, 246, 246, 1);
+}
+.radix-themes {
+  --sriracha: var(var(--sriracha))
+}
+#root {
   box-sizing: border-box;
   /* display: flex; */
   /* flex-direction: column; */
@@ -6,7 +16,7 @@
 }
 
 .rt-Container {
-  background-color:var(--gray-4);
+  background-color:var(--cloud);
   min-height: 100vh;
 }
 .rt-ContainerInner {
@@ -18,12 +28,49 @@
   position: relative;
   padding-top: 15px;
 }
+.header, .header-nav{
+  background-color: var(--mustard);
+}
+
+.header .home-link {
+  color: var(--gray-12);
+}
+
+/* need a way to make this conditionally applied only to homepage,
+sub-pages need the mint bg and secondary forest header */
+.content {
+  background:  var(--cloud) no-repeat url(/svg/header-mustard.svg) top -100px center;
+  background-size:100%;
+  padding-top: 100px;
+}
+@media screen and (min-width:500px) {
+  .content{
+    padding-top: 160px;
+  }
+}
+@media screen and (min-width:600px) {
+  .content{
+    background-position: top -75px center;
+    background-image: url(/svg/header-mustardx2.svg);
+    padding-top: 140px;
+  }
+}
+.header-collapsed .content {
+  background-color:#FFF;
+  padding-top: 1px;
+}
 
 
-.user {
+.card {
+  border-radius: 20px;
+  padding: 15px;
+  background-color: #FFF;
+}
+
+.user-nav {
   position: absolute;
   top:5px;
-  right: 15px;
+  right: 15px; 
 }
 
 .header h1,
@@ -32,28 +79,46 @@
   margin-left: 15px;
 }
 
+.header-nav .rt-BaseTabList {
+  box-shadow: none; 
+}
 .patient h3 a {
   text-decoration: none;
 }
 
-.footer-actions,
 .card {
-  margin: 15px
+  margin: 0 15px 15px 15px
+}
+.card:last-child {
+  margin-bottom: 0;
+}
+.footer-actions {
+  padding: 15px;
+}
+
+.patients .patient,
+.providers .provider,
+.users .user {
+  background:#FFF no-repeat url(/svg/arrow-right.svg) center right 15px;
 }
 
 
-.patient__image {
+.patient__image,
+.user__image {
   margin-bottom: 15px;
   margin-right: 15px;
-  background-color: #ccc;
-  width: 100px;
-  height: 100px;
+  width: 66px;
+  height: 66px;
   position: relative;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 16%;
+}
+.patient__image--loading {
+  background-color: 0;
 }
 
-.patient__image img {
+.patient__image img,
+.user__image img {
   display: block;
   width: 170%;
   height: auto;
@@ -62,12 +127,8 @@
   top:-25%
 }
 
-.patient-details .patient__image {
-  @media screen and (max-width:640px){
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+
+
 .appointment__headline {
   display: block;
   margin-right: 10px;
@@ -94,23 +155,17 @@
   }
 }
 
-.patient__image--large {
-  width: 200px;
-  height: 200px;
+.patient__image--large,
+.provider__image--large {
+  width: 130px;
+  height: 130px;
 }
 
-.provider__image {
-  margin-top: 10px;
-  margin-bottom: 15px;
-  width: 100px;
-  height: 100px;
-}
+
 .provider__image img {
   width: 100%;
   height: auto;
 }
-
-
 
 
 .availability__date {
@@ -124,18 +179,101 @@
   margin-bottom: 10px;
 }
 
-.error {
-  padding: 15px;
-  margin-left: 15px;
-  border: #FF0000 solid 2px;
-  background-color: #FFFFFF;
+.error,
+.error-list {
   color: #FF0000;
   max-width: 400px;
 }
 
-.patient-details h2 {
+.error {
+  padding: 15px;
+  margin-left: 15px;
+  border: #FF0000 solid 2px;
+}
+
+.input-error label {
+  color :#FF0000;
+}
+.login-prompt {
+  height: 400px;
+  padding: 15px;
+  background-color: var(--mustard);
+}
+.success {  
+  color: green;
+  background-color: #FFF;
+}
+.success p {
+  padding: 15px;
+  margin-bottom: 0;
+}
+.success a {
+  color: green;
+  font-weight: bold;
+  text-decoration: none;
+}
+.success a:hover {
+  text-decoration: underline;
+}
+
+.patient-details,
+.user-details {
+  margin: 15px;
+  margin-right: 0;
+}
+.patient-details h2,
+.user-details h2 {
   margin-left: 0;
 }
+
+.patient-details__head,
+.user-details__head {
+  padding: 30px;
+  background:transparent no-repeat url(/svg/header-forest.png) top center;
+  background-size: 100%;
+  min-height: 250px;
+  color: #FFF
+}
+@media screen and (min-width:500px) {
+  .patient-details__head,
+  .user-details__head {
+    border-radius: 30px 30px 0 0;
+    margin-right: 15px;
+    min-height: 150px;
+    background: var(--forest) no-repeat url(/svg/bubbles.png) bottom -30px right -15px; 
+    /* background-size: 20%; */
+  }
+  .patient-details__head-seperator,
+  .user-details__head-seperator {
+    height: 70px;
+    margin-right: 15px;
+    background: transparent no-repeat url(/svg/header-forest-bottom.png) center center;
+    background-size: 100%;
+  }
+
+  .patient-details__head-seperator span,
+  .user-details__head-seperator span {
+    display: block;
+    height: inherit;
+    background: transparent no-repeat url(/svg/bubbles.png) top -121px right -15px;
+    /* background-size: 20%; */
+
+  }
+}
+
+
+@media screen and (min-width:640px) {
+
+  .patient-details__head-seperator {
+    height: 80px;
+  }
+}
+
+.patient-details__body,
+.user-details__body {
+  margin-right: 15px;
+}
+
 .patient-tabs {
   min-height: 250px;
 }
