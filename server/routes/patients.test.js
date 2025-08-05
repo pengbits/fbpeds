@@ -43,9 +43,10 @@ describe('patients', () => {
         'visit_id',
         'visit_type',
         'visit_date',
-        'provider_id',
+        'provider',
         'image'
       ])
+      expectAttributes(visit.provider, ['id','name'])
       expect(['WELL','SICK']).toContain(visit.visit_type)
     })
   })
@@ -130,7 +131,7 @@ describe('patients', () => {
       expectAttributes(patient.growth[0], [
         'growth_id',      //  11,
         'date',           //  2024-11-18T05:00:00.000Z',
-        'age_years',      //  10,
+        'age',            //  10,
         'height',         //  57.9,
         'weight',         //  
         'height_percent', //  85,
